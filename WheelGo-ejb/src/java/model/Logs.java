@@ -6,7 +6,19 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -39,12 +51,12 @@ public class Logs implements Serializable {
     @Column(name = "date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-    @JoinColumn(name = "Report_idReport", referencedColumnName = "idReport", nullable = false)
+    @JoinColumn(name = "idReport", referencedColumnName = "idReport", nullable = false)
     @ManyToOne(optional = false)
-    private Report reportidReport;
-    @JoinColumn(name = "Users_idUsers", referencedColumnName = "idUsers", nullable = false)
+    private Report idReport;
+    @JoinColumn(name = "idUsers", referencedColumnName = "idUsers", nullable = false)
     @ManyToOne(optional = false)
-    private Users usersidUsers;
+    private Users idUsers;
 
     public Logs() {
     }
@@ -83,20 +95,20 @@ public class Logs implements Serializable {
         this.date = date;
     }
 
-    public Report getReportidReport() {
-        return reportidReport;
+    public Report getIdReport() {
+        return idReport;
     }
 
-    public void setReportidReport(Report reportidReport) {
-        this.reportidReport = reportidReport;
+    public void setIdReport(Report idReport) {
+        this.idReport = idReport;
     }
 
-    public Users getUsersidUsers() {
-        return usersidUsers;
+    public Users getIdUsers() {
+        return idUsers;
     }
 
-    public void setUsersidUsers(Users usersidUsers) {
-        this.usersidUsers = usersidUsers;
+    public void setIdUsers(Users idUsers) {
+        this.idUsers = idUsers;
     }
 
     @Override

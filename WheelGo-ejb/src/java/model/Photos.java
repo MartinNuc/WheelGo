@@ -5,7 +5,17 @@
 package model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,9 +42,9 @@ public class Photos implements Serializable {
     @Size(max = 256)
     @Column(name = "url", length = 256)
     private String url;
-    @JoinColumn(name = "Report_idReport", referencedColumnName = "idReport", nullable = false)
-    @ManyToOne(optional = false)
-    private Report reportidReport;
+    @JoinColumn(name = "idPhotos", referencedColumnName = "idReport", nullable = false, insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Report report;
 
     public Photos() {
     }
@@ -59,12 +69,12 @@ public class Photos implements Serializable {
         this.url = url;
     }
 
-    public Report getReportidReport() {
-        return reportidReport;
+    public Report getReport() {
+        return report;
     }
 
-    public void setReportidReport(Report reportidReport) {
-        this.reportidReport = reportidReport;
+    public void setReport(Report report) {
+        this.report = report;
     }
 
     @Override

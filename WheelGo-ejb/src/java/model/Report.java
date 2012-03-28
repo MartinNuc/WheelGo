@@ -7,7 +7,22 @@ package model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -19,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "report")
+@Inheritance(strategy=InheritanceType.JOINED)
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Report.findAll", query = "SELECT r FROM Report r"),
@@ -57,17 +73,10 @@ public class Report implements Serializable {
     @Size(max = 256)
     @Column(name = "describtion", length = 256)
     private String describtion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reportidReport")
-    private Collection<Photos> photosCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reportidReport")
-    @OrderBy("date DESC")    
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "report")
+    private Photos photos;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReport")
     private Collection<Logs> logsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
-    private Collection<Problem> problemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
-    private Collection<Place> placeCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
-    private Collection<Tip> tipCollection;
 
     public Report() {
     }
@@ -132,13 +141,12 @@ public class Report implements Serializable {
         this.describtion = describtion;
     }
 
-    @XmlTransient
-    public Collection<Photos> getPhotosCollection() {
-        return photosCollection;
+    public Photos getPhotos() {
+        return photos;
     }
 
-    public void setPhotosCollection(Collection<Photos> photosCollection) {
-        this.photosCollection = photosCollection;
+    public void setPhotos(Photos photos) {
+        this.photos = photos;
     }
 
     @XmlTransient
@@ -148,33 +156,6 @@ public class Report implements Serializable {
 
     public void setLogsCollection(Collection<Logs> logsCollection) {
         this.logsCollection = logsCollection;
-    }
-
-    @XmlTransient
-    public Collection<Problem> getProblemCollection() {
-        return problemCollection;
-    }
-
-    public void setProblemCollection(Collection<Problem> problemCollection) {
-        this.problemCollection = problemCollection;
-    }
-
-    @XmlTransient
-    public Collection<Place> getPlaceCollection() {
-        return placeCollection;
-    }
-
-    public void setPlaceCollection(Collection<Place> placeCollection) {
-        this.placeCollection = placeCollection;
-    }
-
-    @XmlTransient
-    public Collection<Tip> getTipCollection() {
-        return tipCollection;
-    }
-
-    public void setTipCollection(Collection<Tip> tipCollection) {
-        this.tipCollection = tipCollection;
     }
 
     @Override

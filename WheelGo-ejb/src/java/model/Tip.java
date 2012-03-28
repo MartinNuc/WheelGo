@@ -5,7 +5,14 @@
 package model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -14,50 +21,38 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "tip")
+@PrimaryKeyJoinColumn(name="idTip")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tip.findAll", query = "SELECT t FROM Tip t"),
-    @NamedQuery(name = "Tip.findByIdTip", query = "SELECT t FROM Tip t WHERE t.tipPK.idTip = :idTip"),
-    @NamedQuery(name = "Tip.findByReportidReport", query = "SELECT t FROM Tip t WHERE t.tipPK.reportidReport = :reportidReport")})
-public class Tip implements Serializable {
+    @NamedQuery(name = "Tip.findByIdTip", query = "SELECT t FROM Tip t WHERE t.idTip = :idTip")})
+public class Tip extends Report implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected TipPK tipPK;
-    @JoinColumn(name = "Report_idReport", referencedColumnName = "idReport", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Report report;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idTip", nullable = false)
+    private Integer idTip;
 
     public Tip() {
     }
 
-    public Tip(TipPK tipPK) {
-        this.tipPK = tipPK;
+    public Tip(Integer idTip) {
+        this.idTip = idTip;
     }
 
-    public Tip(int idTip, int reportidReport) {
-        this.tipPK = new TipPK(idTip, reportidReport);
+    public Integer getIdTip() {
+        return idTip;
     }
 
-    public TipPK getTipPK() {
-        return tipPK;
-    }
-
-    public void setTipPK(TipPK tipPK) {
-        this.tipPK = tipPK;
-    }
-
-    public Report getReport() {
-        return report;
-    }
-
-    public void setReport(Report report) {
-        this.report = report;
+    public void setIdTip(Integer idTip) {
+        this.idTip = idTip;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (tipPK != null ? tipPK.hashCode() : 0);
+        hash += (idTip != null ? idTip.hashCode() : 0);
         return hash;
     }
 
@@ -68,7 +63,7 @@ public class Tip implements Serializable {
             return false;
         }
         Tip other = (Tip) object;
-        if ((this.tipPK == null && other.tipPK != null) || (this.tipPK != null && !this.tipPK.equals(other.tipPK))) {
+        if ((this.idTip == null && other.idTip != null) || (this.idTip != null && !this.idTip.equals(other.idTip))) {
             return false;
         }
         return true;
@@ -76,7 +71,7 @@ public class Tip implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Tip[ tipPK=" + tipPK + " ]";
+        return "model.Tip[ idTip=" + idTip + " ]";
     }
     
 }
