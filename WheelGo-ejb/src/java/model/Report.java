@@ -60,6 +60,7 @@ public class Report implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reportidReport")
     private Collection<Photos> photosCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reportidReport")
+    @OrderBy("date DESC")    
     private Collection<Logs> logsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
     private Collection<Problem> problemCollection;

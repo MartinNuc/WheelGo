@@ -50,6 +50,7 @@ public class Users implements Serializable {
     @ManyToOne(optional = false)
     private Roles rolesidRoles;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usersidUsers")
+    @OrderBy("date DESC")
     private Collection<Logs> logsCollection;
 
     public Users() {
