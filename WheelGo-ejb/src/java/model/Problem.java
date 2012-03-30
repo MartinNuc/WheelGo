@@ -26,9 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "problem")
 @PrimaryKeyJoinColumn(name="idProblem")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Problem.findAll", query = "SELECT p FROM Problem p"),
-    @NamedQuery(name = "Problem.findByExpiration", query = "SELECT p FROM Problem p WHERE p.expiration = :expiration")})
 public class Problem extends Report implements Serializable {
     private static final long serialVersionUID = 1L;
     

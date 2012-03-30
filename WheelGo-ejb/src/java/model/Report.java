@@ -36,14 +36,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "report")
 @Inheritance(strategy=InheritanceType.JOINED)
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Report.findAll", query = "SELECT r FROM Report r"),
-    @NamedQuery(name = "Report.findByIdReport", query = "SELECT r FROM Report r WHERE r.idReport = :idReport"),
-    @NamedQuery(name = "Report.findByName", query = "SELECT r FROM Report r WHERE r.name = :name"),
-    @NamedQuery(name = "Report.findByDate", query = "SELECT r FROM Report r WHERE r.date = :date"),
-    @NamedQuery(name = "Report.findByLatitude", query = "SELECT r FROM Report r WHERE r.latitude = :latitude"),
-    @NamedQuery(name = "Report.findByLongitude", query = "SELECT r FROM Report r WHERE r.longitude = :longitude"),
-    @NamedQuery(name = "Report.findByDescribtion", query = "SELECT r FROM Report r WHERE r.describtion = :describtion")})
 public class Report implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

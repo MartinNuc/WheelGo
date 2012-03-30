@@ -23,9 +23,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "place")
 @PrimaryKeyJoinColumn(name="idPlace")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Place.findAll", query = "SELECT p FROM Place p"),
-    @NamedQuery(name = "Place.findByAccesibility", query = "SELECT p FROM Place p WHERE p.accesibility = :accesibility")})
 public class Place extends Report implements Serializable {
     private static final long serialVersionUID = 1L;
 

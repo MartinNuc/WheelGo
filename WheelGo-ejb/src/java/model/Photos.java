@@ -27,10 +27,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "photos")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Photos.findAll", query = "SELECT p FROM Photos p"),
-    @NamedQuery(name = "Photos.findByIdPhotos", query = "SELECT p FROM Photos p WHERE p.idPhotos = :idPhotos"),
-    @NamedQuery(name = "Photos.findByUrl", query = "SELECT p FROM Photos p WHERE p.url = :url")})
 public class Photos implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

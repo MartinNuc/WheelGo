@@ -29,11 +29,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "logs")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Logs.findAll", query = "SELECT l FROM Logs l"),
-    @NamedQuery(name = "Logs.findByIdLogs", query = "SELECT l FROM Logs l WHERE l.idLogs = :idLogs"),
-    @NamedQuery(name = "Logs.findByOperation", query = "SELECT l FROM Logs l WHERE l.operation = :operation"),
-    @NamedQuery(name = "Logs.findByDate", query = "SELECT l FROM Logs l WHERE l.date = :date")})
 public class Logs implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

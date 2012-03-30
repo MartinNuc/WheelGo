@@ -23,9 +23,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tip")
 @PrimaryKeyJoinColumn(name="idTip")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Tip.findAll", query = "SELECT t FROM Tip t"),
-    @NamedQuery(name = "Tip.findByIdTip", query = "SELECT t FROM Tip t WHERE t.idTip = :idTip")})
 public class Tip extends Report implements Serializable {
     private static final long serialVersionUID = 1L;
 
