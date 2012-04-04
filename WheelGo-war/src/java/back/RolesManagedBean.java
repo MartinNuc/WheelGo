@@ -43,7 +43,7 @@ public class RolesManagedBean {
     }
 
     public String saveRole() {
-        rolesFacade.edit(role);
+        rolesFacade.create(role);
         return "roles";
     }
 

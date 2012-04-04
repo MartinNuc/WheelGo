@@ -27,9 +27,9 @@
                         <h:message for="sn" errorClass="errorRequired"/>
 
                         <h:outputText value="#{msgs.inrole}:" />
-                        <h:selectManyListbox id="inRole" value="#{users.user.idRoles}" label="#{msgs.inrole}" converter="roleConv">
+                        <h:selectOneListbox id="inRole" value="#{users.user.idRoles}" label="#{msgs.inrole}" converter="roleConv">
                             <f:selectItems value="#{roles.roles}" />
-                        </h:selectManyListbox>
+                        </h:selectOneListbox>
                         <h:message for="inRole" />
                     </h:panelGrid>
                     <h:commandButton type="submit" value="#{msgs.save}" action="#{users.saveUser}"/>

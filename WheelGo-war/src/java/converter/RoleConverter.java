@@ -23,12 +23,11 @@ import model.Roles;
  */
 @FacesConverter(value = "roleConv")
 public class RoleConverter implements Converter {
-    private RolesFacade rolesFacade;
-    //SchoolCenterLocal schoolCenter = lookupSchoolCenterLocal();
+    private RolesFacade rolesFacade = lookupRolesFacadeLocal();
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        return rolesFacade.find(value);
+        return rolesFacade.find(Integer.parseInt(value));
     }
 
     @Override
@@ -39,7 +38,7 @@ public class RoleConverter implements Converter {
     private RolesFacade lookupRolesFacadeLocal() {
         try {
             Context c = new InitialContext();
-            return (RolesFacade) c.lookup("java:global/WheelGo/WheelGo-ejb/RolesFacade!WheelGo.ejb.AbstractFacade");
+            return (RolesFacade) c.lookup("java:global/WheelGo/WheelGo-ejb/RolesFacade!ejb.RolesFacade");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

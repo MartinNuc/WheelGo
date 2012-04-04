@@ -8,8 +8,8 @@ import ejb.UsersFacade;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import model.Users;
 
 /**
@@ -32,7 +32,7 @@ public class UsersManagedBean implements Serializable {
     }
 
     public Users getUser() {
-        return user;
+        return this.user;
     }
 
     public void setUser(Users user) {
@@ -45,7 +45,7 @@ public class UsersManagedBean implements Serializable {
     }
 
     public String saveUser() {
-        usersFacade.edit(user);
+        usersFacade.create(user);
         return "users";
     }
 
