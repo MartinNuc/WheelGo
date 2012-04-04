@@ -2,16 +2,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Menu</title>
+    </h:head>
     <h:body>
-        <ui:composition template="./WEB-INF/includes-templates/wheelgo-template.xhtml">
-            <ui:param name="pageTitle" value="#{msgs.wheelgo}" />
-            <ui:define name="content">
-                
-            </ui:define>
-        Main page
+        <ui:composition>
+            <ul>
+                <li><h:link outcome="index" value="#{msgs.home_page}" /></li>
+                <li><h:link outcome="users" value="#{msgs.users}" /></li>
+            </ul>
         </ui:composition>
     </h:body>
 </html>
-

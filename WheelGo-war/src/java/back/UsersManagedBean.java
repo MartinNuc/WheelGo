@@ -5,30 +5,62 @@
 package back;
 
 import ejb.UsersFacade;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.inject.Named;
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import model.Users;
 
 /**
  *
  * @author mist
  */
-@Named(value = "usersManagedBean")
-@ApplicationScoped
-public class UsersManagedBean {
+//@Named(value = "usersManagedBean")
+@ManagedBean(name="users")
+@SessionScoped
+public class UsersManagedBean implements Serializable {
     @EJB
     private UsersFacade usersFacade;
+    
+    private Users user = null;
 
     /**
      * Creates a new instance of UsersManagedBean
      */
     public UsersManagedBean() {
     }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    public String newUser() {
+       this.user = new Users();
+       return "user";
+    }
+
+    public String saveUser() {
+        usersFacade.edit(user);
+        return "users";
+    }
+
+    public String editUser(Users user) {
+        this.user = user;
+        return "user";
+    }
+
+    public void removeUser(Users user) {
+        usersFacade.remove(user);
+    }
     
     public List<Users> getUsers()
     {
         return usersFacade.getUsers();
     }
+    
 }

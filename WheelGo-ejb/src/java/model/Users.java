@@ -49,10 +49,7 @@ public class Users implements Serializable {
     @Size(min = 1, max = 64)
     @Column(name = "passwd", nullable = false, length = 64)
     private String passwd;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "role", nullable = false)
-    private int role;
+
     @Size(max = 64)
     @Column(name = "phoneId", length = 64)
     private String phoneId;
@@ -69,11 +66,10 @@ public class Users implements Serializable {
         this.idUsers = idUsers;
     }
 
-    public Users(Integer idUsers, String username, String passwd, int role) {
+    public Users(Integer idUsers, String username, String passwd) {
         this.idUsers = idUsers;
         this.username = username;
         this.passwd = passwd;
-        this.role = role;
     }
 
     public Integer getIdUsers() {
@@ -98,14 +94,6 @@ public class Users implements Serializable {
 
     public void setPasswd(String passwd) {
         this.passwd = passwd;
-    }
-
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        this.role = role;
     }
 
     public String getPhoneId() {
