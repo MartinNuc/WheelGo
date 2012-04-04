@@ -8,8 +8,8 @@ import ejb.UsersFacade;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import model.Users;
 
 /**
@@ -29,6 +29,7 @@ public class UsersManagedBean implements Serializable {
      * Creates a new instance of UsersManagedBean
      */
     public UsersManagedBean() {
+        System.out.println("Creating instance.");
     }
 
     public Users getUser() {
