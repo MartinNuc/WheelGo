@@ -29,6 +29,7 @@ public class UsersManagedBean implements Serializable {
      * Creates a new instance of UsersManagedBean
      */
     public UsersManagedBean() {
+        System.out.println("Creating instance.");
     }
 
     public Users getUser() {

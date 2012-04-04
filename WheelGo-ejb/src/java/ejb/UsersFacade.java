@@ -29,7 +29,7 @@ public class UsersFacade extends AbstractFacade<Users> {
     }
 
     public List<Users> getUsers() {
-        return (List<Users>) em.createQuery("SELECT u FROM Users u").getResultList();
+        return super.findAll();
     }
     
     
