@@ -41,7 +41,6 @@ public class Report implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idReport", nullable = false)
     private Integer idReport;
     @Basic(optional = false)

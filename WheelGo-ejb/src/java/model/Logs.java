@@ -34,7 +34,6 @@ public class Logs implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idLogs", nullable = false)
     private Integer idLogs;
     @Basic(optional = false)

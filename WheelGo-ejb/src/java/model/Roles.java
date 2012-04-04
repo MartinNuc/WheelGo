@@ -34,7 +34,6 @@ public class Roles implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idRoles", nullable = false)
     private Integer idRoles;
     @Size(max = 32)

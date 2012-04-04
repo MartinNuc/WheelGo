@@ -27,7 +27,6 @@ public class Tip extends Report implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idTip", nullable = false)
     private Integer idTip;
 

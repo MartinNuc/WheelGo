@@ -27,7 +27,6 @@ public class Place extends Report implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idPlace", nullable = false)
     private Integer idPlace;
 

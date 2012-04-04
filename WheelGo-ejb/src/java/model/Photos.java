@@ -32,7 +32,6 @@ public class Photos implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idPhotos", nullable = false)
     private Integer idPhotos;
     @Size(max = 256)

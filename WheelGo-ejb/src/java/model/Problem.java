@@ -30,7 +30,6 @@ public class Problem extends Report implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idProblem", nullable = false)
     private Integer idProblem;
     @Column(name = "expiration")

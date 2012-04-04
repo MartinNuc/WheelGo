@@ -36,7 +36,6 @@ public class Users implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idUsers", nullable = false)
     private Integer idUsers;
     @Basic(optional = false)
@@ -53,6 +52,7 @@ public class Users implements Serializable {
     @Size(max = 64)
     @Column(name = "phoneId", length = 64)
     private String phoneId;
+    @NotNull
     @JoinColumn(name = "idRoles", referencedColumnName = "idRoles", nullable = false)
     @ManyToOne(optional = false)
     private Roles idRoles;
