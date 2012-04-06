@@ -38,7 +38,7 @@ public class RolesManagedBean {
 
     public String newRole() {
        role = new Roles();
-       return "role";
+       return "roleModify";
     }
 
     public String saveRole() {

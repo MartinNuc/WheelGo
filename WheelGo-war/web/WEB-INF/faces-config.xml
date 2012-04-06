@@ -37,5 +37,19 @@
             <to-view-id>/users.xhtml</to-view-id>
             <redirect />
         </navigation-case>
+
+         <navigation-case>
+            <from-outcome>roles</from-outcome>
+            <to-view-id>/rolesMainList.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        
+         <navigation-case>
+            <from-outcome>roleModify</from-outcome>
+            <to-view-id>/roleModify.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>        
+        
+        
     </navigation-rule>
 </faces-config>
