@@ -43,12 +43,12 @@ public class RolesManagedBean {
 
     public String saveRole() {
         rolesFacade.create(role);
-        return "roles";
+        return "rolesMainList";
     }
 
     public String editRole(Roles role) {
         this.role = role;
-        return "role";
+        return "roleModify";
     }
 
     public void removeRole(Roles role) {

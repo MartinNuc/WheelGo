@@ -39,7 +39,7 @@
         </navigation-case>
 
          <navigation-case>
-            <from-outcome>roles</from-outcome>
+            <from-outcome>rolesMainList</from-outcome>
             <to-view-id>/rolesMainList.xhtml</to-view-id>
             <redirect />
         </navigation-case>
