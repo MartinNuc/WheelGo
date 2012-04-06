@@ -4,6 +4,7 @@
  */
 package back;
 
+import dto.RolesDTO;
 import ejb.RolesFacade;
 import java.util.List;
 import javax.ejb.EJB;
@@ -24,23 +25,23 @@ public class RolesManagedBean {
     public static final int ROLE_STATE_MODIFY = 2;
     @EJB
     private RolesFacade rolesFacade;
-    private Roles role;
+    private RolesDTO role;
     private int roleState;
 
     /** Creates a new instance of RolesManagedBean */
     public RolesManagedBean() {
     }
 
-    public Roles getRole() {
+    public RolesDTO getRole() {
         return role;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(RolesDTO role) {
         this.role = role;
     }
 
     public String newRole() {
-        role = new Roles();
+        role = new RolesDTO();
         roleState = ROLE_STATE_ADD;
         return "roleModify";
     }
@@ -58,17 +59,17 @@ public class RolesManagedBean {
         return "rolesMainList";
     }
 
-    public String editRole(Roles role) {
+    public String editRole(RolesDTO role) {
         this.role = role;
         roleState = ROLE_STATE_MODIFY;
         return "roleModify";
     }
 
-    public void removeRole(Roles role) {
+    public void removeRole(RolesDTO role) {
         rolesFacade.remove(role);
     }
 
-    public List<Roles> getRoles() {
+    public List<RolesDTO> getRoles() {
         return rolesFacade.getRoles();
     }
 }
