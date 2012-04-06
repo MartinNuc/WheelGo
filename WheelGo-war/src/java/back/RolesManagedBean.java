@@ -7,9 +7,8 @@ package back;
 import ejb.RolesFacade;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.inject.Named;
+import javax.faces.bean.SessionScoped;
 import model.Roles;
 
 /**
@@ -18,7 +17,7 @@ import model.Roles;
  */
 //@Named(value = "rolesManagedBean")
 @ManagedBean(name="roles")
-@ApplicationScoped
+@SessionScoped
 public class RolesManagedBean {
     @EJB
     private RolesFacade rolesFacade;
