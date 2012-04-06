@@ -30,6 +30,6 @@ public class RolesFacade extends AbstractFacade<Roles> {
     }
     
     public List<Roles> getRoles() {
-        return (List<Roles>) em.createQuery("SELECT r FROM Roles r").getResultList();
+        return (List<Roles>) em.createQuery("SELECT r FROM Roles r ORDER by r.name").getResultList();
     }
 }
