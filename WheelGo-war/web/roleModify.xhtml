@@ -20,10 +20,10 @@ and open the template in the editor.
                             <f:validateLength minimum="4"/>
                         </h:inputText>
                         <h:message for="fn" errorClass="errorRequired"/>
-
+                        
                         <h:outputText value="#{msgs.role_description}:" />
                         <h:inputText value="#{roles.role.description}" id="sn" label="#{msgs.role_description}" required="true" requiredMessage="#{msgs.required_message}">
-                            <f:validateLength minimum="6" />
+                            <f:validateLength minimum="0" />
                         </h:inputText>
                         <h:message for="sn" errorClass="errorRequired"/>
 

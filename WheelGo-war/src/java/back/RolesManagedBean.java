@@ -10,7 +10,6 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import model.Roles;
 
 /**
  *
@@ -21,12 +20,12 @@ import model.Roles;
 @SessionScoped
 public class RolesManagedBean {
 
-    public static final int ROLE_STATE_ADD = 1;
-    public static final int ROLE_STATE_MODIFY = 2;
+    public static final int STATE_ADD = 1;
+    public static final int STATE_MODIFY = 2;
     @EJB
     private RolesFacade rolesFacade;
     private RolesDTO role;
-    private int roleState;
+    private int state;
 
     /** Creates a new instance of RolesManagedBean */
     public RolesManagedBean() {
@@ -42,26 +41,26 @@ public class RolesManagedBean {
 
     public String newRole() {
         role = new RolesDTO();
-        roleState = ROLE_STATE_ADD;
+        state = STATE_ADD;
         return "roleModify";
     }
 
     public String saveRole() {
-        switch (roleState) {
-            case ROLE_STATE_MODIFY:
+        switch (state) {
+            case STATE_MODIFY:
                 rolesFacade.edit(role);
                 break;
-            case ROLE_STATE_ADD:
+            case STATE_ADD:
                 rolesFacade.create(role);
                 break;
-        }
-
+        }   
+        state = 0;
         return "rolesMainList";
     }
 
     public String editRole(RolesDTO role) {
         this.role = role;
-        roleState = ROLE_STATE_MODIFY;
+        state = STATE_MODIFY;
         return "roleModify";
     }
 

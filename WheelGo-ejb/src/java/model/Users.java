@@ -4,6 +4,8 @@
  */
 package model;
 
+import dto.EntityFactory;
+import dto.RolesDTO;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -15,8 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -108,6 +108,10 @@ public class Users implements Serializable {
         return idRoles;
     }
 
+    public void setIdRoles(RolesDTO idRoles) {
+        this.idRoles = (Roles) EntityFactory.convertToEntity(idRoles);
+    }
+    
     public void setIdRoles(Roles idRoles) {
         this.idRoles = idRoles;
     }

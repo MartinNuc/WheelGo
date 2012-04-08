@@ -4,6 +4,7 @@
  */
 package ejb;
 
+import dto.DtoFactory;
 import dto.RolesDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +31,17 @@ public class RolesFacade extends AbstractFacade<Roles> {
         super(Roles.class);
     }
     
+    public RolesDTO findDTO(Object id) {
+        Roles temp = getEntityManager().find(Roles.class, id);
+        return (RolesDTO) DtoFactory.convertToDto(temp);
+    }
+    
     public void remove(RolesDTO role) {
-        super.remove(em.find(Roles.class, role.getIdRole()));
+        super.remove(em.find(Roles.class, role.getIdRoles()));
     }
 
     public void edit(RolesDTO role) {
-        Roles roleToMod = em.find(Roles.class, role.getIdRole());
+        Roles roleToMod = em.find(Roles.class, role.getIdRoles());
         roleToMod.setName(role.getName());
         roleToMod.setDescription(role.getDescription());
     }
@@ -53,7 +59,7 @@ public class RolesFacade extends AbstractFacade<Roles> {
         List<RolesDTO> ret = new ArrayList<RolesDTO>();
         for(Roles role : list) {
             RolesDTO toBeAdded = new RolesDTO();
-            toBeAdded.setIdRole(role.getIdRoles());
+            toBeAdded.setIdRoles(role.getIdRoles());
             toBeAdded.setName(role.getName());            
             toBeAdded.setDescription(role.getDescription());
             ret.add(toBeAdded);

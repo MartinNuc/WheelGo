@@ -4,8 +4,8 @@
  */
 package converter;
 
+import dto.RolesDTO;
 import ejb.RolesFacade;
-import ejb.UsersFacade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.component.UIComponent;
@@ -15,7 +15,6 @@ import javax.faces.convert.FacesConverter;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import model.Roles;
 
 /**
  *
@@ -27,12 +26,13 @@ public class RoleConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        return rolesFacade.find(Integer.parseInt(value));
+        RolesDTO out = rolesFacade.findDTO(Integer.parseInt(value));
+        return out  ;
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        return String.valueOf(((Roles) value).getIdRoles());
+        return String.valueOf(((RolesDTO) value).getIdRoles());
     }
 
     private RolesFacade lookupRolesFacadeLocal() {

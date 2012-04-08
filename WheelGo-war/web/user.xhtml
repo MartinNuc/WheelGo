@@ -21,14 +21,14 @@
                         <h:message for="fn" errorClass="errorRequired"/>
 
                         <h:outputText value="#{msgs.password}:" />
-                        <h:inputText value="#{users.user.passwd}" id="sn" label="#{msgs.password}" required="true" requiredMessage="#{msgs.required_message}" validatorMessage="#{msgs.wrong_length}">
+                        <h:inputText value="#{users.password}" id="sn" label="#{msgs.password}" required="true" requiredMessage="#{msgs.required_message}" validatorMessage="#{msgs.wrong_length}">
                             <f:validateLength minimum="6" />
                         </h:inputText>
                         <h:message for="sn" errorClass="errorRequired"/>
 
                         <h:outputText value="#{msgs.inrole}:" />
-                        <h:selectOneListbox id="inRole" value="#{users.user.idRoles}" label="#{msgs.inrole}" converter="roleConv">
-                            <f:selectItems value="#{roles.roles}" />
+                        <h:selectOneListbox id="inRole" value="#{users.user.idRoles}" required="true" label="#{msgs.inrole}" converter="roleConv">
+                            <f:selectItems value="#{roles.roles}"/>
                         </h:selectOneListbox>
                         <h:message for="inRole" />
                     </h:panelGrid>
