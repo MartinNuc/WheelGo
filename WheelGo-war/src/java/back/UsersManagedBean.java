@@ -62,10 +62,10 @@ public class UsersManagedBean implements Serializable {
     public String saveUser() {
         switch (state) {
             case STATE_MODIFY:
-                usersFacade.editEntity(user, password);
+                usersFacade.editUser(user, password);
                 break;
             case STATE_ADD:
-                usersFacade.createEntity(user, password);
+                usersFacade.createUser(user, password);
                 break;
         }
         state = 0;

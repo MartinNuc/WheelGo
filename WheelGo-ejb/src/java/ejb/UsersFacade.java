@@ -29,13 +29,13 @@ public class UsersFacade extends FactoryFacade {
         super(UsersDTO.class);
     }
     
-    public void editEntity(UsersDTO user, String password) {
+    public void editUser(UsersDTO user, String password) {
         Users userToMod = (Users) EntityFactory.convertToEntity(user);
         userToMod.setPasswd(password);
         super.editEntity(userToMod);
     }
     
-    public void createEntity(UsersDTO user, String password) {
+    public void createUser(UsersDTO user, String password) {
         Users userToAdd = (Users) EntityFactory.convertToEntity(user);
         userToAdd.setPasswd(password);
         super.createEntity(userToAdd);
