@@ -26,7 +26,7 @@ public class RoleConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        RolesDTO out = rolesFacade.findDTO(Integer.parseInt(value));
+        RolesDTO out = (RolesDTO) rolesFacade.find(Integer.parseInt(value));
         return out  ;
     }
 

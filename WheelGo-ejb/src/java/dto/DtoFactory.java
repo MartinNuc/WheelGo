@@ -24,7 +24,7 @@ public class DtoFactory {
      * @return objekt DTO
      */
     static public Object convertToDto(Object entity) {
-        Object o = null;
+        Object o;
         try {
             // ziskame tridu dto
             Class dtoClass = Class.forName("dto." + entity.getClass().getSimpleName() + "DTO");

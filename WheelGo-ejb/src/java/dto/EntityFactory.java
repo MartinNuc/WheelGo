@@ -26,7 +26,6 @@ public class EntityFactory {
         Object o = null;
         try {
             // ziskame tridu entity
-            String test = dto.getClass().getSimpleName();
             if (dto.getClass().getSimpleName().endsWith("DTO") == false)
                 throw new Exception("DTO class doesnt end with DTO postfix.");
             String dtoClassName = dto.getClass().getSimpleName();

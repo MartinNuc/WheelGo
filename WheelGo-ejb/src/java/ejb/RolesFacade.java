@@ -4,21 +4,17 @@
  */
 package ejb;
 
-import dto.DtoFactory;
 import dto.RolesDTO;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import model.Roles;
 
 /**
  *
  * @author mist
  */
 @Stateless
-public class RolesFacade extends AbstractFacade<Roles> {
+public class RolesFacade extends FactoryFacade {
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
 
@@ -27,44 +23,7 @@ public class RolesFacade extends AbstractFacade<Roles> {
         return em;
     }
 
-    public RolesFacade() {
-        super(Roles.class);
-    }
-    
-    public RolesDTO findDTO(Object id) {
-        Roles temp = getEntityManager().find(Roles.class, id);
-        return (RolesDTO) DtoFactory.convertToDto(temp);
-    }
-    
-    public void remove(RolesDTO role) {
-        super.remove(em.find(Roles.class, role.getIdRoles()));
-    }
-
-    public void edit(RolesDTO role) {
-        Roles roleToMod = em.find(Roles.class, role.getIdRoles());
-        roleToMod.setName(role.getName());
-        roleToMod.setDescription(role.getDescription());
-    }
-    
-    public void create(RolesDTO role) {
-        Roles roleToAdd = new Roles();
-        roleToAdd.setName(role.getName());
-        roleToAdd.setDescription(role.getDescription());
-        
-        super.create(roleToAdd);
-    }    
-    
-    public List<RolesDTO> getRoles() {
-        List<Roles> list = em.createQuery("SELECT r FROM Roles r ORDER by r.name").getResultList();
-        List<RolesDTO> ret = new ArrayList<RolesDTO>();
-        for(Roles role : list) {
-            RolesDTO toBeAdded = new RolesDTO();
-            toBeAdded.setIdRoles(role.getIdRoles());
-            toBeAdded.setName(role.getName());            
-            toBeAdded.setDescription(role.getDescription());
-            ret.add(toBeAdded);
-        }
-        
-        return ret;
+    public RolesFacade() throws ClassNotFoundException {
+        super(RolesDTO.class);
     }
 }

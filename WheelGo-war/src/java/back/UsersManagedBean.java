@@ -62,10 +62,10 @@ public class UsersManagedBean implements Serializable {
     public String saveUser() {
         switch (state) {
             case STATE_MODIFY:
-                usersFacade.edit(user, password);
+                usersFacade.editEntity(user, password);
                 break;
             case STATE_ADD:
-                usersFacade.create(user, password);
+                usersFacade.createEntity(user, password);
                 break;
         }
         state = 0;
@@ -84,9 +84,9 @@ public class UsersManagedBean implements Serializable {
         usersFacade.remove(user);
     }
     
-    public List<UsersDTO> getUsers()
+    public List<Object> getUsers()
     {
-        return usersFacade.getUsers();
+        return usersFacade.getAll();
     }
     
 }
