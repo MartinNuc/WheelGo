@@ -4,12 +4,8 @@
  */
 package ejb;
 
-import com.sun.xml.ws.xmlfilter.InvocationProcessingException;
 import dto.DtoFactory;
 import dto.EntityFactory;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,13 +17,11 @@ import javax.persistence.EntityManager;
  */
 public abstract class FactoryFacade {
     private Class entityClass;
-    private Class dtoClass;
 
     public FactoryFacade(Class dto) throws ClassNotFoundException {
         String dtoClassName = dto.getSimpleName();
         String entityClassName = dtoClassName.substring(0, dtoClassName.length()-3);
         this.entityClass = Class.forName("model." + entityClassName);
-        this.dtoClass = dto;
     }
 
     protected abstract EntityManager getEntityManager();
@@ -71,22 +65,8 @@ public abstract class FactoryFacade {
         try {
             javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
             cq.select(cq.from(entityClass));
-
-            List<Object> dtos = new ArrayList<Object>();
-            Method add;
-            add = List.class.getDeclaredMethod("add", Object.class);
             List entities = getEntityManager().createQuery(cq).getResultList();
-            for (Object entity : entities)
-                add.invoke(dtos, DtoFactory.convertToDto(entity));
-            return dtos;
-        } catch (InvocationProcessingException ex) {
-            Logger.getLogger(FactoryFacade.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvocationTargetException ex) {
-            Logger.getLogger(FactoryFacade.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(FactoryFacade.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchMethodException ex) {
-            Logger.getLogger(FactoryFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return DtoFactory.convertArrayToDto(entities);
         } catch (SecurityException ex) {
             Logger.getLogger(FactoryFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
