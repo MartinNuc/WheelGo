@@ -49,10 +49,10 @@ public class Report implements Serializable {
     @Size(max = 256)
     @Column(name = "describtion", length = 256)
     private String describtion;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "report")
-    private Photos photos;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idReport")
-    private Collection<Logs> logsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
+    private Collection<Photo> photosCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
+    private Collection<Log> logsCollection;
 
     public Report() {
     }
@@ -117,20 +117,20 @@ public class Report implements Serializable {
         this.describtion = describtion;
     }
 
-    public Photos getPhotos() {
-        return photos;
+    public Collection<Photo> getPhotos() {
+        return photosCollection;
     }
 
-    public void setPhotos(Photos photos) {
-        this.photos = photos;
+    public void setPhoto(Collection<Photo> photos) {
+        this.photosCollection = photos;
     }
 
     @XmlTransient
-    public Collection<Logs> getLogsCollection() {
+    public Collection<Log> getLogsCollection() {
         return logsCollection;
     }
 
-    public void setLogsCollection(Collection<Logs> logsCollection) {
+    public void setLogsCollection(Collection<Log> logsCollection) {
         this.logsCollection = logsCollection;
     }
 

@@ -15,36 +15,36 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author mist
  */
 @Entity
-@Table(name = "roles")
-public class Roles implements Serializable {
+@Table(name = "role")
+public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idRoles", nullable = false)
-    private Integer idRoles;
+    @Column(name = "idRole", nullable = false)
+    private Integer idRole;
     @Size(max = 32)
     @Column(name = "name", length = 32)
     private String name;
     @Size(max = 128)
     @Column(name = "description", length = 128)
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRoles")
-    private Collection<Users> usersCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
+    private Collection<User> usersCollection;
 
-    public Roles() {
+    public Role() {
     }
 
-    public Roles(Integer idRoles) {
-        this.idRoles = idRoles;
+    public Role(Integer idRoles) {
+        this.idRole = idRoles;
     }
 
-    public Integer getIdRoles() {
-        return idRoles;
+    public Integer getIdRole() {
+        return idRole;
     }
 
-    public void setIdRoles(Integer idRoles) {
-        this.idRoles = idRoles;
+    public void setIdRole(Integer idRole) {
+        this.idRole = idRole;
     }
 
     public String getName() {
@@ -64,29 +64,29 @@ public class Roles implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Users> getUsersCollection() {
+    public Collection<User> getUsersCollection() {
         return usersCollection;
     }
 
-    public void setUsersCollection(Collection<Users> usersCollection) {
+    public void setUsersCollection(Collection<User> usersCollection) {
         this.usersCollection = usersCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idRoles != null ? idRoles.hashCode() : 0);
+        hash += (idRole != null ? idRole.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Roles)) {
+        if (!(object instanceof Role)) {
             return false;
         }
-        Roles other = (Roles) object;
-        if ((this.idRoles == null && other.idRoles != null) || (this.idRoles != null && !this.idRoles.equals(other.idRoles))) {
+        Role other = (Role) object;
+        if ((this.idRole == null && other.idRole != null) || (this.idRole != null && !this.idRole.equals(other.idRole))) {
             return false;
         }
         return true;
@@ -94,7 +94,7 @@ public class Roles implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Roles[ idRoles=" + idRoles + " ]";
+        return "model.Roles[ idRoles=" + idRole + " ]";
     }
     
 }

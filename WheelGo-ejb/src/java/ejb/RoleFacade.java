@@ -4,7 +4,7 @@
  */
 package ejb;
 
-import dto.RolesDTO;
+import dto.RoleDTO;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author mist
  */
 @Stateless
-public class RolesFacade extends FactoryFacade {
+public class RoleFacade extends FactoryFacade {
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
 
@@ -23,7 +23,7 @@ public class RolesFacade extends FactoryFacade {
         return em;
     }
 
-    public RolesFacade() throws ClassNotFoundException {
-        super(RolesDTO.class);
+    public RoleFacade() throws ClassNotFoundException {
+        super(RoleDTO.class);
     }
 }

@@ -4,8 +4,8 @@
  */
 package converter;
 
-import dto.RolesDTO;
-import ejb.RolesFacade;
+import dto.RoleDTO;
+import ejb.RoleFacade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.component.UIComponent;
@@ -22,23 +22,23 @@ import javax.naming.NamingException;
  */
 @FacesConverter(value = "roleConv")
 public class RoleConverter implements Converter {
-    private RolesFacade rolesFacade = lookupRolesFacadeLocal();
+    private RoleFacade roleFacade = lookupRolesFacadeLocal();
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        RolesDTO out = (RolesDTO) rolesFacade.find(Integer.parseInt(value));
-        return out  ;
+        RoleDTO out = (RoleDTO) roleFacade.find(Integer.parseInt(value));
+        return out;
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        return String.valueOf(((RolesDTO) value).getIdRoles());
+        return String.valueOf(((RoleDTO) value).getIdRole());
     }
 
-    private RolesFacade lookupRolesFacadeLocal() {
+    private RoleFacade lookupRolesFacadeLocal() {
         try {
             Context c = new InitialContext();
-            return (RolesFacade) c.lookup("java:global/WheelGo/WheelGo-ejb/RolesFacade!ejb.RolesFacade");
+            return (RoleFacade) c.lookup("java:global/WheelGo/WheelGo-ejb/RoleFacade!ejb.RoleFacade");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

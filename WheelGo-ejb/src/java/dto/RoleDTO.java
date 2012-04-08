@@ -10,10 +10,10 @@ import java.io.Serializable;
  *
  * @author vlada
  */
-public class RolesDTO implements Serializable {
+public class RoleDTO implements Serializable {
     private String name;
     private String description;
-    private Integer idRoles;
+    private Integer idRole;
 
     /**
      * @return the name
@@ -46,15 +46,15 @@ public class RolesDTO implements Serializable {
     /**
      * @return the idRole
      */
-    public Integer getIdRoles() {
-        return idRoles;
+    public Integer getIdRole() {
+        return idRole;
     }
 
     /**
      * @param idRole the idRole to set
      */
-    public void setIdRoles(Integer idRole) {
-        this.idRoles = idRole;
+    public void setIdRole(Integer idRole) {
+        this.idRole = idRole;
     }
 
     /**
@@ -73,14 +73,14 @@ public class RolesDTO implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final RolesDTO other = (RolesDTO) obj;
+        final RoleDTO other = (RoleDTO) obj;
         if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
             return false;
         }
         if ((this.description == null) ? (other.description != null) : !this.description.equals(other.description)) {
             return false;
         }
-        if (this.idRoles != other.idRoles && (this.idRoles == null || !this.idRoles.equals(other.idRoles))) {
+        if (this.idRole != other.idRole && (this.idRole == null || !this.idRole.equals(other.idRole))) {
             return false;
         }
         return true;
@@ -91,7 +91,7 @@ public class RolesDTO implements Serializable {
         int hash = 7;
         hash = 17 * hash + (this.name != null ? this.name.hashCode() : 0);
         hash = 17 * hash + (this.description != null ? this.description.hashCode() : 0);
-        hash = 17 * hash + (this.idRoles != null ? this.idRoles.hashCode() : 0);
+        hash = 17 * hash + (this.idRole != null ? this.idRole.hashCode() : 0);
         return hash;
     }
     

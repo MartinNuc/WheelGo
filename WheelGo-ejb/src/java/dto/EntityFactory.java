@@ -23,7 +23,7 @@ public class EntityFactory {
      * @return objekt DTO
      */
     static public Object convertToEntity(Object dto) {
-        Object o = null;
+        Object o;
         try {
             // ziskame tridu entity
             if (dto.getClass().getSimpleName().endsWith("DTO") == false)

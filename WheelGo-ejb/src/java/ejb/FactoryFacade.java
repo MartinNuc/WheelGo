@@ -53,7 +53,8 @@ public abstract class FactoryFacade {
     }
 
     public Object find(Object id) {
-        return getEntityManager().find(entityClass, id);
+        Object output = getEntityManager().find(entityClass, id);
+        return DtoFactory.convertToDto(output);
     }
     
     public List<Object> getAll()

@@ -5,14 +5,14 @@
 package dto;
 
 import java.io.Serializable;
-import model.Roles;
+import model.Role;
 
 /**
  *
  * @author mist
  */
-public class UsersDTO implements Serializable {
-    private Integer idUsers;
+public class UserDTO implements Serializable {
+    private Integer idUser;
     private String username;
 
     @Override
@@ -20,26 +20,26 @@ public class UsersDTO implements Serializable {
         return username;
     }
     private String phoneId;
-    private RolesDTO idRoles;
+    private RoleDTO role;
 
-    public RolesDTO getIdRoles() {
-        return idRoles;
+    public RoleDTO getRole() {
+        return role;
     }
 
-    public void setIdRoles(RolesDTO idRoles) {
-        this.idRoles = (RolesDTO)idRoles;
+    public void setRole(RoleDTO Role) {
+        this.role = (RoleDTO)Role;
     }
 
-    public void setIdRoles(Roles idRoles) {
-        this.idRoles = (RolesDTO)DtoFactory.convertToDto(idRoles);
+    public void setRole(Role Role) {
+        this.role = (RoleDTO)DtoFactory.convertToDto(Role);
     }
     
-    public Integer getIdUsers() {
-        return idUsers;
+    public Integer getIdUser() {
+        return idUser;
     }
 
-    public void setIdUsers(Integer idUsers) {
-        this.idUsers = idUsers;
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
 
     public String getPhoneId() {
@@ -66,8 +66,8 @@ public class UsersDTO implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final UsersDTO other = (UsersDTO) obj;
-        if (this.idUsers != other.idUsers && (this.idUsers == null || !this.idUsers.equals(other.idUsers))) {
+        final UserDTO other = (UserDTO) obj;
+        if (this.idUser != other.idUser && (this.idUser == null || !this.idUser.equals(other.idUser))) {
             return false;
         }
         if ((this.username == null) ? (other.username != null) : !this.username.equals(other.username)) {
@@ -76,7 +76,7 @@ public class UsersDTO implements Serializable {
         if ((this.phoneId == null) ? (other.phoneId != null) : !this.phoneId.equals(other.phoneId)) {
             return false;
         }
-        if (this.idRoles != other.idRoles && (this.idRoles == null || !this.idRoles.equals(other.idRoles))) {
+        if (this.role != other.role && (this.role == null || !this.role.equals(other.role))) {
             return false;
         }
         return true;
@@ -85,10 +85,10 @@ public class UsersDTO implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 89 * hash + (this.idUsers != null ? this.idUsers.hashCode() : 0);
+        hash = 89 * hash + (this.idUser != null ? this.idUser.hashCode() : 0);
         hash = 89 * hash + (this.username != null ? this.username.hashCode() : 0);
         hash = 89 * hash + (this.phoneId != null ? this.phoneId.hashCode() : 0);
-        hash = 89 * hash + (this.idRoles != null ? this.idRoles.hashCode() : 0);
+        hash = 89 * hash + (this.role != null ? this.role.hashCode() : 0);
         return hash;
     }
     

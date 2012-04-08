@@ -4,8 +4,8 @@
  */
 package back;
 
-import dto.UsersDTO;
-import ejb.UsersFacade;
+import dto.UserDTO;
+import ejb.UserFacade;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
@@ -21,13 +21,13 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class UsersManagedBean implements Serializable {
     @EJB
-    private UsersFacade usersFacade;
+    private UserFacade userFacade;
     
     public static final int STATE_ADD = 1;
     public static final int STATE_MODIFY = 2;
     private int state;
     
-    private UsersDTO user = null;
+    private UserDTO user = null;
     private String password = "";
 
     public String getPassword() {
@@ -44,16 +44,16 @@ public class UsersManagedBean implements Serializable {
     public UsersManagedBean() {
     }
 
-    public UsersDTO getUser() {
+    public UserDTO getUser() {
         return this.user;
     }
 
-    public void setUser(UsersDTO user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
     public String newUser() {
-       this.user = new UsersDTO();
+       this.user = new UserDTO();
        state = STATE_ADD;
        password = "";
        return "user";
@@ -62,10 +62,10 @@ public class UsersManagedBean implements Serializable {
     public String saveUser() {
         switch (state) {
             case STATE_MODIFY:
-                usersFacade.editUser(user, password);
+                userFacade.editUser(user, password);
                 break;
             case STATE_ADD:
-                usersFacade.createUser(user, password);
+                userFacade.createUser(user, password);
                 break;
         }
         state = 0;
@@ -73,20 +73,20 @@ public class UsersManagedBean implements Serializable {
         return "users";
     }
 
-    public String editUser(UsersDTO user) {
+    public String editUser(UserDTO user) {
         this.user = user;
         state = STATE_MODIFY;
         password = "";
         return "user";
     }
 
-    public void removeUser(UsersDTO user) {
-        usersFacade.remove(user);
+    public void removeUser(UserDTO user) {
+        userFacade.remove(user);
     }
     
     public List<Object> getUsers()
     {
-        return usersFacade.getAll();
+        return userFacade.getAll();
     }
     
 }

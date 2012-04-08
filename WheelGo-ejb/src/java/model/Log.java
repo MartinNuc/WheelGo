@@ -15,15 +15,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author mist
  */
 @Entity
-@Table(name = "logs")
+@Table(name = "log")
 @XmlRootElement
-public class Logs implements Serializable {
+public class Log implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idLogs", nullable = false)
-    private Integer idLogs;
+    @Column(name = "idLog", nullable = false)
+    private Integer idLog;
     @Basic(optional = false)
     @NotNull
     @Column(name = "operation", nullable = false)
@@ -35,30 +35,30 @@ public class Logs implements Serializable {
     private Date date;
     @JoinColumn(name = "idReport", referencedColumnName = "idReport", nullable = false)
     @ManyToOne(optional = false)
-    private Report idReport;
-    @JoinColumn(name = "idUsers", referencedColumnName = "idUsers", nullable = false)
+    private Report report;
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser", nullable = false)
     @ManyToOne(optional = false)
-    private Users idUsers;
+    private User user;
 
-    public Logs() {
+    public Log() {
     }
 
-    public Logs(Integer idLogs) {
-        this.idLogs = idLogs;
+    public Log(Integer idLog) {
+        this.idLog = idLog;
     }
 
-    public Logs(Integer idLogs, int operation, Date date) {
-        this.idLogs = idLogs;
+    public Log(Integer idLog, int operation, Date date) {
+        this.idLog = idLog;
         this.operation = operation;
         this.date = date;
     }
 
-    public Integer getIdLogs() {
-        return idLogs;
+    public Integer getIdLog() {
+        return idLog;
     }
 
-    public void setIdLogs(Integer idLogs) {
-        this.idLogs = idLogs;
+    public void setIdLog(Integer idLog) {
+        this.idLog = idLog;
     }
 
     public int getOperation() {
@@ -77,37 +77,37 @@ public class Logs implements Serializable {
         this.date = date;
     }
 
-    public Report getIdReport() {
-        return idReport;
+    public Report getReport() {
+        return report;
     }
 
-    public void setIdReport(Report idReport) {
-        this.idReport = idReport;
+    public void setReport(Report Report) {
+        this.report = Report;
     }
 
-    public Users getIdUsers() {
-        return idUsers;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUsers(Users idUsers) {
-        this.idUsers = idUsers;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idLogs != null ? idLogs.hashCode() : 0);
+        hash += (idLog != null ? idLog.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Logs)) {
+        if (!(object instanceof Log)) {
             return false;
         }
-        Logs other = (Logs) object;
-        if ((this.idLogs == null && other.idLogs != null) || (this.idLogs != null && !this.idLogs.equals(other.idLogs))) {
+        Log other = (Log) object;
+        if ((this.idLog == null && other.idLog != null) || (this.idLog != null && !this.idLog.equals(other.idLog))) {
             return false;
         }
         return true;
@@ -115,7 +115,7 @@ public class Logs implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Logs[ idLogs=" + idLogs + " ]";
+        return "model.Logs[ idLogs=" + idLog + " ]";
     }
     
 }
