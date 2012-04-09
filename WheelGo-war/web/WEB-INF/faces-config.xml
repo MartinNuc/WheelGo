@@ -37,6 +37,12 @@
             <to-view-id>/users.xhtml</to-view-id>
             <redirect />
         </navigation-case>
+        
+         <navigation-case>
+            <from-outcome>userCheckPassword</from-outcome>
+            <to-view-id>/userCheckPassword.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>        
 
          <navigation-case>
             <from-outcome>rolesMainList</from-outcome>

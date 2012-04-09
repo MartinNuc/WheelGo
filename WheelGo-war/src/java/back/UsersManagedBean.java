@@ -29,6 +29,8 @@ public class UsersManagedBean implements Serializable {
     
     private UserDTO user = null;
     private String password = "";
+    
+    private String messageForClient;
 
     public String getPassword() {
         return "";
@@ -87,6 +89,29 @@ public class UsersManagedBean implements Serializable {
     public List<Object> getUsers()
     {
         return userFacade.getAll();
+    }
+    
+    public String checkPassword(UserDTO user) {
+        this.user = user;
+        this.password = "";
+        this.messageForClient = "";
+        return "userCheckPassword";
+    }
+    
+    public String checkPassword() { 
+        if(userFacade.checkPasswork(user, password)) {
+            messageForClient = "OK";
+        } else {
+            messageForClient = "NE";
+        }
+        return "userCheckPassword";
+    }
+
+    /**
+     * @return the messageForClient
+     */
+    public String getMessageForClient() {
+        return messageForClient;
     }
     
 }

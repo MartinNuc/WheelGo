@@ -49,6 +49,12 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false, length = 64)
     private String password;
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 64)
+    @Column(name = "dynamicSeed", nullable = false, length = 64)    
+    private String dynamicSeed;
+    
     @Size(max = 64)
     @Column(name = "phoneId", length = 64)
     private String phoneId;
@@ -58,7 +64,7 @@ public class User implements Serializable {
     private Role role;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Log> logsCollection;
-
+    
     public User() {
     }
 
@@ -88,11 +94,11 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public String getPasswd() {
+    public String getPassword() {
         return password;
     }
-
-    public void setPasswd(String passwd) {
+    
+    public void setPassword(String passwd) {
         this.password = passwd;
     }
 
@@ -148,6 +154,20 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "model.Users[ idUsers=" + idUser + " ]";
+    }
+
+    /**
+     * @return the dynamicSeed
+     */
+    public String getDynamicSeed() {
+        return dynamicSeed;
+    }
+
+    /**
+     * @param dynamicSeed the dynamicSeed to set
+     */
+    public void setDynamicSeed(String dynamicSeed) {
+        this.dynamicSeed = dynamicSeed;
     }
     
 }

@@ -36,6 +36,9 @@
                         <h:column>
                             <h:commandButton value="#{msgs.remove}" action="#{users.removeUser(item)}" />
                         </h:column>
+                        <h:column>
+                            <h:commandButton value="#{msgs.users_check_passwd}" action="#{users.checkPassword(item)}" />
+                        </h:column>                        
                     </h:dataTable>
                     <h:messages />
                 </h:form>
