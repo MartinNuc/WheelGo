@@ -40,6 +40,7 @@ public class EntityFactory {
                     // zjistime nazev metody getteru
                     String getMethodName = Character.toUpperCase(field.getName().charAt(0)) + field.getName().substring(1);
                     // zkusime, jestli ma field getter
+                    System.out.println("wokring on " + "get" + getMethodName);
                     if (entityClass.getMethod("get" + getMethodName) != null) {
                         //System.out.println(field.getName());
                         // precteme hodnotu z dto

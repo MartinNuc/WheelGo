@@ -67,7 +67,7 @@ public class UserFacade extends FactoryFacade {
      * @return true if password is ok, false otherwise
      */
     public boolean checkPasswork(UserDTO user, String password) {
-        User userToAdd = (User) EntityFactory.convertToEntity(user);
+        User userToAdd = em.find(User.class, user.getIdUser());
         System.out.println("User=" + userToAdd);
         System.out.println("Enc=" + encryptor);
         System.out.println("password=" + password);
