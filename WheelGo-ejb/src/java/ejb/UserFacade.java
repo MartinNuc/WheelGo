@@ -6,8 +6,6 @@ package ejb;
 
 import dto.EntityFactory;
 import dto.UserDTO;
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -38,17 +36,13 @@ public class UserFacade extends FactoryFacade {
     
     public void editUser(UserDTO user, String password) {
         User userToMod = (User) EntityFactory.convertToEntity(user);
-        userToMod.setPassword(password);
+        userToMod.setPassword(encryptor.encryptPassword(password, user.getUsername()));
         super.editEntity(userToMod);
     }
     
     public void createUser(UserDTO user, String password) {
         User userToAdd = (User) EntityFactory.convertToEntity(user);
-        
-        SecureRandom random = new SecureRandom();
-        
-        userToAdd.setDynamicSeed(new BigInteger(20, random).toString(32));
-        userToAdd.setPassword(encryptor.encryptPassword(password, userToAdd.getDynamicSeed()));
+        userToAdd.setPassword(encryptor.encryptPassword(password, user.getUsername()));
         super.createEntity(userToAdd);
     }
     
@@ -66,12 +60,13 @@ public class UserFacade extends FactoryFacade {
      * @param password password in readable format in utf-8
      * @return true if password is ok, false otherwise
      */
-    public boolean checkPasswork(UserDTO user, String password) {
+    public boolean checkPassword(UserDTO user, String password) {
         User userToAdd = em.find(User.class, user.getIdUser());
-        System.out.println("User=" + userToAdd);
-        System.out.println("Enc=" + encryptor);
-        System.out.println("password=" + password);
-        System.out.println("orig.pass=" + userToAdd.getPassword());
-        return userToAdd.getPassword().equals(encryptor.encryptPassword(password, userToAdd.getDynamicSeed()));
+
+        String encrypted = encryptor.encryptPassword(password, userToAdd.getUsername());
+        if (userToAdd.getPassword().equals(encrypted))
+            return false;
+        else
+            return true;
     }
 }

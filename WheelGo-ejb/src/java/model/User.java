@@ -48,12 +48,6 @@ public class User implements Serializable {
     @Size(min = 1, max = 64)
     @Column(name = "password", nullable = false, length = 64)
     private String password;
-
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 64)
-    @Column(name = "dynamicSeed", nullable = false, length = 64)    
-    private String dynamicSeed;
     
     @Size(max = 64)
     @Column(name = "phoneId", length = 64)
@@ -154,20 +148,6 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "model.Users[ idUsers=" + idUser + " ]";
-    }
-
-    /**
-     * @return the dynamicSeed
-     */
-    public String getDynamicSeed() {
-        return dynamicSeed;
-    }
-
-    /**
-     * @param dynamicSeed the dynamicSeed to set
-     */
-    public void setDynamicSeed(String dynamicSeed) {
-        this.dynamicSeed = dynamicSeed;
     }
     
 }

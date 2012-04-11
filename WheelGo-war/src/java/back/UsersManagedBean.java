@@ -99,7 +99,7 @@ public class UsersManagedBean implements Serializable {
     }
     
     public String checkPassword() { 
-        if(userFacade.checkPasswork(user, password)) {
+        if(userFacade.checkPassword(user, password)) {
             messageForClient = "OK";
         } else {
             messageForClient = "NE";
