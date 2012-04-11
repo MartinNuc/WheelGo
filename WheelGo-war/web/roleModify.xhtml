@@ -14,7 +14,7 @@ and open the template in the editor.
             <ui:define name="content">
                 <h1>#{msgs.roles}</h1>
                 <h:form>
-                    <h:panelGrid columns="2" columnClasses="dataLabel,,">
+                    <h:panelGrid columns="3" columnClasses="dataLabel,,">
                         <h:outputText value="#{msgs.role_name}:" />
                         <h:inputText value="#{roles.role.name}" id="fn" label="#{msgs.role_name}" required="true" requiredMessage="#{msgs.required_message}">
                             <f:validateLength minimum="4"/>
