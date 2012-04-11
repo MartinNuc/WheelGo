@@ -65,8 +65,8 @@ public class UserFacade extends FactoryFacade {
 
         String encrypted = encryptor.encryptPassword(password, userToAdd.getUsername());
         if (userToAdd.getPassword().equals(encrypted))
-            return false;
-        else
             return true;
+        else
+            return false;
     }
 }
