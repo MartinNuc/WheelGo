@@ -5,6 +5,7 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  *
@@ -14,6 +15,7 @@ public class RoleDTO implements Serializable {
     private String name;
     private String description;
     private Integer idRole;
+    private Collection<Integer> users;
 
     /**
      * @return the name
@@ -57,6 +59,16 @@ public class RoleDTO implements Serializable {
         this.idRole = idRole;
     }
 
+    public Collection<Integer> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<Integer> users) {
+        this.users = users;
+    }
+
+    
+    
     /**
      * Zajistuje spravny prevod role na jeji nazev, kdyz to treba zobrazujem v JSF
      */

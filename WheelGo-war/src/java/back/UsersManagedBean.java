@@ -68,10 +68,10 @@ public class UsersManagedBean implements Serializable {
     public String saveUser() {
         switch (state) {
             case STATE_MODIFY:
-                userFacade.editUser(user.getDto(), password);
+                userFacade.edit(user.getDto(), password);
                 break;
             case STATE_ADD:
-                userFacade.createUser(user.getDto(), password);
+                userFacade.create(user.getDto(), password);
                 break;
         }
         state = 0;
@@ -93,11 +93,11 @@ public class UsersManagedBean implements Serializable {
     public List<UserWrapper> getUsers()
     {
         List<UserWrapper> list = new ArrayList<UserWrapper>();
-        List<Object> allUsers = userFacade.getAll();
+        List<UserDTO> allUsers = userFacade.getAll();
         if (allUsers != null)
-            for (Object u : allUsers)
+            for (UserDTO u : allUsers)
             {
-                list.add(new UserWrapper((UserDTO) u));
+                list.add(new UserWrapper(u));
             }
         return list;
     }

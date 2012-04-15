@@ -4,9 +4,9 @@
  */
 package ejb;
 
+import dto.TipDTO;
 import java.util.List;
 import javax.ejb.Local;
-import model.Tip;
 
 /**
  *
@@ -15,18 +15,11 @@ import model.Tip;
 @Local
 public interface TipFacadeLocal {
 
-    void create(Tip tip);
-
-    void edit(Tip tip);
-
-    void remove(Tip tip);
-
-    Tip find(Object id);
-
-    List<Tip> findAll();
-
-    List<Tip> findRange(int[] range);
-
+    void create(TipDTO tip);
+    void edit(TipDTO tip);
+    void remove(TipDTO tip);
+    TipDTO find(Object id);
+    List<TipDTO> getAll();
+    List<TipDTO> getRange(int[] range);
     int count();
-    
 }

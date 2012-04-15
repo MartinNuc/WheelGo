@@ -4,9 +4,9 @@
  */
 package ejb;
 
+import dto.RoleDTO;
 import java.util.List;
 import javax.ejb.Local;
-import model.Role;
 
 /**
  *
@@ -15,17 +15,17 @@ import model.Role;
 @Local
 public interface RoleFacadeLocal {
 
-    void create(Role role);
+    void create(RoleDTO role);
 
-    void edit(Role role);
+    void edit(RoleDTO role);
 
-    void remove(Role role);
+    void remove(RoleDTO role);
 
-    Role find(Object id);
+    RoleDTO find(Object id);
 
-    List<Role> findAll();
+    List<RoleDTO> getAll();
 
-    List<Role> findRange(int[] range);
+    List<RoleDTO> getRange(int[] range);
 
     int count();
     

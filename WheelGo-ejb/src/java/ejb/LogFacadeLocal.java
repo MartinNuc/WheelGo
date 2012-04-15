@@ -4,9 +4,9 @@
  */
 package ejb;
 
+import dto.LogDTO;
 import java.util.List;
 import javax.ejb.Local;
-import model.Log;
 
 /**
  *
@@ -15,18 +15,12 @@ import model.Log;
 @Local
 public interface LogFacadeLocal {
 
-    void create(Log log);
-
-    void edit(Log log);
-
-    void remove(Log log);
-
-    Log find(Object id);
-
-    List<Log> findAll();
-
-    List<Log> findRange(int[] range);
-
+    void create(LogDTO log);
+    void edit(LogDTO log);
+    void remove(LogDTO log);
+    LogDTO find(Object id);
+    List<LogDTO> getAll();
+    List<LogDTO> getRange(int[] range);
     int count();
     
 }

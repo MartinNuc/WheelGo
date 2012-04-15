@@ -4,17 +4,15 @@
  */
 package dto;
 
+import java.io.Serializable;
 import java.util.Date;
-import model.Place;
-import model.Problem;
-import model.Tip;
-import model.User;
 
 /**
  *
  * @author mist
  */
-public class LogDTO {
+
+public class LogDTO  implements Serializable  {
     private Integer idLog;
     private int operation;
     private Date date;
@@ -52,63 +50,12 @@ public class LogDTO {
     public void setReport(Integer report) {
         this.report = report;
     }
-    
-    public void setReport(Problem report) {
-        if (report == null)
-            return;
-        this.report = report.getIdReport();
-    }
-    
-    public void setReport(Tip report) {
-        if (report == null)
-            return;
-        this.report = report.getIdReport();
-    }
-    
-    public void setReport(Place report) {
-        if (report == null)
-            return;
-        this.report = report.getIdReport();
-    }
-    
-    public void setReport(ProblemDTO report) {
-        if (report == null)
-            return;
-
-        this.report = report.getIdReport();
-    }
-
-    public void setReport(TipDTO report) {
-        if (report == null)
-            return;
-
-        this.report = report.getIdReport();
-    }
-    
-    public void setReport(PlaceDTO report) {
-        if (report == null)
-            return;
-
-        this.report = report.getIdReport();
-    }
-    
+            
     public Integer getUser() {
         return user;
     }
 
     public void setUser(Integer user) {
         this.user = user;
-    }
-    
-    public void setUser(User user) {
-        if (user == null)
-            return;
-        this.user = user.getIdUser();
-    }
-    
-    public void setUser(UserDTO user) {
-        if (user == null)
-            return;
-        this.user = user.getIdUser();
     }
 }

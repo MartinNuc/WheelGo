@@ -14,11 +14,13 @@ import javax.ejb.Local;
  */
 @Local
 interface UserFacadeLocal {
-    public void createUser(UserDTO user, String password);
-    public void setData(UserDTO data);
-    public void editUser(UserDTO data, String password);
+    public void create(UserDTO user, String password);
+    public void edit(UserDTO data, String password);
+    public void edit(UserDTO data);
     public void remove(UserDTO user);
     public UserDTO find(Integer id);
     public List<UserDTO> getAll();
+    public List<UserDTO> getRange(int[] range);
     public boolean checkPassword(UserDTO user, String password);
+    int count();
 }

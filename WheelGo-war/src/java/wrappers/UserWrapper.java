@@ -90,7 +90,7 @@ public class UserWrapper {
         ret.setIdUser(idUser);
         ret.setPhoneId(phoneId);
         if (role != null)
-            ret.setRole(role);
+            ret.setRole(role.getIdRole());
         else
             ret.setRole(idRole);
         ret.setUsername(username);

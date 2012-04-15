@@ -4,9 +4,9 @@
  */
 package ejb;
 
+import dto.ReportDTO;
 import java.util.List;
 import javax.ejb.Local;
-import model.Report;
 
 /**
  *
@@ -15,18 +15,12 @@ import model.Report;
 @Local
 public interface ReportFacadeLocal {
 
-    void create(Report report);
-
-    void edit(Report report);
-
-    void remove(Report report);
-
-    Report find(Object id);
-
-    List<Report> findAll();
-
-    List<Report> findRange(int[] range);
-
+    void create(ReportDTO report);
+    void edit(ReportDTO report);
+    void remove(ReportDTO report);
+    ReportDTO find(Object id);
+    List<ReportDTO> getAll();
+    List<ReportDTO> getRange(int[] range);
     int count();
     
 }

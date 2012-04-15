@@ -4,10 +4,12 @@
  */
 package dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author mist
  */
-public class TipDTO extends ReportDTO {    
+public class TipDTO extends ReportDTO  implements Serializable {    
     
 }

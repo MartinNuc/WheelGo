@@ -5,14 +5,12 @@
 package dto;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
 
 /**
  *
  * @author mist
  */
-public class PlaceDTO extends ReportDTO {
+public class PlaceDTO extends ReportDTO  implements Serializable  {
   
     /* place */
     private int accesibility;

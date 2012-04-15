@@ -12,15 +12,16 @@ import java.io.Serializable;
  */
 public class PhotoDTO implements Serializable 
 {
-    private Integer idRole;
+    private Integer idPhoto;
     private String url;
+    private Integer idReport;
 
-    public Integer getIdRole() {
-        return idRole;
+    public Integer getIdPhoto() {
+        return idPhoto;
     }
 
-    public void setIdRole(Integer idRole) {
-        this.idRole = idRole;
+    public void setIdPhoto(Integer idPhoto) {
+        this.idPhoto = idPhoto;
     }
 
     public String getUrl() {
@@ -30,5 +31,15 @@ public class PhotoDTO implements Serializable
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public Integer getIdReport() {
+        return idReport;
+    }
+
+    public void setIdReport(Integer idReport) {
+        this.idReport = idReport;
+    }
+    
+    
        
 }

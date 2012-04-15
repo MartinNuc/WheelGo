@@ -34,4 +34,10 @@
         <local>WheelGo.ejb.RoleFacade</local>
         <ejb-link>WheelGo-ejb.jar#RoleFacade</ejb-link>
     </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>LogFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>WheelGo.ejb.LogFacade</local>
+        <ejb-link>WheelGo-ejb.jar#LogFacade</ejb-link>
+    </ejb-local-ref>
 </web-app>

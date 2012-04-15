@@ -4,9 +4,9 @@
  */
 package ejb;
 
+import dto.PlaceDTO;
 import java.util.List;
 import javax.ejb.Local;
-import model.Place;
 
 /**
  *
@@ -15,17 +15,17 @@ import model.Place;
 @Local
 public interface PlaceFacadeLocal {
 
-    void create(Place place);
+    void create(PlaceDTO place);
 
-    void edit(Place place);
+    void edit(PlaceDTO place);
 
-    void remove(Place place);
+    void remove(PlaceDTO place);
 
-    Place find(Object id);
+    PlaceDTO find(Object id);
 
-    List<Place> findAll();
+    List<PlaceDTO> getAll();
 
-    List<Place> findRange(int[] range);
+    List<PlaceDTO> getRange(int[] range);
 
     int count();
     

@@ -68,7 +68,7 @@ public class RolesManagedBean {
         rolesFacade.remove(role);
     }
 
-    public List<Object> getRoles() {
+    public List<RoleDTO> getRoles() {
         return rolesFacade.getAll();
     }
 }

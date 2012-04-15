@@ -6,7 +6,6 @@ package dto;
 
 import java.io.Serializable;
 import java.util.Collection;
-import model.Role;
 
 /**
  *
@@ -28,18 +27,6 @@ public class UserDTO implements Serializable {
 
     public Integer getRole() {
         return role;
-    }
-    
-    public void setRole(Role role) {
-        if (role == null)
-            return;
-        this.role = role.getIdRole();
-    }
-    
-    public void setRole(RoleDTO role) {
-        if (role == null)
-            return;
-        this.role = role.getIdRole();
     }
     
     public void setRole(Integer role) {

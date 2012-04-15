@@ -4,13 +4,14 @@
  */
 package dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author mist
  */
-public class ProblemDTO extends ReportDTO
+public class ProblemDTO extends ReportDTO  implements Serializable 
 {
     /* problem */
     private Date expiration;

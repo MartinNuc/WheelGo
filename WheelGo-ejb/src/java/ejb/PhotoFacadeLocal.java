@@ -4,9 +4,9 @@
  */
 package ejb;
 
+import dto.PhotoDTO;
 import java.util.List;
 import javax.ejb.Local;
-import model.Photo;
 
 /**
  *
@@ -15,18 +15,12 @@ import model.Photo;
 @Local
 public interface PhotoFacadeLocal {
 
-    void create(Photo photo);
-
-    void edit(Photo photo);
-
-    void remove(Photo photo);
-
-    Photo find(Object id);
-
-    List<Photo> findAll();
-
-    List<Photo> findRange(int[] range);
-
+    void create(PhotoDTO photo);
+    void edit(PhotoDTO photo);
+    void remove(PhotoDTO photo);
+    PhotoDTO find(Object id);
+    List<PhotoDTO> getAll();
+    List<PhotoDTO> getRange(int[] range);
     int count();
     
 }

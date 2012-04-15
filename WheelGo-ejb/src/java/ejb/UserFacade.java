@@ -15,7 +15,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import model.Role;
-import model.Tip;
 import model.User;
 
 /**
@@ -30,6 +29,7 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
     @EJB
     private EncryptorBeanLocal encryptor;
         
+    @Override
     protected EntityManager getEntityManager() {
         return em;
     }
@@ -39,14 +39,14 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
     }
     
     @Override
-    public void editUser(UserDTO data, String password) {
+    public void edit(UserDTO data, String password) {
         User toModify = em.find(User.class, data.getIdUser());
         toModify.setPassword(encryptor.encryptPassword(password, data.getUsername()));
-        setData(data);
+        edit(data);
     }
     
     @Override
-    public void setData(UserDTO data) {
+    public void edit(UserDTO data) {
         User toModify = em.find(User.class, data.getIdUser());
         
         toModify.setUsername(data.getUsername());
@@ -55,7 +55,7 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
     }
     
     @Override
-    public void createUser(UserDTO user, String password) {
+    public void create(UserDTO user, String password) {
         User userToAdd = toEntity(user);
         userToAdd.setPassword(encryptor.encryptPassword(password, user.getUsername()));
         getEntityManager().persist(userToAdd);
@@ -90,22 +90,17 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
         UserDTO dto = new UserDTO();
         dto.setIdUser(entity.getIdUser());
         dto.setPhoneId(entity.getPhoneId());
-        dto.setRole(entity.getRole());
+        dto.setRole(entity.getRole().getIdRole());
         dto.setUsername(entity.getUsername());
         return dto;
     }
     
-    private static List<UserDTO> toDTOs(List<User> entities)
+    private List<UserDTO> toDTOs(List<User> entities)
     {
         List<UserDTO> dtos = new ArrayList<UserDTO>();
         for (User entity : entities)
         {
-            UserDTO dto = new UserDTO();
-            dto.setIdUser(entity.getIdUser());
-            dto.setPhoneId(entity.getPhoneId());
-            dto.setRole(entity.getRole());
-            dto.setUsername(entity.getUsername());
-            dtos.add(dto);
+            dtos.add(toDTO(entity));
         }
         return dtos;
     }
@@ -122,6 +117,16 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
             Logger.getLogger(UserFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    @Override
+    public List<UserDTO> getRange(int[] range) {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(User.class));
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        q.setMaxResults(range[1] - range[0]);
+        q.setFirstResult(range[0]);
+        return toDTOs(q.getResultList());
     }
     
     /**
@@ -141,4 +146,5 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
         else
             return false;
     }
+
 }

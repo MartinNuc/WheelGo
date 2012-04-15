@@ -80,10 +80,7 @@ public class LogWrapper {
         LogDTO ret = new LogDTO();
         ret.setIdLog(idLog);
         ret.setDate(date);
-        if (user != null)
-            ret.setUser(user);
-        else
-            ret.setUser(idUser);
+        ret.setUser(idUser);
         ret.setOperation(operation);
         return ret;
     }

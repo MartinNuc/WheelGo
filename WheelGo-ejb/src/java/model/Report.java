@@ -121,7 +121,7 @@ public class Report implements Serializable {
         return photosCollection;
     }
 
-    public void setPhoto(Collection<Photo> photos) {
+    public void setPhotos(Collection<Photo> photos) {
         this.photosCollection = photos;
     }
 
