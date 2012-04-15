@@ -4,7 +4,6 @@
  */
 package ejb;
 
-import utils.EncryptorBeanLocal;
 import dto.UserDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import model.Role;
 import model.User;
+import utils.EncryptorBeanLocal;
 
 /**
  *

@@ -7,18 +7,15 @@ package wrappers;
 import dto.RoleDTO;
 import dto.UserDTO;
 import ejb.RoleFacade;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.ejb.EJB;
 
 /**
  *
  * @author mist
  */
 public class UserWrapper {
-    private RoleFacade roleFacade = lookupRolesFacadeLocal();
+    @EJB
+    private RoleFacade roleFacade;
 
     private Integer idUser;
 
@@ -97,7 +94,7 @@ public class UserWrapper {
         return ret;
     }
     
-    
+    /*
     private RoleFacade lookupRolesFacadeLocal() {
         try {
             Context c = new InitialContext();
@@ -106,6 +103,6 @@ public class UserWrapper {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
-    }
+    }*/
 
 }

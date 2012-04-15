@@ -10,22 +10,20 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
 
 /**
  *
  * @author mist
  */
 @Named(value = "logsManagedBean")
+@ManagedBean(name = "logs")
 @SessionScoped
 public class LogsManagedBean implements Serializable {
     @EJB
-    private LogFacade userFacade;
+    private LogFacade logsFacade;
     
-    public static final int STATE_ADD = 1;
-    public static final int STATE_MODIFY = 2;
-    private int state;
-    
-    private LogDTO user;
+    private LogDTO log;
 
     /** Creates a new instance of LogsManagedBean */
     public LogsManagedBean() {
