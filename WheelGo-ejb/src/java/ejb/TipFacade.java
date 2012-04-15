@@ -4,21 +4,17 @@
  */
 package ejb;
 
-/**
- *
- * @author mist
- */
-import dto.TipDTO;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import model.Tip;
 
 /**
  *
  * @author mist
  */
 @Stateless
-public class TipFacade extends FactoryFacade {
+public class TipFacade extends AbstractFacade<Tip> implements TipFacadeLocal {
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
 
@@ -27,9 +23,8 @@ public class TipFacade extends FactoryFacade {
         return em;
     }
 
-    public TipFacade() throws ClassNotFoundException {
-        super(TipDTO.class);
+    public TipFacade() {
+        super(Tip.class);
     }
+    
 }
-
-

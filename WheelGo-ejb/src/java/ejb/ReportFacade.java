@@ -7,14 +7,14 @@ package ejb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import model.Role;
+import model.Report;
 
 /**
  *
  * @author mist
  */
 @Stateless
-public class RoleFacade extends AbstractFacade<Role> implements RoleFacadeLocal {
+public class ReportFacade extends AbstractFacade<Report> implements ReportFacadeLocal {
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
 
@@ -23,8 +23,8 @@ public class RoleFacade extends AbstractFacade<Role> implements RoleFacadeLocal 
         return em;
     }
 
-    public RoleFacade() {
-        super(Role.class);
+    public ReportFacade() {
+        super(Report.class);
     }
     
 }

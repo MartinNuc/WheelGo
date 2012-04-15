@@ -4,7 +4,6 @@
  */
 package dto;
 
-import anotations.DtoConnection;
 import java.util.Date;
 import model.Place;
 import model.Problem;
@@ -19,9 +18,7 @@ public class LogDTO {
     private Integer idLog;
     private int operation;
     private Date date;
-    @DtoConnection(entity = "model.Report")
     private Integer report;
-    @DtoConnection(entity = "model.User")
     private Integer user;
 
     public Date getDate() {

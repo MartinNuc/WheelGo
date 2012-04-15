@@ -4,17 +4,17 @@
  */
 package ejb;
 
-import dto.LogDTO;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import model.Log;
 
 /**
  *
  * @author mist
  */
 @Stateless
-public class LogFacade extends FactoryFacade {
+public class LogFacade extends AbstractFacade<Log> implements LogFacadeLocal {
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
 
@@ -23,9 +23,8 @@ public class LogFacade extends FactoryFacade {
         return em;
     }
 
-    public LogFacade() throws ClassNotFoundException {
-        super(LogDTO.class);
+    public LogFacade() {
+        super(Log.class);
     }
+    
 }
-
-
