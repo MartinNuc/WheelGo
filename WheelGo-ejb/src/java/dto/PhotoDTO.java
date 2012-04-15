@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author mist
  */
-public class PhotosDTO implements Serializable 
+public class PhotoDTO implements Serializable 
 {
     private Integer idRole;
     private String url;
