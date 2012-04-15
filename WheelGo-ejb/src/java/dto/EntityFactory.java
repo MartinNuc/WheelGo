@@ -4,7 +4,9 @@
  */
 package dto;
 
+import anotations.DtoConnection;
 import java.beans.PropertyDescriptor;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -62,14 +64,22 @@ public class EntityFactory {
                     try
                     {
                         // pokud neexistuje setter, zkusime jestli to neni jen ID
-                        Object concreteClass = em.find(entityClass, value);
-                        // zkusime, zda ma metoda setter na ID
-                        Method wr = o.getClass().getMethod("set" + getMethodName, concreteClass.getClass());
-                        // nasetujem
-                        wr.invoke(o, value);
+                        Annotation a = field.getAnnotation(DtoConnection.class);
+                        if(a instanceof DtoConnection)
+                        {
+                            DtoConnection dtoConnection = (DtoConnection) a;
+                            Class anotClass = Class.forName(dtoConnection.entity());
+                            Object foundValue = em.find(anotClass, value);
+                            // zkusime, zda ma metoda setter na ID
+                            Method wr = o.getClass().getMethod("set" + getMethodName, foundValue.getClass());
+                            // nasetujem
+                            wr.invoke(o, foundValue);
+                        }
                     }
                     catch (NoSuchMethodException e2)
                     {
+                        System.err.println(e2);
+
                     }
                 }
             }

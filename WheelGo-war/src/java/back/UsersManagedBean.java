@@ -4,6 +4,7 @@
  */
 package back;
 
+import dto.EntityFactory;
 import dto.UserDTO;
 import ejb.UserFacade;
 import java.io.Serializable;
@@ -93,10 +94,12 @@ public class UsersManagedBean implements Serializable {
     public List<UserWrapper> getUsers()
     {
         List<UserWrapper> list = new ArrayList<UserWrapper>();
-        for (Object u : userFacade.getAll())
-        {
-            list.add(new UserWrapper((UserDTO) u));
-        }
+        List<Object> allUsers = userFacade.getAll();
+        if (allUsers != null)
+            for (Object u : allUsers)
+            {
+                list.add(new UserWrapper((UserDTO) u));
+            }
         return list;
     }
     

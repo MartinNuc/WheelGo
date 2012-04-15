@@ -22,6 +22,9 @@ public class UserFacade extends FactoryFacade {
     private EntityManager em;
 
     @EJB
+    private EntityFactory entityFactory;
+    
+    @EJB
     private EncryptorBeanLocal encryptor;
     
     
@@ -35,20 +38,20 @@ public class UserFacade extends FactoryFacade {
     }
     
     public void editUser(UserDTO user, String password) {
-        User userToMod = (User) (new EntityFactory()).convertToEntity(user);
+        User userToMod = (User) entityFactory.convertToEntity(user);
         userToMod.setPassword(encryptor.encryptPassword(password, user.getUsername()));
         super.editEntity(userToMod);
     }
     
     public void createUser(UserDTO user, String password) {
-        User userToAdd = (User) (new EntityFactory()).convertToEntity(user);
+        User userToAdd = (User) entityFactory.convertToEntity(user);
         userToAdd.setPassword(encryptor.encryptPassword(password, user.getUsername()));
         super.createEntity(userToAdd);
     }
     
     public void remove(UserDTO user) {
         User entity;
-        entity = (User) (new EntityFactory()).convertToEntity(user);
+        entity = (User) entityFactory.convertToEntity(user);
         entity.setPassword("");
         getEntityManager().remove(getEntityManager().merge(entity));
     }

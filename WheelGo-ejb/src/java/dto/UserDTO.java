@@ -4,6 +4,7 @@
  */
 package dto;
 
+import anotations.DtoConnection;
 import java.io.Serializable;
 import model.Role;
 
@@ -20,6 +21,8 @@ public class UserDTO implements Serializable {
         return username;
     }
     private String phoneId;
+    
+    @DtoConnection(entity = "model.Role")
     private Integer role;
 
     public Integer getRole() {
@@ -27,10 +30,14 @@ public class UserDTO implements Serializable {
     }
     
     public void setRole(Role role) {
+        if (role == null)
+            return;
         this.role = role.getIdRole();
     }
     
     public void setRole(RoleDTO role) {
+        if (role == null)
+            return;
         this.role = role.getIdRole();
     }
     

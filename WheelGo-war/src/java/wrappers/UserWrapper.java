@@ -66,11 +66,20 @@ public class UserWrapper {
 
     public RoleDTO getRole()
     {
+        if (idRole == null)
+            return null;
+        
         return (RoleDTO)roleFacade.find(idRole);
     }
     
     public void setRole(RoleDTO role)
     {
+        if (role == null)
+        {
+            this.role = null;
+            this.idRole = null;
+            return;
+        }
         idRole = role.getIdRole();
         this.role = role;
     }
@@ -80,7 +89,10 @@ public class UserWrapper {
         UserDTO ret = new UserDTO();
         ret.setIdUser(idUser);
         ret.setPhoneId(phoneId);
-        ret.setRole(role);
+        if (role != null)
+            ret.setRole(role);
+        else
+            ret.setRole(idRole);
         ret.setUsername(username);
         return ret;
     }
