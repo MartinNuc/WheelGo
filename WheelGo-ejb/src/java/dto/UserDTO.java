@@ -6,6 +6,7 @@ package dto;
 
 import anotations.DtoConnection;
 import java.io.Serializable;
+import java.util.Collection;
 import model.Role;
 
 /**
@@ -24,6 +25,9 @@ public class UserDTO implements Serializable {
     
     @DtoConnection(entity = "model.Role")
     private Integer role;
+    
+    @DtoConnection(entity = "model.Log")
+    private Collection<Integer> logsCollection;
 
     public Integer getRole() {
         return role;
