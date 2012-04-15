@@ -9,7 +9,6 @@ import dto.PlaceDTO;
 import dto.ProblemDTO;
 import dto.TipDTO;
 import dto.UserDTO;
-import ejb.LogFacade;
 import ejb.UserFacade;
 import java.util.Date;
 import java.util.logging.Level;
