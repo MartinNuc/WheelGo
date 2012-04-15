@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import model.Role;
 import model.User;
 
 /**
@@ -37,10 +38,18 @@ public class UserFacade extends FactoryFacade {
         super(UserDTO.class);
     }
     
-    public void editUser(UserDTO user, String password) {
-        User userToMod = (User) entityFactory.convertToEntity(user);
-        userToMod.setPassword(encryptor.encryptPassword(password, user.getUsername()));
-        super.editEntity(userToMod);
+    public void editUser(UserDTO data, String password) {
+        User toModify = em.find(User.class, data.getIdUser());
+        toModify.setPassword(encryptor.encryptPassword(password, data.getUsername()));
+        setData(data);
+    }
+    
+    public void setData(UserDTO data) {
+        User toModify = em.find(User.class, data.getIdUser());
+        
+        toModify.setUsername(data.getUsername());
+        toModify.setPhoneId(data.getPhoneId());
+        toModify.setRole(em.find(Role.class, data.getRole()));
     }
     
     public void createUser(UserDTO user, String password) {

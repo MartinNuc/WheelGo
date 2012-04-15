@@ -4,8 +4,7 @@
  */
 package model;
 
-import dto.EntityFactory;
-import dto.RoleDTO;
+import dto.UserDTO;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -141,6 +140,7 @@ public class User implements Serializable {
         return true;
     }
 
+    
     @Override
     public String toString() {
         return "model.Users[ idUsers=" + idUser + " ]";
