@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>#{msgs.logs}</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./WEB-INF/includes-templates/wheelgo-template.xhtml">
+            <ui:param name="pageTitle" value="#{msgs.logs}" />
+            <ui:define name="content">
+                <h:form>
+                    <h1><h:outputText value="#{msgs.logs}"/></h1>
+                    <h:commandLink action="#{users.newLog}" value="#{msgs.log_add}" />
+                    <h:dataTable value="#{users.users}" var="item" styleClass="dataTable">
+                        <f:facet name="caption">
+                            <h:outputText value="#{msgs.list_logs_caption}"/>
+                        </f:facet>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs.user}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.username}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs.date}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.date}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs.operation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.operation}"/>
+                        </h:column>
+                        <h:column>
+                            <h:commandButton value="#{msgs.edit}" action="#{logs.editLog(item)}" />
+                        </h:column>
+                        <h:column>
+                            <h:commandButton value="#{msgs.remove}" action="#{logs.removeLog(item)}" />
+                        </h:column>
+                        <h:column>
+                            <h:commandButton value="#{msgs.users_check_passwd}" action="#{users.checkPassword(item)}" />
+                        </h:column>                        
+                    </h:dataTable>
+                    <h:messages />
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
