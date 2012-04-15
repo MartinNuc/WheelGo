@@ -4,11 +4,14 @@
  */
 package dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author mist
  */
-public class PhotosDTO {
+public class PhotosDTO implements Serializable 
+{
     private Integer idRole;
     private String url;
 
