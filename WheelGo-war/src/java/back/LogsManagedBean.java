@@ -4,6 +4,8 @@
  */
 package back;
 
+import dto.LogDTO;
+import ejb.LogFacade;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -23,7 +25,6 @@ public class LogsManagedBean implements Serializable {
     public static final int STATE_MODIFY = 2;
     private int state;
     
-    //private UserDTO userDto = null;
     private LogDTO user;
 
     /** Creates a new instance of LogsManagedBean */
