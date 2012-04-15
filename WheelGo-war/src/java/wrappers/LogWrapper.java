@@ -5,9 +5,7 @@
 package wrappers;
 
 import dto.LogDTO;
-import dto.PlaceDTO;
-import dto.ProblemDTO;
-import dto.TipDTO;
+import dto.ReportDTO;
 import dto.UserDTO;
 import ejb.UserFacade;
 import java.util.Date;
@@ -38,9 +36,7 @@ public class LogWrapper {
     private UserDTO user;
     
     private Integer idReport;
-    private ProblemDTO problem;
-    private PlaceDTO place;
-    private TipDTO tip;
+    private ReportDTO report;
     
     private Date date;
     private Integer operation;
@@ -91,7 +87,6 @@ public class LogWrapper {
         ret.setOperation(operation);
         return ret;
     }
-    
     
     private UserFacade lookupUserFacadeLocal() {
         try {
