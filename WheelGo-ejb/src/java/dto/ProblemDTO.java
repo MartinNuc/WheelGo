@@ -4,6 +4,7 @@
  */
 package dto;
 
+import anotations.DtoConnection;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -24,7 +25,9 @@ public class ProblemDTO implements Serializable
     private float latitude;
     private float longitude;
     private String describtion;
+    @DtoConnection(entity = "model.Photo")
     private Collection<Integer> photosCollection;
+    @DtoConnection(entity = "model.Log")
     private Collection<Integer> logsCollection;
 
     public Date getDate() {

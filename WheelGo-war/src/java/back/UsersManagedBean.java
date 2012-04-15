@@ -4,7 +4,6 @@
  */
 package back;
 
-import dto.EntityFactory;
 import dto.UserDTO;
 import ejb.UserFacade;
 import java.io.Serializable;

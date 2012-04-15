@@ -4,10 +4,6 @@
  */
 package ejb;
 
-/**
- *
- * @author mist
- */
 import dto.PlaceDTO;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
