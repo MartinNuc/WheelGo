@@ -11,19 +11,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
  * @author mist
  */
+@Stateless
 public class EntityFactory {
-        /**
-     * Vraci objekt DTO vytvoreny na zaklade entity
-     * @param entity entita z ktere chceme vytvorit DTO
-     * @return objekt DTO
+    @PersistenceContext(unitName = "WheelGo-ejbPU")
+    protected EntityManager em;
+     /**
+     * Vraci entitu vytvorenou na zaklade DTO
+     * @param DTO z ktereho chceme tvorit Entitu
+     * @return objekt Entity
      */
-    static public Object convertToEntity(Object dto) {
+    public Object convertToEntity(Object dto) {
         Object o;
+        Object value = null;
+        String getMethodName = null;
         try {
             // ziskame tridu entity
             if (dto.getClass().getSimpleName().endsWith("DTO") == false)
@@ -38,18 +46,31 @@ public class EntityFactory {
             for (Field field : fields) {
                 try {
                     // zjistime nazev metody getteru
-                    String getMethodName = Character.toUpperCase(field.getName().charAt(0)) + field.getName().substring(1);
+                    getMethodName = Character.toUpperCase(field.getName().charAt(0)) + field.getName().substring(1);
                     // zkusime, jestli ma field getter
                     System.out.println("wokring on " + "get" + getMethodName);
                     if (entityClass.getMethod("get" + getMethodName) != null) {
                         //System.out.println(field.getName());
                         // precteme hodnotu z dto
-                        Object value = new PropertyDescriptor(field.getName(), dto.getClass()).getReadMethod().invoke(dto);
+                        value = new PropertyDescriptor(field.getName(), dto.getClass()).getReadMethod().invoke(dto);
                         // nastavime hodnotu objektu o hodnotou, ktere ma pole
                         Method wr = o.getClass().getMethod("set" + getMethodName, field.getType());
-                        Object invoke = wr.invoke(o, value);
+                        wr.invoke(o, value);
                     }
-                } catch (NoSuchMethodException e) {
+                } catch (NoSuchMethodException e)
+                {
+                    try
+                    {
+                        // pokud neexistuje setter, zkusime jestli to neni jen ID
+                        Object concreteClass = em.find(entityClass, value);
+                        // zkusime, zda ma metoda setter na ID
+                        Method wr = o.getClass().getMethod("set" + getMethodName, concreteClass.getClass());
+                        // nasetujem
+                        wr.invoke(o, value);
+                    }
+                    catch (NoSuchMethodException e2)
+                    {
+                    }
                 }
             }
         } catch (Throwable e) {
@@ -65,7 +86,7 @@ public class EntityFactory {
      * @param entities kolekce entit
      * @return objekt typu List obsahujici DTO objekty
      */
-    static public List convertArrayToEntities(List dtos) {
+    public List convertArrayToEntities(List dtos) {
         ArrayList list = new ArrayList();
         if (dtos.size() < 1)
             return null;

@@ -35,20 +35,20 @@ public class UserFacade extends FactoryFacade {
     }
     
     public void editUser(UserDTO user, String password) {
-        User userToMod = (User) EntityFactory.convertToEntity(user);
+        User userToMod = (User) (new EntityFactory()).convertToEntity(user);
         userToMod.setPassword(encryptor.encryptPassword(password, user.getUsername()));
         super.editEntity(userToMod);
     }
     
     public void createUser(UserDTO user, String password) {
-        User userToAdd = (User) EntityFactory.convertToEntity(user);
+        User userToAdd = (User) (new EntityFactory()).convertToEntity(user);
         userToAdd.setPassword(encryptor.encryptPassword(password, user.getUsername()));
         super.createEntity(userToAdd);
     }
     
     public void remove(UserDTO user) {
         User entity;
-        entity = (User) EntityFactory.convertToEntity(user);
+        entity = (User) (new EntityFactory()).convertToEntity(user);
         entity.setPassword("");
         getEntityManager().remove(getEntityManager().merge(entity));
     }

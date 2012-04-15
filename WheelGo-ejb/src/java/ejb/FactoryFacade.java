@@ -9,12 +9,14 @@ import dto.EntityFactory;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Local;
 import javax.persistence.EntityManager;
 
 /**
  *
  * @author mist
  */
+@Local
 public abstract class FactoryFacade {
     private Class entityClass;
 
@@ -28,7 +30,7 @@ public abstract class FactoryFacade {
 
     public void create(Object dto) {
         Object entity;
-        entity = EntityFactory.convertToEntity(dto);
+        entity = (new EntityFactory()).convertToEntity(dto);
         getEntityManager().persist(entity);
     }
     
@@ -38,7 +40,7 @@ public abstract class FactoryFacade {
 
     public void edit(Object dto) {
         Object entity;
-        entity = EntityFactory.convertToEntity(dto);
+        entity = (new EntityFactory()).convertToEntity(dto);
         getEntityManager().merge(entity);
     }
 
@@ -48,7 +50,7 @@ public abstract class FactoryFacade {
     
     public void remove(Object dto) {
         Object entity;
-        entity = EntityFactory.convertToEntity(dto);
+        entity = (new EntityFactory()).convertToEntity(dto);
         getEntityManager().remove(getEntityManager().merge(entity));
     }
 

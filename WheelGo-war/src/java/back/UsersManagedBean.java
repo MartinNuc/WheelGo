@@ -7,10 +7,12 @@ package back;
 import dto.UserDTO;
 import ejb.UserFacade;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import wrappers.UserWrapper;
 
 /**
  *
@@ -27,7 +29,8 @@ public class UsersManagedBean implements Serializable {
     public static final int STATE_MODIFY = 2;
     private int state;
     
-    private UserDTO user = null;
+    //private UserDTO userDto = null;
+    private UserWrapper user;
     private String password = "";
     
     private String messageForClient;
@@ -44,18 +47,19 @@ public class UsersManagedBean implements Serializable {
      * Creates a new instance of UsersManagedBean
      */
     public UsersManagedBean() {
+        user = new UserWrapper();
     }
 
-    public UserDTO getUser() {
+    public UserWrapper getUser() {
         return this.user;
     }
 
-    public void setUser(UserDTO user) {
+    public void setUser(UserWrapper user) {
         this.user = user;
     }
 
     public String newUser() {
-       this.user = new UserDTO();
+       this.user = new UserWrapper();
        state = STATE_ADD;
        password = "";
        return "user";
@@ -64,10 +68,10 @@ public class UsersManagedBean implements Serializable {
     public String saveUser() {
         switch (state) {
             case STATE_MODIFY:
-                userFacade.editUser(user, password);
+                userFacade.editUser(user.getDto(), password);
                 break;
             case STATE_ADD:
-                userFacade.createUser(user, password);
+                userFacade.createUser(user.getDto(), password);
                 break;
         }
         state = 0;
@@ -75,23 +79,28 @@ public class UsersManagedBean implements Serializable {
         return "users";
     }
 
-    public String editUser(UserDTO user) {
+    public String editUser(UserWrapper user) {
         this.user = user;
         state = STATE_MODIFY;
         password = "";
         return "user";
     }
 
-    public void removeUser(UserDTO user) {
-        userFacade.remove(user);
+    public void removeUser(UserWrapper user) {
+        userFacade.remove(user.getDto());
     }
     
-    public List<Object> getUsers()
+    public List<UserWrapper> getUsers()
     {
-        return userFacade.getAll();
+        List<UserWrapper> list = new ArrayList<UserWrapper>();
+        for (Object u : userFacade.getAll())
+        {
+            list.add(new UserWrapper((UserDTO) u));
+        }
+        return list;
     }
     
-    public String checkPassword(UserDTO user) {
+    public String checkPassword(UserWrapper user) {
         this.user = user;
         this.password = "";
         this.messageForClient = "";
@@ -99,7 +108,7 @@ public class UsersManagedBean implements Serializable {
     }
     
     public String checkPassword() { 
-        if(userFacade.checkPassword(user, password)) {
+        if(userFacade.checkPassword(user.getDto(), password)) {
             messageForClient = "OK";
         } else {
             messageForClient = "NE";

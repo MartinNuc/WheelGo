@@ -25,6 +25,9 @@ public class DtoFactory {
      */
     static public Object convertToDto(Object entity) {
         Object o;
+        Object value = null;
+        String getMethodName = null;
+
         try {
             // ziskame tridu dto
             Class dtoClass = Class.forName("dto." + entity.getClass().getSimpleName() + "DTO");
@@ -35,15 +38,15 @@ public class DtoFactory {
             for (Field field : fields) {
                 try {
                     // zjistime nazev metody getteru
-                    String getMethodName = Character.toUpperCase(field.getName().charAt(0)) + field.getName().substring(1);
+                    getMethodName = Character.toUpperCase(field.getName().charAt(0)) + field.getName().substring(1);
                     // zkusime, jestli ma field getter
                     if (dtoClass.getMethod("get" + getMethodName) != null) {
                         //System.out.println(field.getName());
                         // precteme hodnotu z entity
-                        Object value = new PropertyDescriptor(field.getName(), entity.getClass()).getReadMethod().invoke(entity);
+                        value = new PropertyDescriptor(field.getName(), entity.getClass()).getReadMethod().invoke(entity);
                         // nastavime hodnotu objektu o hodnotou, ktere ma pole
                         Method wr = o.getClass().getMethod("set" + getMethodName, field.getType());
-                        Object invoke = wr.invoke(o, value);
+                        wr.invoke(o, value);
                     }
                 } catch (NoSuchMethodException e) {
                 }

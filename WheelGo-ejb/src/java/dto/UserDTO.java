@@ -20,20 +20,24 @@ public class UserDTO implements Serializable {
         return username;
     }
     private String phoneId;
-    private RoleDTO role;
+    private Integer role;
 
-    public RoleDTO getRole() {
+    public Integer getRole() {
         return role;
     }
-
-    public void setRole(RoleDTO Role) {
-        this.role = (RoleDTO)Role;
-    }
-
-    public void setRole(Role Role) {
-        this.role = (RoleDTO)DtoFactory.convertToDto(Role);
+    
+    public void setRole(Role role) {
+        this.role = role.getIdRole();
     }
     
+    public void setRole(RoleDTO role) {
+        this.role = role.getIdRole();
+    }
+    
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
     public Integer getIdUser() {
         return idUser;
     }
