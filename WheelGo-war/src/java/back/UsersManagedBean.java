@@ -66,7 +66,7 @@ public class UsersManagedBean implements Serializable {
         this.user = new UserWrapper(roleFacade);
         state = STATE_ADD;
         password = "";
-        return "user";
+        return "userModify";
     }
 
     public String saveUser() {
@@ -80,14 +80,14 @@ public class UsersManagedBean implements Serializable {
         }
         state = 0;
         password = "";
-        return "users";
+        return "usersMainList";
     }
 
     public String editUser(UserWrapper user) {
         this.user = user;
         state = STATE_MODIFY;
         password = "";
-        return "user";
+        return "userModify";
     }
 
     public void removeUser(UserWrapper user) {

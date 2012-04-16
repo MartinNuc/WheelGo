@@ -18,10 +18,10 @@
         </resource-bundle>
     </application>
     <navigation-rule>
-        <from-view-id>/users.xhtml</from-view-id>
+        <from-view-id>/usersMainList.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>user</from-outcome>
-            <to-view-id>/user.xhtml</to-view-id>
+            <from-outcome>userModify</from-outcome>
+            <to-view-id>/userModify.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -33,8 +33,8 @@
             <redirect />
         </navigation-case>
          <navigation-case>
-            <from-outcome>users</from-outcome>
-            <to-view-id>/users.xhtml</to-view-id>
+            <from-outcome>usersMainList</from-outcome>
+            <to-view-id>/usersMainList.xhtml</to-view-id>
             <redirect />
         </navigation-case>
         
