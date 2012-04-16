@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "photo")
 @XmlRootElement
 public class Photo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +28,13 @@ public class Photo implements Serializable {
     @Column(name = "url", length = 256)
     private String url;
     @JoinColumn(name = "idReport", referencedColumnName = "idReport", nullable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = 
+            false)
     private Report report;
+    @Lob
+    @Basic
+    @Column(columnDefinition = "BLOB NOT NULL")
+    private byte[] pictureData;
 
     public Photo() {
     }
@@ -85,5 +91,18 @@ public class Photo implements Serializable {
     public String toString() {
         return "model.Photos[ idPhotos=" + idPhoto + " ]";
     }
-    
+
+    /**
+     * @return the pictureData
+     */
+    public byte[] getPictureData() {
+        return pictureData;
+    }
+
+    /**
+     * @param pictureData the pictureData to set
+     */
+    public void setPictureData(byte[] pictureData) {
+        this.pictureData = pictureData;
+    }
 }

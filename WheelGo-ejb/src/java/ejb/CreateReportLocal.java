@@ -4,6 +4,8 @@
  */
 package ejb;
 
+import dto.UserDTO;
+import java.util.Date;
 import javax.ejb.Local;
 
 /**
@@ -12,5 +14,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface CreateReportLocal {
-    
+
+    void createProblem(UserDTO user, String problemName,
+            Date date, float latitude, float longitude);
 }
