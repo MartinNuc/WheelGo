@@ -34,7 +34,6 @@ public class UsersManagedBean implements Serializable {
     public static final int STATE_MODIFY = 2;
     private int state;
     
-    //private UserDTO userDto = null;
     private UserWrapper user;
     private String password = "";
     private String messageForClient;
@@ -51,7 +50,6 @@ public class UsersManagedBean implements Serializable {
      * Creates a new instance of UsersManagedBean
      */
     public UsersManagedBean() {
-//        user = new UserWrapper(roleFacade);
     }
 
     public UserWrapper getUser() {
