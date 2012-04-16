@@ -13,7 +13,7 @@ import javax.ejb.Local;
  * @author mist
  */
 @Local
-interface UserFacadeLocal {
+public interface UserFacadeLocal {
     public void create(UserDTO user, String password);
     public void edit(UserDTO data, String password);
     public void edit(UserDTO data);

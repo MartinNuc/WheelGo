@@ -5,7 +5,8 @@
 package back;
 
 import dto.UserDTO;
-import ejb.UserFacade;
+import ejb.RoleFacadeLocal;
+import ejb.UserFacadeLocal;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,15 @@ import wrappers.UserWrapper;
  * @author mist
  */
 //@Named(value = "usersManagedBean")
-@ManagedBean(name="users")
+@ManagedBean(name = "users")
 @SessionScoped
 public class UsersManagedBean implements Serializable {
+
     @EJB
-    private UserFacade userFacade;
+    public UserFacadeLocal userFacade;
+    
+    @EJB
+    private RoleFacadeLocal roleFacade;
     
     public static final int STATE_ADD = 1;
     public static final int STATE_MODIFY = 2;
@@ -32,7 +37,6 @@ public class UsersManagedBean implements Serializable {
     //private UserDTO userDto = null;
     private UserWrapper user;
     private String password = "";
-    
     private String messageForClient;
 
     public String getPassword() {
@@ -47,7 +51,7 @@ public class UsersManagedBean implements Serializable {
      * Creates a new instance of UsersManagedBean
      */
     public UsersManagedBean() {
-        user = new UserWrapper();
+//        user = new UserWrapper(roleFacade);
     }
 
     public UserWrapper getUser() {
@@ -59,10 +63,10 @@ public class UsersManagedBean implements Serializable {
     }
 
     public String newUser() {
-       this.user = new UserWrapper();
-       state = STATE_ADD;
-       password = "";
-       return "user";
+        this.user = new UserWrapper(roleFacade);
+        state = STATE_ADD;
+        password = "";
+        return "user";
     }
 
     public String saveUser() {
@@ -89,28 +93,27 @@ public class UsersManagedBean implements Serializable {
     public void removeUser(UserWrapper user) {
         userFacade.remove(user.getDto());
     }
-    
-    public List<UserWrapper> getUsers()
-    {
+
+    public List<UserWrapper> getUsers() {
         List<UserWrapper> list = new ArrayList<UserWrapper>();
         List<UserDTO> allUsers = userFacade.getAll();
-        if (allUsers != null)
-            for (UserDTO u : allUsers)
-            {
-                list.add(new UserWrapper(u));
+        if (allUsers != null) {
+            for (UserDTO u : allUsers) {
+                list.add(new UserWrapper(u, roleFacade));
             }
+        }
         return list;
     }
-    
+
     public String checkPassword(UserWrapper user) {
         this.user = user;
         this.password = "";
         this.messageForClient = "";
         return "userCheckPassword";
     }
-    
-    public String checkPassword() { 
-        if(userFacade.checkPassword(user.getDto(), password)) {
+
+    public String checkPassword() {
+        if (userFacade.checkPassword(user.getDto(), password)) {
             messageForClient = "OK";
         } else {
             messageForClient = "NE";
@@ -124,5 +127,4 @@ public class UsersManagedBean implements Serializable {
     public String getMessageForClient() {
         return messageForClient;
     }
-    
 }

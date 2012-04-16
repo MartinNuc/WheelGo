@@ -5,28 +5,30 @@
 package converter;
 
 import dto.RoleDTO;
-import ejb.RoleFacade;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import ejb.RoleFacadeLocal;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 /**
  *
  * @author mist
  */
-@FacesConverter(value = "roleConv")
+@ManagedBean(name = "RoleConverter")
+@FacesConverter(value = "RoleConverter")
 public class RoleConverter implements Converter {
-    private RoleFacade roleFacade = lookupRolesFacadeLocal();
+    
+    @EJB
+    private RoleFacadeLocal roleFacade;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        RoleDTO out = (RoleDTO) roleFacade.find(Integer.parseInt(value));
+        RoleDTO out = roleFacade.find(Integer.parseInt(value));
+        System.out.println("out=" + out + " value=" + value);
         return out;
     }
 
@@ -34,15 +36,4 @@ public class RoleConverter implements Converter {
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         return String.valueOf(((RoleDTO) value).getIdRole());
     }
-
-    private RoleFacade lookupRolesFacadeLocal() {
-        try {
-            Context c = new InitialContext();
-            return (RoleFacade) c.lookup("java:global/WheelGo/WheelGo-ejb/RoleFacade!ejb.RoleFacade");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
 }

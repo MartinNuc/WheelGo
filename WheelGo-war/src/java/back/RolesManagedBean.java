@@ -5,7 +5,8 @@
 package back;
 
 import dto.RoleDTO;
-import ejb.RoleFacade;
+import ejb.RoleFacadeLocal;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -18,12 +19,15 @@ import javax.faces.bean.SessionScoped;
 //@Named(value = "rolesManagedBean")
 @ManagedBean(name = "roles")
 @SessionScoped
-public class RolesManagedBean {
+public class RolesManagedBean implements Serializable {
 
     public static final int STATE_ADD = 1;
     public static final int STATE_MODIFY = 2;
+    
     @EJB
-    private RoleFacade rolesFacade;
+    private RoleFacadeLocal rolesFacade;
+    
+    
     private RoleDTO role;
     private int state;
 

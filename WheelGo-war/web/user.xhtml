@@ -27,7 +27,7 @@
                         <h:message for="sn" errorClass="errorRequired"/>
 
                         <h:outputText value="#{msgs.inrole}:" />
-                        <h:selectOneListbox id="inRole" value="#{users.user.role}" required="true" label="#{msgs.inrole}" converter="roleConv">
+                        <h:selectOneListbox id="inRole" value="#{users.user.role}" required="true" label="#{msgs.inrole}" converter="#{RoleConverter}">
                             <f:selectItems value="#{roles.roles}"/>
                         </h:selectOneListbox>
                         <h:message for="inRole" />

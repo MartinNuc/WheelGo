@@ -6,19 +6,31 @@ package wrappers;
 
 import dto.RoleDTO;
 import dto.UserDTO;
-import ejb.RoleFacade;
-import javax.ejb.EJB;
+import ejb.RoleFacadeLocal;
 
 /**
  *
  * @author mist
  */
 public class UserWrapper {
-    @EJB
-    private RoleFacade roleFacade;
 
+    RoleFacadeLocal roleFacade;
     private Integer idUser;
+    
+    public UserWrapper(RoleFacadeLocal roleFacade) {
+        this.roleFacade = roleFacade;
+    }
 
+    public UserWrapper(UserDTO userDto, RoleFacadeLocal roleFacade) {
+        this.roleFacade = roleFacade;
+        
+        idUser = userDto.getIdUser();
+        username = userDto.getUsername();
+        phoneId = userDto.getPhoneId();
+        idRole = userDto.getRole();
+    }
+    
+    
     public Integer getIdUser() {
         return idUser;
     }
@@ -44,35 +56,20 @@ public class UserWrapper {
     }
     private String username;
     private String phoneId;
-    
     private Integer idRole;
     private RoleDTO role;
-    
-    public UserWrapper()
-    {
-        
-    }
-    
-    public UserWrapper(UserDTO userDto)
-    {
-        idUser = userDto.getIdUser();
-        username = userDto.getUsername();
-        phoneId = userDto.getPhoneId();
-        idRole = userDto.getRole();
+
+
+    public RoleDTO getRole() {
+        if (idRole == null) {
+            return null;
+        }
+
+        return roleFacade.find(idRole);
     }
 
-    public RoleDTO getRole()
-    {
-        if (idRole == null)
-            return null;
-        
-        return (RoleDTO)roleFacade.find(idRole);
-    }
-    
-    public void setRole(RoleDTO role)
-    {
-        if (role == null)
-        {
+    public void setRole(RoleDTO role) {
+        if (role == null) {
             this.role = null;
             this.idRole = null;
             return;
@@ -80,29 +77,18 @@ public class UserWrapper {
         idRole = role.getIdRole();
         this.role = role;
     }
-    
-    public UserDTO getDto()
-    {
+
+    public UserDTO getDto() {
         UserDTO ret = new UserDTO();
         ret.setIdUser(idUser);
         ret.setPhoneId(phoneId);
-        if (role != null)
+        if (role != null) {
             ret.setRole(role.getIdRole());
-        else
+        } else {
             ret.setRole(idRole);
+        }
         ret.setUsername(username);
         return ret;
     }
-    
-    /*
-    private RoleFacade lookupRolesFacadeLocal() {
-        try {
-            Context c = new InitialContext();
-            return (RoleFacade) c.lookup("java:global/WheelGo/WheelGo-ejb/RoleFacade!ejb.RoleFacade");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }*/
 
 }

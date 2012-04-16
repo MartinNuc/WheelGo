@@ -126,9 +126,6 @@ is divided into following sections:
         <condition property="is.server.weblogic" value="true">
             <equals arg1="${j2ee.server.type}" arg2="WebLogic9"/>
         </condition>
-        <condition property="is.jars.in.ejbjar" value="true">
-            <equals arg1="${jars.in.ejbjar}" arg2="true"/>
-        </condition>
         <condition else="false" property="jdkBug6558476">
             <and>
                 <matches pattern="1\.[56]" string="${java.specification.version}"/>
@@ -477,9 +474,7 @@ exists or setup the property manually. For example like this:
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="compile,-library-inclusion-in-archive-weblogic,-library-inclusion-in-archive-by-user" name="library-inclusion-in-archive"/>
-    <target if="is.jars.in.ejbjar" name="-library-inclusion-in-archive-by-user"/>
-    <target if="is.server.weblogic" name="-library-inclusion-in-archive-weblogic">
+    <target depends="compile" if="is.server.weblogic" name="library-inclusion-in-archive">
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">

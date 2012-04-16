@@ -21,23 +21,17 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
-    
     <ejb-local-ref>
         <ejb-ref-name>UserFacade</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>WheelGo.ejb.UserFacade</local>
+        <local>ejb.UserFacadeLocal</local>
         <ejb-link>WheelGo-ejb.jar#UserFacade</ejb-link>
     </ejb-local-ref>
     <ejb-local-ref>
         <ejb-ref-name>RoleFacade</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>WheelGo.ejb.RoleFacade</local>
+        <local-home/>
+        <local>ejb.RoleFacadeLocal</local>
         <ejb-link>WheelGo-ejb.jar#RoleFacade</ejb-link>
-    </ejb-local-ref>
-    <ejb-local-ref>
-        <ejb-ref-name>LogFacade</ejb-ref-name>
-        <ejb-ref-type>Session</ejb-ref-type>
-        <local>WheelGo.ejb.LogFacade</local>
-        <ejb-link>WheelGo-ejb.jar#LogFacade</ejb-link>
     </ejb-local-ref>
 </web-app>
