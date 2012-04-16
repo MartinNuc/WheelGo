@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb;
+package ejb.facades.implementation;
 
-import dto.ProblemDTO;
+import ejb.facades.interfaces.PlaceFacadeLocal;
+import dto.PlaceDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -14,14 +15,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import model.Log;
 import model.Photo;
-import model.Problem;
+import model.Place;
 
 /**
  *
  * @author mist
  */
 @Stateless
-public class ProblemFacade extends AbstractFacade<Problem> implements ProblemFacadeLocal {
+public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLocal {
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
 
@@ -30,19 +31,18 @@ public class ProblemFacade extends AbstractFacade<Problem> implements ProblemFac
         return em;
     }
 
-    public ProblemFacade() {
-        super(Problem.class);
+    public PlaceFacade() {
+        super(Place.class);
     }
     
-
     @Override
-    public void edit(ProblemDTO dto) {
-        Problem entity = em.find(Problem.class, dto.getIdReport());
-        entity.setExpiration(dto.getExpiration());
+    public void edit(PlaceDTO dto) {
+        Place entity = em.find(Place.class, dto.getIdReport());
+        entity.setAccesibility(dto.getAccesibility());
         entity.setDate(dto.getDate());
         entity.setDescribtion(dto.getDescribtion());
         entity.setIdReport(dto.getIdReport());
-        entity.setIdProblem(dto.getIdReport());
+        entity.setIdPlace(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
         
         List<Log> logs = new ArrayList<Log>();
@@ -59,14 +59,14 @@ public class ProblemFacade extends AbstractFacade<Problem> implements ProblemFac
         entity.setPhotos(photos);
     }
     
-    private Problem toEntity(ProblemDTO dto)
+    private Place toEntity(PlaceDTO dto)
     {
-        Problem entity = new Problem();
-        entity.setExpiration(dto.getExpiration());
+        Place entity = new Place();
         entity.setDate(dto.getDate());
+        entity.setAccesibility(dto.getAccesibility());
         entity.setDescribtion(dto.getDescribtion());
         entity.setIdReport(dto.getIdReport());
-        entity.setIdProblem(dto.getIdReport());
+        entity.setIdPlace(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
         
         List<Log> logs = new ArrayList<Log>();
@@ -86,23 +86,23 @@ public class ProblemFacade extends AbstractFacade<Problem> implements ProblemFac
     }
     
     @Override
-    public void remove(ProblemDTO Problem) {
-        Problem entity;
-        entity = em.find(Problem.class, Problem.getIdReport());
+    public void remove(PlaceDTO Place) {
+        Place entity;
+        entity = em.find(Place.class, Place.getIdReport());
         getEntityManager().remove(getEntityManager().merge(entity));
     }
     
     @Override
-    public ProblemDTO find(Object id) {
-        Problem output = getEntityManager().find(Problem.class, id);
+    public PlaceDTO find(Object id) {
+        Place output = getEntityManager().find(Place.class, id);
         return toDTO(output);
     }
     
-    private ProblemDTO toDTO(Problem entity)
+    private PlaceDTO toDTO(Place entity)
     {
-        ProblemDTO dto = new ProblemDTO();
-        dto.setExpiration(entity.getExpiration());
+        PlaceDTO dto = new PlaceDTO();
         dto.setDate(entity.getDate());
+        dto.setAccesibility(entity.getAccesibility());
         dto.setDescribtion(entity.getDescribtion());
         dto.setIdReport(entity.getIdReport());
         dto.setLatitude(entity.getLatitude());
@@ -122,10 +122,10 @@ public class ProblemFacade extends AbstractFacade<Problem> implements ProblemFac
         return dto;
     }
     
-    private List<ProblemDTO> toDTOs(List<Problem> entities)
+    private List<PlaceDTO> toDTOs(List<Place> entities)
     {
-        List<ProblemDTO> dtos = new ArrayList<ProblemDTO>();
-        for (Problem entity : entities)
+        List<PlaceDTO> dtos = new ArrayList<PlaceDTO>();
+        for (Place entity : entities)
         {
             dtos.add(toDTO(entity));
         }
@@ -133,35 +133,34 @@ public class ProblemFacade extends AbstractFacade<Problem> implements ProblemFac
     }
     
     @Override
-    public List<ProblemDTO> getAll()
+    public List<PlaceDTO> getAll()
     {
         try {
             javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Problem.class));
+            cq.select(cq.from(Place.class));
             List entities = getEntityManager().createQuery(cq).getResultList();
             return toDTOs(entities);
         } catch (SecurityException ex) {
-            Logger.getLogger(ProblemFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlaceFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public void create(ProblemDTO Problem) {
-        Problem newProblem = toEntity(Problem);
-        getEntityManager().persist(newProblem);
+    public void create(PlaceDTO Place) {
+        Place newPlace = toEntity(Place);
+        getEntityManager().persist(newPlace);
 
     }
 
     @Override
-    public List<ProblemDTO> getRange(int[] range) {
+    public List<PlaceDTO> getRange(int[] range) {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        cq.select(cq.from(Problem.class));
+        cq.select(cq.from(Place.class));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(range[1] - range[0]);
         q.setFirstResult(range[0]);
         return toDTOs(q.getResultList());
     }
-
     
 }

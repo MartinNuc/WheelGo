@@ -5,7 +5,7 @@
 package converter;
 
 import dto.RoleDTO;
-import ejb.RoleFacadeLocal;
+import ejb.facades.interfaces.RoleFacadeLocal;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;

@@ -5,7 +5,7 @@
 package back;
 
 import dto.LogDTO;
-import ejb.LogFacade;
+import ejb.facades.implementation.LogFacade;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;

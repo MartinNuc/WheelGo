@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb;
+package ejb.facades.implementation;
 
-import dto.PlaceDTO;
+import ejb.facades.interfaces.ReportFacadeLocal;
+import dto.ReportDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -14,14 +15,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import model.Log;
 import model.Photo;
-import model.Place;
+import model.Report;
 
 /**
  *
  * @author mist
  */
 @Stateless
-public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLocal {
+public class ReportFacade extends AbstractFacade<Report> implements ReportFacadeLocal {
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
 
@@ -30,18 +31,17 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
         return em;
     }
 
-    public PlaceFacade() {
-        super(Place.class);
+    public ReportFacade() {
+        super(Report.class);
     }
     
     @Override
-    public void edit(PlaceDTO dto) {
-        Place entity = em.find(Place.class, dto.getIdReport());
-        entity.setAccesibility(dto.getAccesibility());
+    public void edit(ReportDTO dto) {
+        Report entity = em.find(Report.class, dto.getIdReport());
         entity.setDate(dto.getDate());
         entity.setDescribtion(dto.getDescribtion());
         entity.setIdReport(dto.getIdReport());
-        entity.setIdPlace(dto.getIdReport());
+        entity.setIdReport(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
         
         List<Log> logs = new ArrayList<Log>();
@@ -58,14 +58,13 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
         entity.setPhotos(photos);
     }
     
-    private Place toEntity(PlaceDTO dto)
+    private Report toEntity(ReportDTO dto)
     {
-        Place entity = new Place();
+        Report entity = new Report();
         entity.setDate(dto.getDate());
-        entity.setAccesibility(dto.getAccesibility());
         entity.setDescribtion(dto.getDescribtion());
         entity.setIdReport(dto.getIdReport());
-        entity.setIdPlace(dto.getIdReport());
+        entity.setIdReport(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
         
         List<Log> logs = new ArrayList<Log>();
@@ -85,23 +84,22 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
     }
     
     @Override
-    public void remove(PlaceDTO Place) {
-        Place entity;
-        entity = em.find(Place.class, Place.getIdReport());
+    public void remove(ReportDTO Report) {
+        Report entity;
+        entity = em.find(Report.class, Report.getIdReport());
         getEntityManager().remove(getEntityManager().merge(entity));
     }
     
     @Override
-    public PlaceDTO find(Object id) {
-        Place output = getEntityManager().find(Place.class, id);
+    public ReportDTO find(Object id) {
+        Report output = getEntityManager().find(Report.class, id);
         return toDTO(output);
     }
     
-    private PlaceDTO toDTO(Place entity)
+    private ReportDTO toDTO(Report entity)
     {
-        PlaceDTO dto = new PlaceDTO();
+        ReportDTO dto = new ReportDTO();
         dto.setDate(entity.getDate());
-        dto.setAccesibility(entity.getAccesibility());
         dto.setDescribtion(entity.getDescribtion());
         dto.setIdReport(entity.getIdReport());
         dto.setLatitude(entity.getLatitude());
@@ -121,10 +119,10 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
         return dto;
     }
     
-    private List<PlaceDTO> toDTOs(List<Place> entities)
+    private List<ReportDTO> toDTOs(List<Report> entities)
     {
-        List<PlaceDTO> dtos = new ArrayList<PlaceDTO>();
-        for (Place entity : entities)
+        List<ReportDTO> dtos = new ArrayList<ReportDTO>();
+        for (Report entity : entities)
         {
             dtos.add(toDTO(entity));
         }
@@ -132,30 +130,30 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
     }
     
     @Override
-    public List<PlaceDTO> getAll()
+    public List<ReportDTO> getAll()
     {
         try {
             javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Place.class));
+            cq.select(cq.from(Report.class));
             List entities = getEntityManager().createQuery(cq).getResultList();
             return toDTOs(entities);
         } catch (SecurityException ex) {
-            Logger.getLogger(PlaceFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public void create(PlaceDTO Place) {
-        Place newPlace = toEntity(Place);
-        getEntityManager().persist(newPlace);
+    public void create(ReportDTO Report) {
+        Report newReport = toEntity(Report);
+        getEntityManager().persist(newReport);
 
     }
 
     @Override
-    public List<PlaceDTO> getRange(int[] range) {
+    public List<ReportDTO> getRange(int[] range) {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        cq.select(cq.from(Place.class));
+        cq.select(cq.from(Report.class));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(range[1] - range[0]);
         q.setFirstResult(range[0]);

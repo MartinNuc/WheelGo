@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb;
+package ejb.facades.implementation;
 
+import ejb.facades.interfaces.RoleFacadeLocal;
 import dto.RoleDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +56,10 @@ public class RoleFacade extends AbstractFacade<Role> implements RoleFacadeLocal 
         entity.setName(dto.getName());
 
         List<User> users = new ArrayList<User>();
-        for (Integer logId : dto.getUsers()) {
-            users.add(em.find(User.class, logId));
+        if (dto.getUsers() != null) {
+            for (Integer logId : dto.getUsers()) {
+                users.add(em.find(User.class, logId));
+            }
         }
         entity.setUsersCollection(users);
 

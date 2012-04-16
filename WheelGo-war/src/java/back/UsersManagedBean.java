@@ -5,8 +5,8 @@
 package back;
 
 import dto.UserDTO;
-import ejb.RoleFacadeLocal;
-import ejb.UserFacadeLocal;
+import ejb.facades.interfaces.RoleFacadeLocal;
+import ejb.facades.interfaces.UserFacadeLocal;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

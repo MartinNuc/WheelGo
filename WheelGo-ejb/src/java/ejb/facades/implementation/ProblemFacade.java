@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb;
+package ejb.facades.implementation;
 
-import dto.ReportDTO;
+import ejb.facades.interfaces.ProblemFacadeLocal;
+import dto.ProblemDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -14,14 +15,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import model.Log;
 import model.Photo;
-import model.Report;
+import model.Problem;
 
 /**
  *
  * @author mist
  */
 @Stateless
-public class ReportFacade extends AbstractFacade<Report> implements ReportFacadeLocal {
+public class ProblemFacade extends AbstractFacade<Problem> implements ProblemFacadeLocal {
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
 
@@ -30,17 +31,19 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         return em;
     }
 
-    public ReportFacade() {
-        super(Report.class);
+    public ProblemFacade() {
+        super(Problem.class);
     }
     
+
     @Override
-    public void edit(ReportDTO dto) {
-        Report entity = em.find(Report.class, dto.getIdReport());
+    public void edit(ProblemDTO dto) {
+        Problem entity = em.find(Problem.class, dto.getIdReport());
+        entity.setExpiration(dto.getExpiration());
         entity.setDate(dto.getDate());
         entity.setDescribtion(dto.getDescribtion());
         entity.setIdReport(dto.getIdReport());
-        entity.setIdReport(dto.getIdReport());
+        entity.setIdProblem(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
         
         List<Log> logs = new ArrayList<Log>();
@@ -57,13 +60,14 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         entity.setPhotos(photos);
     }
     
-    private Report toEntity(ReportDTO dto)
+    private Problem toEntity(ProblemDTO dto)
     {
-        Report entity = new Report();
+        Problem entity = new Problem();
+        entity.setExpiration(dto.getExpiration());
         entity.setDate(dto.getDate());
         entity.setDescribtion(dto.getDescribtion());
         entity.setIdReport(dto.getIdReport());
-        entity.setIdReport(dto.getIdReport());
+        entity.setIdProblem(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
         
         List<Log> logs = new ArrayList<Log>();
@@ -83,21 +87,22 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
     }
     
     @Override
-    public void remove(ReportDTO Report) {
-        Report entity;
-        entity = em.find(Report.class, Report.getIdReport());
+    public void remove(ProblemDTO Problem) {
+        Problem entity;
+        entity = em.find(Problem.class, Problem.getIdReport());
         getEntityManager().remove(getEntityManager().merge(entity));
     }
     
     @Override
-    public ReportDTO find(Object id) {
-        Report output = getEntityManager().find(Report.class, id);
+    public ProblemDTO find(Object id) {
+        Problem output = getEntityManager().find(Problem.class, id);
         return toDTO(output);
     }
     
-    private ReportDTO toDTO(Report entity)
+    private ProblemDTO toDTO(Problem entity)
     {
-        ReportDTO dto = new ReportDTO();
+        ProblemDTO dto = new ProblemDTO();
+        dto.setExpiration(entity.getExpiration());
         dto.setDate(entity.getDate());
         dto.setDescribtion(entity.getDescribtion());
         dto.setIdReport(entity.getIdReport());
@@ -118,10 +123,10 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         return dto;
     }
     
-    private List<ReportDTO> toDTOs(List<Report> entities)
+    private List<ProblemDTO> toDTOs(List<Problem> entities)
     {
-        List<ReportDTO> dtos = new ArrayList<ReportDTO>();
-        for (Report entity : entities)
+        List<ProblemDTO> dtos = new ArrayList<ProblemDTO>();
+        for (Problem entity : entities)
         {
             dtos.add(toDTO(entity));
         }
@@ -129,34 +134,35 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
     }
     
     @Override
-    public List<ReportDTO> getAll()
+    public List<ProblemDTO> getAll()
     {
         try {
             javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Report.class));
+            cq.select(cq.from(Problem.class));
             List entities = getEntityManager().createQuery(cq).getResultList();
             return toDTOs(entities);
         } catch (SecurityException ex) {
-            Logger.getLogger(ReportFacade.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProblemFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public void create(ReportDTO Report) {
-        Report newReport = toEntity(Report);
-        getEntityManager().persist(newReport);
+    public void create(ProblemDTO Problem) {
+        Problem newProblem = toEntity(Problem);
+        getEntityManager().persist(newProblem);
 
     }
 
     @Override
-    public List<ReportDTO> getRange(int[] range) {
+    public List<ProblemDTO> getRange(int[] range) {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        cq.select(cq.from(Report.class));
+        cq.select(cq.from(Problem.class));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(range[1] - range[0]);
         q.setFirstResult(range[0]);
         return toDTOs(q.getResultList());
     }
+
     
 }

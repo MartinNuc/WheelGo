@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb;
+package ejb.facades.implementation;
 
+import ejb.facades.interfaces.LogFacadeLocal;
 import dto.LogDTO;
 import java.util.ArrayList;
 import java.util.List;

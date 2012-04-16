@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb;
+package ejb.facades.interfaces;
 
 import dto.PhotoDTO;
 import java.util.List;

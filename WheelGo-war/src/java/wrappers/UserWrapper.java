@@ -6,7 +6,7 @@ package wrappers;
 
 import dto.RoleDTO;
 import dto.UserDTO;
-import ejb.RoleFacadeLocal;
+import ejb.facades.interfaces.RoleFacadeLocal;
 
 /**
  *

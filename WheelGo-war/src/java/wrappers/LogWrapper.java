@@ -7,7 +7,7 @@ package wrappers;
 import dto.LogDTO;
 import dto.ReportDTO;
 import dto.UserDTO;
-import ejb.UserFacadeLocal;
+import ejb.facades.interfaces.UserFacadeLocal;
 import java.util.Date;
 
 /**
