@@ -19,9 +19,10 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "report")
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
 public class Report implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +56,15 @@ public class Report implements Serializable {
     private Collection<Log> logsCollection;
 
     public Report() {
+    }
+
+    public Report(Report src) {
+        setName(src.getName());
+        setDescribtion(src.getDescribtion());
+        setLatitude(src.getLatitude());
+        setLongitude(src.getLongitude());
+        setPhotos(src.getPhotos());
+        setDate(src.getDate());
     }
 
     public Report(Integer idReport) {
@@ -158,5 +168,4 @@ public class Report implements Serializable {
     public String toString() {
         return "model.Report[ idReport=" + idReport + " ]";
     }
-    
 }

@@ -21,37 +21,41 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "tip")
-@PrimaryKeyJoinColumn(name="idTip")
+@PrimaryKeyJoinColumn(name = "idTip")
 @XmlRootElement
 public class Tip extends Report implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "idTip", nullable = false)
     private Integer idTip;
-
+    
     public Tip() {
     }
-
+    
+    public Tip(Report src) {
+        super(src);
+    }
+    
     public Tip(Integer idTip) {
         this.idTip = idTip;
     }
-
+    
     public Integer getIdTip() {
         return idTip;
     }
-
+    
     public void setIdTip(Integer idTip) {
         this.idTip = idTip;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (idTip != null ? idTip.hashCode() : 0);
         return hash;
     }
-
+    
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -64,10 +68,9 @@ public class Tip extends Report implements Serializable {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
         return "model.Tip[ idTip=" + idTip + " ]";
     }
-    
 }

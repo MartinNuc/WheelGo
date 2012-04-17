@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <title>#{msgs.report_create}</title>
     </h:head>
@@ -33,8 +34,23 @@
                             <f:selectItem itemValue="Tip" itemLabel="Tip" />
                             <f:selectItem itemValue="Place" itemLabel="Place" />
                             <f:selectItem itemValue="Problem" itemLabel="Problem" />
-                        </h:selectOneRadio>                        
+                        </h:selectOneRadio>
+                        <h:outputText value="" />
 
+                        <c:if test="#{createReport.state=='Tip'}">
+                        </c:if>
+
+                        <c:if test="#{createReport.state=='Place'}">
+                        </c:if>
+
+                        <c:if test="#{createReport.state=='Problem'}">
+                            <h:outputText value="#{msgs.report_expiration}:" />
+                            <h:inputText value="#{createReport.expiration}" id="fn4" label="#{msgs.report_expiration}" required="true" requiredMessage="#{msgs.required_message}">
+                                <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+                            </h:inputText>    
+                            <h:message for="fn4" errorClass="errorRequired"/>
+
+                        </c:if>
 
                     </h:panelGrid>
                     <h:commandButton type="submit" value="#{msgs.report_continue}" action="#{createReport.moveToNextStage}"/>

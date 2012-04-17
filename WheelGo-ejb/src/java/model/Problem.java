@@ -29,6 +29,10 @@ public class Problem extends Report implements Serializable {
 
     public Problem() {
     }
+    
+    public Problem(Report src) {
+        super(src);
+    }
 
     public Problem(Integer idProblem) {
         this.idProblem = idProblem;
