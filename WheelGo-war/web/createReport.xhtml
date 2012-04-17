@@ -41,6 +41,11 @@
                         </c:if>
 
                         <c:if test="#{createReport.state=='Place'}">
+                            <h:outputText value="#{msgs.report_accesibility}:" />
+                            <h:inputText value="#{createReport.accesibility}" id="fn5" label="#{msgs.report_accesibility}" required="true" requiredMessage="#{msgs.required_message}">
+                            </h:inputText>    
+                            <h:message for="fn5" errorClass="errorRequired"/>
+                            
                         </c:if>
 
                         <c:if test="#{createReport.state=='Problem'}">

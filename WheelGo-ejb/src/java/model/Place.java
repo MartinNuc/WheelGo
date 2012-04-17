@@ -39,6 +39,9 @@ public class Place extends Report implements Serializable {
     public Place() {
     }
 
+    public Place(Report src) {
+        super(src);
+    }
 
     public int getAccesibility() {
         return accesibility;

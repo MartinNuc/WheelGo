@@ -47,8 +47,14 @@ public class CreateReport implements CreateReportLocal {
     }
 
     public CreateReport() {
+        clear();
+    }
+
+    @Override
+    public void clear() {
         instance = new Report();
         fillReport(null, "", new Date(), 0, 0);
+
     }
 
     @Override
@@ -57,18 +63,17 @@ public class CreateReport implements CreateReportLocal {
         instance = new Problem(instance);
 
     }
-    
+
     @Override
     public void createProblem() {
         if (state != TYPE_PROBLEM_PRE || !(instance instanceof Problem)) {
             throw new IllegalStateException("Attemp to save invalid problem.");
-        }        
+        }
         em.persist(instance);
         instance = em.merge(instance);
-        
+
         state = TYPE_PROBLEM;
     }
-    
 
     @Override
     public void createTip() {
@@ -79,11 +84,20 @@ public class CreateReport implements CreateReportLocal {
     }
 
     @Override
-    public void createPlace(UserDTO user, String problemName,
-            Date date, float latitude, float longitude) {
+    public void createPlacePre() {
+        state = TYPE_PLACE_PRE;
+        instance = new Place(instance);
+    }
+
+    @Override
+    public void createPlace() {
+        if (state != TYPE_PLACE_PRE || !(instance instanceof Place)) {
+            throw new IllegalStateException("Attemp to save invalid problem.");
+        }
+        em.persist(instance);
+        instance = em.merge(instance);
+
         state = TYPE_PLACE;
-        instance = new Place();
-        fillReport(user, problemName, date, latitude, longitude);
     }
 
     @Override
@@ -103,9 +117,17 @@ public class CreateReport implements CreateReportLocal {
     }
 
     @Override
+    public int getAccesibility() {
+        if (state != TYPE_PLACE && state != TYPE_PLACE_PRE) {
+            throw new IllegalStateException("Attemp to set accesibility on invalid problem.");
+        }
+        return ((Place) instance).getAccesibility();
+    }
+
+    @Override
     public void setAccesibility(int accesibility) {
-        if (state != TYPE_PLACE) {
-            throw new IllegalStateException("Attemp to set expiriation on invalid problem.");
+        if (state != TYPE_PLACE && state != TYPE_PLACE_PRE) {
+            throw new IllegalStateException("Attemp to set accesibility on invalid problem.");
         }
         ((Place) instance).setAccesibility(accesibility);
     }

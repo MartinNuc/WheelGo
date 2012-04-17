@@ -15,15 +15,23 @@ import javax.ejb.Local;
 
 @Local
 public interface CreateReportLocal {
-    int TYPE_PLACE = 2;
-    int TYPE_PROBLEM = 3;
-    int TYPE_TIP = 1;
-    int TYPE_UNSPEC = 0;
-    int TYPE_PROBLEM_PRE = 4;
+    public static final int TYPE_UNSPEC = 0;
 
+    
+    public static final int TYPE_PLACE = 2;
+    public static final int TYPE_PLACE_PRE = 5;
+    
+    public static final int TYPE_TIP = 1;
+    
+    public static final int TYPE_PROBLEM = 3;
+    public static final int TYPE_PROBLEM_PRE = 4;
+
+    void clear();
+    
     void addPhoto(byte[] data, String url);
 
-    void createPlace(UserDTO user, String problemName, Date date, float latitude, float longitude);
+    void createPlacePre();
+    void createPlace();
 
     void preCreateProblem();
     void createProblem();
@@ -41,6 +49,7 @@ public interface CreateReportLocal {
 
     int getState();
 
+    int getAccesibility();
     void setAccesibility(int accesibility);
     
     Date getExpiration();
