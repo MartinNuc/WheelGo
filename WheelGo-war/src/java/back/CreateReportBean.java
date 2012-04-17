@@ -197,6 +197,13 @@ public class CreateReportBean {
 
     }
 
+    public String cancelReport()
+    {
+        createReport.cancelReport();
+        createReport.clear();
+        return "index";
+    }
+    
     /**
      * Creates a new instance of CreateReportBean
      */

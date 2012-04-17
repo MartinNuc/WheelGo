@@ -64,6 +64,8 @@
                         </c:if>
 
                         <h:commandButton type="submit" value="#{msgs.report_continue}" action="#{createReport.moveToNextStage}"/>
+                        <h:commandButton type="submit" value="#{msgs.report_cancel}" action="#{createReport.cancelReport}"/>
+                        
                         <h:messages globalOnly="true"/>
                     </h:form>
                 </c:if>
