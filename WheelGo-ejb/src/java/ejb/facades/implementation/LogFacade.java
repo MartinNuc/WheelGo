@@ -4,8 +4,8 @@
  */
 package ejb.facades.implementation;
 
-import ejb.facades.interfaces.LogFacadeLocal;
 import dto.LogDTO;
+import ejb.facades.interfaces.LogFacadeLocal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;

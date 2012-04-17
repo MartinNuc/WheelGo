@@ -5,9 +5,9 @@
 package back;
 
 import dto.LogDTO;
-import ejb.facades.implementation.LogFacade;
-import ejb.facades.implementation.ReportFacade;
-import ejb.facades.implementation.UserFacade;
+import ejb.facades.interfaces.LogFacadeLocal;
+import ejb.facades.interfaces.ReportFacadeLocal;
+import ejb.facades.interfaces.UserFacadeLocal;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +26,11 @@ import wrappers.LogWrapper;
 @SessionScoped
 public class LogsManagedBean implements Serializable {
     @EJB
-    private LogFacade logFacade;
+    private LogFacadeLocal logFacade;
     @EJB
-    private UserFacade userFacade;
+    private UserFacadeLocal userFacade;
     @EJB
-    private ReportFacade reportFacade;
+    private ReportFacadeLocal reportFacade;
     
     private LogDTO log;
 

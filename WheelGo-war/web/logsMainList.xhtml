@@ -13,7 +13,7 @@
             <ui:define name="content">
                 <h:form>
                     <h1><h:outputText value="#{msgs.logs}"/></h1>
-                    <h:dataTable value="#{logs.users}" var="item" styleClass="dataTable">
+                    <h:dataTable value="#{logs.logs}" var="item" styleClass="dataTable">
                         <f:facet name="caption">
                             <h:outputText value="#{msgs.list_logs_caption}"/>
                         </f:facet>
@@ -41,9 +41,6 @@
                             </f:facet>
                             <h:outputText value="#{item.operation}"/>
                         </h:column>
-                        <h:column>
-                            <h:commandButton value="#{msgs.remove}" action="#{logs.removeLog(item)}" />
-                        </h:column>                     
                     </h:dataTable>
                     <h:messages />
                 </h:form>

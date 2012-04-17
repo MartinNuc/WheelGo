@@ -34,10 +34,10 @@ public class Log implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @JoinColumn(name = "idReport", referencedColumnName = "idReport", nullable = false)
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private Report report;
     @JoinColumn(name = "idUser", referencedColumnName = "idUser", nullable = false)
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private User user;
 
     public Log() {
