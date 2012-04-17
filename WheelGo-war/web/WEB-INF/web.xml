@@ -42,4 +42,11 @@
         <local>ejb.facades.interfaces.ReportFacadeLocal</local>
         <ejb-link>WheelGo-ejb.jar#ReportFacade</ejb-link>
     </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>CreateReport</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local-home/>
+        <local>ejb.CreateReportLocal</local>
+        <ejb-link>WheelGo-ejb.jar#CreateReport</ejb-link>
+    </ejb-local-ref>    
 </web-app>

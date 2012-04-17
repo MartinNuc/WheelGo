@@ -23,23 +23,23 @@ import model.User;
  */
 @Stateful
 public class CreateReport implements CreateReportLocal {
-
-    private static final int TYPE_TIP = 1;
-    private static final int TYPE_PLACE = 2;
-    private static final int TYPE_PROBLEM = 3;
+    
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
-    private Report report;
+    
+    private Report instance;
     private User user;
     private int state = 0;
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    private void fillReport(Report instance, UserDTO user, String problemName,
+    private void fillReport(UserDTO user, String problemName,
             Date date, float latitude, float longitude) {
 
         instance.setPhotos(new ArrayList<Photo>());
-        this.user = em.find(User.class, user.getIdUser());
+        if(user!=null) {
+            this.user = em.find(User.class, user.getIdUser());
+        }
         instance.setName(problemName);
         instance.setDate(date);
         instance.setLatitude(latitude);
@@ -47,45 +47,96 @@ public class CreateReport implements CreateReportLocal {
 
     }
 
+    public CreateReport() {
+        instance = new Report();
+        fillReport( null, "", new Date(), 0, 0);
+    }
+    
     @Override
     public void createProblem(UserDTO user, String problemName,
             Date date, float latitude, float longitude) {
         state = TYPE_PROBLEM;
-        fillReport(new Problem(), user, problemName, date, latitude, longitude);
+        instance = new Problem();
+        fillReport(user, problemName, date, latitude, longitude);
     }
 
+    @Override
     public void createTip(UserDTO user, String problemName,
             Date date, float latitude, float longitude) {
         state = TYPE_TIP;
-        fillReport(new Tip(), user, problemName, date, latitude, longitude);
+        instance = new Tip();
+        fillReport(user, problemName, date, latitude, longitude);
     }
 
+    @Override
     public void createPlace(UserDTO user, String problemName,
             Date date, float latitude, float longitude) {
         state = TYPE_PLACE;
-        fillReport(new Place(), user, problemName, date, latitude, longitude);
+        instance = new Place();
+        fillReport(user, problemName, date, latitude, longitude);
     }
 
+    @Override
     public void setExpiration(Date expiration) {
         if (state != TYPE_PROBLEM) {
             throw new IllegalStateException("Attemp to set expiriation on invalid problem.");
         }
-        ((Problem) report).setExpiration(expiration);
+        ((Problem) instance).setExpiration(expiration);
     }
     
+    @Override
     public void setAccesibility(int accesibility) {
         if (state != TYPE_PLACE) {
             throw new IllegalStateException("Attemp to set expiriation on invalid problem.");
         }
-        ((Place) report).setAccesibility(accesibility);
+        ((Place) instance).setAccesibility(accesibility);
     }
     
+    @Override
     public void addPhoto(byte data[],String url) {
         Photo photo = new Photo();
         photo.setUrl(url);
         photo.setPictureData(data);
         
-        report.getPhotos().add(photo);
+        instance.getPhotos().add(photo);
     }
     
+    
+    @Override
+    public String getName() {
+        return instance.getName();
+    }
+    
+    @Override
+    public void setName(String name) {
+        instance.setName(name);
+    }
+    
+    
+    @Override
+    public String getDescription() {
+        return instance.getDescribtion();
+    }
+    
+    @Override
+    public void setDescription(String description) {
+        instance.setDescribtion(description);
+    }    
+    
+    @Override
+    public Date getDate() {
+        return instance.getDate();
+    }
+    
+    @Override
+    public void setDate(Date date) {
+        instance.setDate(date);
+    }
+    
+        
+    @Override
+    public int getState() {
+        return state;
+    }
+
 }
