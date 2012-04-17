@@ -25,6 +25,8 @@ public interface CreateReportLocal {
     
     public static final int TYPE_PROBLEM = 3;
     public static final int TYPE_PROBLEM_PRE = 4;
+    
+    public static final int PHOTO = 6;
 
     void clear();
     

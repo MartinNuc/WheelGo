@@ -4,8 +4,8 @@
  */
 package ejb.facades.implementation;
 
-import ejb.facades.interfaces.PhotoFacadeLocal;
 import dto.PhotoDTO;
+import ejb.facades.interfaces.PhotoFacadeLocal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,7 +40,7 @@ public class PhotoFacade extends AbstractFacade<Photo> implements PhotoFacadeLoc
         
         entity.setIdPhoto(dto.getIdPhoto());
         entity.setReport(em.find(Report.class, dto.getIdReport()));
-        entity.setUrl(dto.getUrl());
+        entity.setImage(dto.getImage());
     }
     
     private Photo toEntity(PhotoDTO dto)
@@ -48,7 +48,7 @@ public class PhotoFacade extends AbstractFacade<Photo> implements PhotoFacadeLoc
         Photo entity = new Photo();
         entity.setIdPhoto(dto.getIdPhoto());
         entity.setReport(em.find(Report.class, dto.getIdReport()));
-        entity.setUrl(dto.getUrl());        
+        entity.setImage(dto.getImage());        
         return entity;
     }
     
@@ -70,7 +70,7 @@ public class PhotoFacade extends AbstractFacade<Photo> implements PhotoFacadeLoc
         PhotoDTO dto = new PhotoDTO();
         dto.setIdPhoto(entity.getIdPhoto());
         dto.setIdReport(entity.getReport().getIdReport());
-        dto.setUrl(entity.getUrl());
+        dto.setImage(entity.getImage());
         return dto;
     }
     

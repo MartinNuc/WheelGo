@@ -50,10 +50,31 @@
         <ejb-link>WheelGo-ejb.jar#LogFacade</ejb-link>
     </ejb-local-ref>
     <ejb-local-ref>
+        <ejb-ref-name>PhotoFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local-home/>
+        <local>ejb.facades.interfaces.PhotoFacadeLocal</local>
+        <ejb-link>WheelGo-ejb.jar#PhotoFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
         <ejb-ref-name>CreateReport</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
         <local-home/>
         <local>ejb.CreateReportLocal</local>
         <ejb-link>WheelGo-ejb.jar#CreateReport</ejb-link>
-    </ejb-local-ref>    
+    </ejb-local-ref>  
+    
+    <filter>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>   
+        <init-param>
+            <param-name>thresholdSize</param-name>
+            <param-value>2097152</param-value>
+        </init-param>      
+    </filter>
+    <filter-mapping>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>  
+        
 </web-app>

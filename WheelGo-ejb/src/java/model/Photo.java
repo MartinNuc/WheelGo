@@ -34,7 +34,7 @@ public class Photo implements Serializable {
     @Lob
     @Basic
     @Column(columnDefinition = "BLOB NOT NULL")
-    private byte[] pictureData;
+    private byte[] image;
 
     public Photo() {
     }
@@ -95,14 +95,14 @@ public class Photo implements Serializable {
     /**
      * @return the pictureData
      */
-    public byte[] getPictureData() {
-        return pictureData;
+    public byte[] getImage() {
+        return image;
     }
 
     /**
-     * @param pictureData the pictureData to set
+     * @param image the pictureData to set
      */
-    public void setPictureData(byte[] pictureData) {
-        this.pictureData = pictureData;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

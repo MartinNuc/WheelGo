@@ -99,7 +99,7 @@ public class CreateReport implements CreateReportLocal {
 
         state = TYPE_PLACE;
     }
-
+    
     @Override
     public Date getExpiration() {
         if (state != TYPE_PROBLEM_PRE && state != TYPE_PROBLEM) {
@@ -136,9 +136,10 @@ public class CreateReport implements CreateReportLocal {
     public void addPhoto(byte data[], String url) {
         Photo photo = new Photo();
         photo.setUrl(url);
-        photo.setPictureData(data);
-
-        instance.getPhotos().add(photo);
+        photo.setImage(data);
+        photo.setReport(instance);
+        em.persist(photo);
+        //instance.getPhotos().add(photo);
     }
 
     @Override

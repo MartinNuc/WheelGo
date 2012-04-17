@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class PhotoDTO implements Serializable 
 {
     private Integer idPhoto;
-    private String url;
+    private byte[] image;
     private Integer idReport;
 
     public Integer getIdPhoto() {
@@ -24,12 +24,12 @@ public class PhotoDTO implements Serializable
         this.idPhoto = idPhoto;
     }
 
-    public String getUrl() {
-        return url;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public Integer getIdReport() {
