@@ -55,6 +55,15 @@ public class CreateReport implements CreateReportLocal {
         this.user = loginBean.getUser();
         
     }
+    
+    private void createLog() {
+        Log log = new Log();
+        log.setUser(user);
+        
+        log.setDate(new Date());
+        log.setReport(instance);
+        em.persist(log);
+    }
 
     @Override
     public void clear() {
@@ -77,6 +86,8 @@ public class CreateReport implements CreateReportLocal {
         }
         em.persist(instance);
         instance = em.merge(instance);
+        
+        createLog();
 
         state = TYPE_PROBLEM;
     }
@@ -94,7 +105,11 @@ public class CreateReport implements CreateReportLocal {
         state = TYPE_TIP;
         instance = new Tip(instance);
         em.persist(instance);
+        
+        createLog();
+                
         instance = em.merge(instance);
+        
     }
 
     @Override
@@ -111,6 +126,8 @@ public class CreateReport implements CreateReportLocal {
         em.persist(instance);
         instance = em.merge(instance);
 
+        createLog();
+        
         state = TYPE_PLACE;
     }
 

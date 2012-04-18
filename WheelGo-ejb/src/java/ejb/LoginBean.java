@@ -27,11 +27,10 @@ public class LoginBean implements LoginBeanLocal {
 
     @PostConstruct
     private void init() {
-        List<User> users = em.createQuery("SELECT u FROM User u").getResultList();
-        if (users.size() < 1) {
-            user = users.get(0);
+        user = em.find(User.class, 1);
+        if(user == null) {
+            throw new IllegalStateException("Neni udany zadny uzivatel!!!");
         }
-
     }
 
     @Override
