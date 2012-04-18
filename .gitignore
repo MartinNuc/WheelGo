@@ -6,7 +6,8 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
-
+glassfish-resources.xml
+private.xml
 # Class Files #
 *.class
 
