@@ -4,9 +4,9 @@
  */
 package ejb;
 
-import dto.UserDTO;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -19,9 +19,9 @@ import model.*;
  */
 @Stateful
 public class CreateReport implements CreateReportLocal {
-
     @EJB
-    private LoginBeanLocal lb;
+    private LoginBeanLocal loginBean;
+    
     
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
@@ -35,18 +35,25 @@ public class CreateReport implements CreateReportLocal {
             Date date, float latitude, float longitude) {
 
         instance.setPhotos(new ArrayList<Photo>());
-        user = lb.getUser();
+        System.out.println("lb=" + loginBean);
+        user = loginBean.getUser();
         instance.setName(problemName);
         instance.setDate(date);
         instance.setLatitude(latitude);
         instance.setLongitude(longitude);
 
     }
+    
+    
 
-    public CreateReport()
-    {
+    public CreateReport() {
+    }
+    
+    @PostConstruct
+    private void init() {
         clear();
-        this.user = lb.getUser();
+        this.user = loginBean.getUser();
+        
     }
 
     @Override
@@ -74,15 +81,14 @@ public class CreateReport implements CreateReportLocal {
         state = TYPE_PROBLEM;
     }
 
-    public void reportPostCreate()
-    {
+    public void reportPostCreate() {
         Log log = new Log();
         log.setDate(new Date());
         log.setOperation(1);
         log.setReport(instance);
-        log.setUser(user); 
+        log.setUser(user);
     }
-    
+
     @Override
     public void createTip() {
         state = TYPE_TIP;
@@ -107,7 +113,7 @@ public class CreateReport implements CreateReportLocal {
 
         state = TYPE_PLACE;
     }
-    
+
     @Override
     public Date getExpiration() {
         if (state != TYPE_PROBLEM_PRE && state != TYPE_PROBLEM) {
@@ -149,10 +155,9 @@ public class CreateReport implements CreateReportLocal {
         em.persist(photo);
         //instance.getPhotos().add(photo);
     }
-    
+
     @Override
-    public void cancelReport()
-    {
+    public void cancelReport() {
         em.remove(instance);
     }
 

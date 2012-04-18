@@ -5,6 +5,7 @@
 package ejb;
 
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,27 +20,27 @@ public class LoginBean implements LoginBeanLocal {
 
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
-
     private User user;
-    
-    public LoginBean()
-    {
-        javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        cq.select(cq.from(User.class));
-        List<User> users = em.createQuery(cq).getResultList();
-        if (users.size() < 1)
+
+    public LoginBean() {
+    }
+
+    @PostConstruct
+    private void init() {
+        List<User> users = em.createQuery("SELECT u FROM User u").getResultList();
+        if (users.size() < 1) {
             user = users.get(0);
-    }            
-    
+        }
+
+    }
+
     @Override
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
-    
+
     @Override
-    public User getUser()
-    {
+    public User getUser() {
         return user;
     }
 
@@ -47,5 +48,4 @@ public class LoginBean implements LoginBeanLocal {
     public void login(String username, String password) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
 }
