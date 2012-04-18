@@ -7,15 +7,11 @@ package ejb;
 import dto.UserDTO;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import model.Photo;
-import model.Place;
-import model.Problem;
-import model.Report;
-import model.Tip;
-import model.User;
+import model.*;
 
 /**
  *
@@ -24,6 +20,9 @@ import model.User;
 @Stateful
 public class CreateReport implements CreateReportLocal {
 
+    @EJB
+    private LoginBeanLocal lb;
+    
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
     private Report instance;
@@ -32,13 +31,11 @@ public class CreateReport implements CreateReportLocal {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    private void fillReport(UserDTO user, String problemName,
+    private void fillReport(String problemName,
             Date date, float latitude, float longitude) {
 
         instance.setPhotos(new ArrayList<Photo>());
-        if (user != null) {
-            this.user = em.find(User.class, user.getIdUser());
-        }
+        user = lb.getUser();
         instance.setName(problemName);
         instance.setDate(date);
         instance.setLatitude(latitude);
@@ -46,14 +43,16 @@ public class CreateReport implements CreateReportLocal {
 
     }
 
-    public CreateReport() {
+    public CreateReport()
+    {
         clear();
+        this.user = lb.getUser();
     }
 
     @Override
     public void clear() {
         instance = new Report();
-        fillReport(null, "", new Date(), 0, 0);
+        fillReport("", new Date(), 0, 0);
 
     }
 
@@ -75,6 +74,15 @@ public class CreateReport implements CreateReportLocal {
         state = TYPE_PROBLEM;
     }
 
+    public void reportPostCreate()
+    {
+        Log log = new Log();
+        log.setDate(new Date());
+        log.setOperation(1);
+        log.setReport(instance);
+        log.setUser(user); 
+    }
+    
     @Override
     public void createTip() {
         state = TYPE_TIP;
@@ -140,6 +148,12 @@ public class CreateReport implements CreateReportLocal {
         photo.setReport(instance);
         em.persist(photo);
         //instance.getPhotos().add(photo);
+    }
+    
+    @Override
+    public void cancelReport()
+    {
+        em.remove(instance);
     }
 
     @Override

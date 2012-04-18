@@ -47,6 +47,10 @@ public class Report implements Serializable {
     @NotNull
     @Column(name = "longitude", nullable = false)
     private float longitude;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted;
     @Size(max = 256)
     @Column(name = "describtion", length = 256)
     private String describtion;
@@ -143,6 +147,24 @@ public class Report implements Serializable {
     public void setLogsCollection(Collection<Log> logsCollection) {
         this.logsCollection = logsCollection;
     }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public Collection<Photo> getPhotosCollection() {
+        return photosCollection;
+    }
+
+    public void setPhotosCollection(Collection<Photo> photosCollection) {
+        this.photosCollection = photosCollection;
+    }
+    
+    
 
     @Override
     public int hashCode() {

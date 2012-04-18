@@ -6,16 +6,20 @@ package ejb.facades.implementation;
 
 import ejb.facades.interfaces.ReportFacadeLocal;
 import dto.ReportDTO;
+import ejb.LoginBeanLocal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import model.Log;
 import model.Photo;
 import model.Report;
+import model.User;
 
 /**
  *
@@ -25,6 +29,11 @@ import model.Report;
 public class ReportFacade extends AbstractFacade<Report> implements ReportFacadeLocal {
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
+    
+    @EJB
+    private LoginBeanLocal lb;
+     
+    private User user;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -33,6 +42,11 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
 
     public ReportFacade() {
         super(Report.class);
+    }
+    
+    public ReportFacade(User user) {
+        super(Report.class);
+        this.user = lb.getUser();
     }
     
     @Override
@@ -87,7 +101,14 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
     public void remove(ReportDTO Report) {
         Report entity;
         entity = em.find(Report.class, Report.getIdReport());
-        getEntityManager().remove(getEntityManager().merge(entity));
+        
+        Log log = new Log();
+        log.setDate(new Date());
+        log.setOperation(3);
+        log.setReport(entity);
+        log.setUser(user);
+        
+        entity.setDeleted(true);
     }
     
     @Override

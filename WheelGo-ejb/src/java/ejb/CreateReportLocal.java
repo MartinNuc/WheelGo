@@ -27,7 +27,7 @@ public interface CreateReportLocal {
     public static final int TYPE_PROBLEM_PRE = 4;
     
     public static final int PHOTO = 6;
-
+    
     void clear();
     
     void addPhoto(byte[] data, String url);
@@ -56,5 +56,7 @@ public interface CreateReportLocal {
     
     Date getExpiration();
     void setExpiration(Date expiration);
+
+    public void cancelReport();
     
 }
