@@ -32,12 +32,23 @@
                             <h:inputText value="#{createReport.description}" id="fn3" label="#{msgs.report_desc}" required="true" requiredMessage="#{msgs.required_message}" />
                             <h:message for="fn3" errorClass="errorRequired"/>
 
+                            <h:outputText value="#{msgs.report_latitude}" />
+                            <h:inputText value="#{createReport.latitude}" id="fn3a" label="#{msgs.report_latitude}" required="true" requiredMessage="#{msgs.required_message}" />
+                            <h:message for="fn3a" errorClass="errorRequired"/>
+
+                            <h:outputText value="#{msgs.report_longitude}" />
+                            <h:inputText value="#{createReport.longitude}" id="fn3b" label="#{msgs.report_longitude}" required="true" requiredMessage="#{msgs.required_message}" />
+                            <h:message for="fn3b" errorClass="errorRequired"/>
+
+
                             <h:selectOneRadio value="#{createReport.state}">            
                                 <f:selectItem itemValue="Tip" itemLabel="Tip" />
                                 <f:selectItem itemValue="Place" itemLabel="Place" />
                                 <f:selectItem itemValue="Problem" itemLabel="Problem" />
                             </h:selectOneRadio>
                             <h:outputText value="" />
+
+
                         </h:panelGrid>
                         <c:if test="#{createReport.state=='Tip'}">
                         </c:if>
@@ -65,7 +76,7 @@
 
                         <h:commandButton type="submit" value="#{msgs.report_continue}" action="#{createReport.moveToNextStage}"/>
                         <h:commandButton type="submit" value="#{msgs.report_cancel}" action="#{createReport.cancelReport}"/>
-                        
+
                         <h:messages globalOnly="true"/>
                     </h:form>
                 </c:if>
@@ -75,7 +86,11 @@
                             <p:messages showDetail="true"/>  
                             <p:fileUpload value="#{createReport.file}" mode="simple"/>  
                             <p:commandButton value="Submit" ajax="false"  
-                                             actionListener="#{createReport.moveToNextStage}"/>  
+                                             actionListener="#{createReport.moveToNextStage}"/>
+
+                            <p:commandButton value="Submit" ajax="false" label="Hotovo"
+                                             actionListener="#{createReport.allDone}"/>
+
                         </h:form> 
                     </p:panel>
                 </c:if>

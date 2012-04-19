@@ -57,6 +57,17 @@ public interface CreateReportLocal {
     Date getExpiration();
     void setExpiration(Date expiration);
 
-    public void cancelReport();
     
+    public void setLatitude(float latitude);
+
+    
+    public float getLatitude();
+
+    
+    public void setLongitude(float longitude);
+    
+    public float getLongitude();    
+    
+    public void cancelReport();
+        
 }

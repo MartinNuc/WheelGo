@@ -26,6 +26,10 @@ public class LoginBean implements LoginBeanLocal {
     }
 
     private void init() {
+        user = (User)em.createNamedQuery("getDefaultUser").getSingleResult();
+        if(user == null) {
+            throw new IllegalStateException("Neni udany zadny uzivatel!!!");
+        }
     }
 
     @Override
@@ -35,15 +39,6 @@ public class LoginBean implements LoginBeanLocal {
 
     @Override
     public User getUser() {
-        javax.persistence.criteria.CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        cq.select(cq.from(User.class));
-        List<User> users = em.createQuery(cq).getResultList();
-        if (users.size() < 1)
-            user = users.get(0);
-
-        if(user == null) {
-            throw new IllegalStateException("Neni udany zadny uzivatel!!!");
-        }
         return user;
     }
 
