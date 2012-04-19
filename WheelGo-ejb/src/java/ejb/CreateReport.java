@@ -59,7 +59,7 @@ public class CreateReport implements CreateReportLocal {
     private void createLog() {
         Log log = new Log();
         log.setUser(user);
-        
+        log.setOperation(1);
         log.setDate(new Date());
         log.setReport(instance);
         em.persist(log);
@@ -90,14 +90,6 @@ public class CreateReport implements CreateReportLocal {
         createLog();
 
         state = TYPE_PROBLEM;
-    }
-
-    public void reportPostCreate() {
-        Log log = new Log();
-        log.setDate(new Date());
-        log.setOperation(1);
-        log.setReport(instance);
-        log.setUser(user);
     }
 
     @Override
