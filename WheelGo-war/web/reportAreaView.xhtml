@@ -13,9 +13,13 @@ and open the template in the editor.
             <ui:param name="pageTitle" value="#{msgs.reports_area}" />
             <ui:define name="content">
                 <h:form>
+                    <h:outputText value="#{msgs.lowLatitude}:" />
                     <h:inputText value="#{reports.lowLatitude}" label="#{msgs.lowLatitude}" required="true" requiredMessage="#{msgs.required_message}"/>
+                    <h:outputText value="#{msgs.upLatitude}:" />
                     <h:inputText value="#{reports.upLatitude}" label="#{msgs.upLatitude}" required="true" requiredMessage="#{msgs.required_message}"/>
+                    <h:outputText value="#{msgs.lowLongitude}:" />
                     <h:inputText value="#{reports.lowLongitude}" label="#{msgs.lowLongitude}" required="true" requiredMessage="#{msgs.required_message}"/>
+                    <h:outputText value="#{msgs.upLongitude}:" />
                     <h:inputText value="#{reports.upLongitude}" label="#{msgs.upLongitude}" required="true" requiredMessage="#{msgs.required_message}"/>
                     <h:commandButton type="submit" value="#{msgs.set}" action="#{reports.updateCoordinates}"/>
                 </h:form>
