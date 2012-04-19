@@ -136,7 +136,6 @@ public class CreateReport implements CreateReportLocal {
             throw new IllegalStateException("Attemp to set expiriation on invalid problem.");
         }
         ((Problem) instance).setExpiration(expiration);
-        instance = em.merge(instance);
     }
 
     @Override
@@ -153,7 +152,6 @@ public class CreateReport implements CreateReportLocal {
             throw new IllegalStateException("Attemp to set accesibility on invalid problem.");
         }
         ((Place) instance).setAccesibility(accesibility);
-        instance = em.merge(instance);
     }
 
     @Override
@@ -162,7 +160,6 @@ public class CreateReport implements CreateReportLocal {
         photo.setUrl(url);
         photo.setImage(data);
         photo.setReport(instance);
-        //em.persist(photo);
         
         instance.getPhotos().add(photo);
         instance = em.merge(instance);
