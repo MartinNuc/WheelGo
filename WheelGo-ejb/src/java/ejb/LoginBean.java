@@ -26,7 +26,14 @@ public class LoginBean implements LoginBeanLocal {
 
     @PostConstruct
     private void init() {
-        user = (User)em.createNamedQuery("getDefaultUser").getSingleResult();
+        try
+        {
+            user = (User)em.createNamedQuery("getDefaultUser").getSingleResult();
+        }
+        catch (Exception ex)
+        {
+            throw new IllegalStateException("Neni udany zadny uzivatel!!!");
+        }
         if(user == null) {
             throw new IllegalStateException("Neni udany zadny uzivatel!!!");
         }
