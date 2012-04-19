@@ -4,7 +4,10 @@ To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>#{msgs.reports}</title>
     </h:head>
@@ -30,9 +33,17 @@ and open the template in the editor.
                             </f:facet>
                             <h:outputText value="#{item.date}"/>
                         </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msgs.image}"/>
+                                </f:facet>  
+                                <p:graphicImage value="#{item.firstPhoto}" width="50" height="80"/>
+                            </h:column>
+                        
                         <h:column>
                             <h:commandButton value="#{msgs.remove}" action="#{reports.removeReport(item)}" />
                         </h:column>
+                            
                     </h:dataTable>
                     <h:messages />
                 </h:form>
