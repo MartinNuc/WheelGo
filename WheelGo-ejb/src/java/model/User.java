@@ -32,7 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "user")
 @NamedQueries({
     @NamedQuery(name="getDefaultUser",
-        query="SELECT u FROM User u WHERE u.idUser = 1")
+        query="SELECT u FROM User u WHERE u.idUser = 1"),
+    @NamedQuery(name="getWithoutDeleted",
+        query="SELECT u FROM User u WHERE u.deleted = 0")
 })
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -51,6 +53,10 @@ public class User implements Serializable {
     @Size(min = 1, max = 64)
     @Column(name = "password", nullable = false, length = 64)
     private String password;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted;
     
     @Size(max = 64)
     @Column(name = "phoneId", length = 64)
@@ -123,6 +129,14 @@ public class User implements Serializable {
 
     public void setLogsCollection(Collection<Log> logsCollection) {
         this.logsCollection = logsCollection;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override
