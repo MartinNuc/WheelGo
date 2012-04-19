@@ -4,7 +4,6 @@
  */
 package ejb;
 
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -27,7 +26,14 @@ public class LoginBean implements LoginBeanLocal {
 
     @PostConstruct
     private void init() {
-        user = (User)em.createNamedQuery("getDefaultUser").getSingleResult();
+        try
+        {
+            user = (User)em.createNamedQuery("getDefaultUser").getSingleResult();
+        }
+        catch (Exception ex)
+        {
+            throw new IllegalStateException("Neni udany zadny uzivatel!!!");
+        }
         if(user == null) {
             throw new IllegalStateException("Neni udany zadny uzivatel!!!");
         }

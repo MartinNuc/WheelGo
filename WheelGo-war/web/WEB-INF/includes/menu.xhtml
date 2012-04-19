@@ -10,10 +10,12 @@
         <ui:composition>
             <ul>
                 <li><h:link outcome="index" value="#{msgs.home_page}" /></li>
-                <li><h:link outcome="usersMainList" value="#{msgs.users}" /></li>
                 <li><h:link outcome="rolesMainList" value="#{msgs.roles}" /></li>
-                <li><h:link outcome="logsMainList" value="#{msgs.logs}" /></li>
+                <li><h:link outcome="usersMainList" value="#{msgs.users}" /></li>
                 <li><h:link outcome="createReport" value="#{msgs.report_create}" /></li>
+                <li><h:link outcome="reportView" value="#{msgs.reports}" /></li>
+                <li><h:link outcome="reportAreaView" value="#{msgs.reports_area}" /></li>
+                <li><h:link outcome="logsMainList" value="#{msgs.logs}" /></li>
             </ul>
         </ui:composition>
     </h:body>

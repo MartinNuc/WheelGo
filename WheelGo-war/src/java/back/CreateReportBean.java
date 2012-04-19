@@ -15,6 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -105,6 +106,23 @@ public class CreateReportBean {
         this.file = file;
     }
 
+    public void upload(FileUploadEvent event) {  
+        file = event.getFile();
+        FacesMessage msg;
+        byte[] bytearray;
+        try {
+            bytearray = InputStreamToByte(file.getInputstream());
+            msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");  
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            createReport.addPhoto(bytearray, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg = new FacesMessage("Exception happen");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            this.state = CreateReportLocal.TYPE_UNSPEC;
+        }
+    } 
+ 
     public void setExpiration(Date date) {
         if (state == CreateReportLocal.TYPE_PROBLEM_PRE || state == CreateReportLocal.TYPE_PROBLEM) {
             createReport.setExpiration(date);
@@ -192,34 +210,13 @@ public class CreateReportBean {
                 this.state = CreateReportLocal.PHOTO;
                 break;
             case CreateReportLocal.PHOTO:
-                byte[] bytearray;
-                try {
-                    bytearray = InputStreamToByte(getFile().getInputstream());
-                    FacesMessage msg = new FacesMessage("Photo is uploaded.");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    FacesMessage msg = new FacesMessage("Exception happen");
-                    FacesContext.getCurrentInstance().addMessage(null, msg);
-                    createReport.clear();
-                    this.state = CreateReportLocal.TYPE_UNSPEC;
-                    return "index";
-                }
-                createReport.addPhoto(bytearray, null);
-            //createReport.clear();
-            //this.state = CreateReportLocal.TYPE_UNSPEC; 
-            //return "index";
+                createReport.clear();
+                this.state = CreateReportLocal.TYPE_UNSPEC; 
+                return "index";
         }
 
         return "createReport";
 
-    }
-
-    public String allDone() {
-        createReport.clear();
-        this.state = CreateReportLocal.TYPE_UNSPEC; 
-
-        return "index";
     }
 
     public String cancelReport() {

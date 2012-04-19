@@ -4,18 +4,25 @@
  */
 package ejb.facades.implementation;
 
-import ejb.facades.interfaces.ReportFacadeLocal;
 import dto.ReportDTO;
 import ejb.LoginBeanLocal;
+import ejb.facades.interfaces.ReportFacadeLocal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import model.Log;
 import model.Photo;
 import model.Report;
@@ -39,6 +46,12 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    @PostConstruct
+    private void init()
+    {
+        this.user = lb.getUser();
+    }
 
     public ReportFacade() {
         super(Report.class);
@@ -46,7 +59,6 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
     
     public ReportFacade(User user) {
         super(Report.class);
-        this.user = lb.getUser();
     }
     
     @Override
@@ -107,6 +119,7 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         log.setOperation(3);
         log.setReport(entity);
         log.setUser(user);
+        em.persist(log);
         
         entity.setDeleted(true);
     }
@@ -150,8 +163,16 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         return dtos;
     }
     
+    
     @Override
     public List<ReportDTO> getAll()
+    {       
+        Query q = getEntityManager().createNamedQuery("getVisibleReports");
+        return toDTOs(q.getResultList());
+    }
+    
+    @Override
+    public List<ReportDTO> getAllWithDeleted()
     {
         try {
             javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
@@ -179,6 +200,36 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         q.setMaxResults(range[1] - range[0]);
         q.setFirstResult(range[0]);
         return toDTOs(q.getResultList());
+    }
+
+    public List<ReportDTO> getArea(float latLowerBound, float latUpperBound, float longLowerBound, float longUpperBound) {
+        return getArea(latLowerBound, latUpperBound, longLowerBound, longUpperBound, 500);
+    }
+    
+    @Override
+    public List<ReportDTO> getArea(float latLowerBound, float latUpperBound, float longLowerBound, float longUpperBound, int maxCount) {
+        // Bez criteriaAPI:
+        /*Query cq = getEntityManager().createQuery("select r from Report r where r.deleted=0 and r.latitude>=:arg1 and r.latitude<=:arg2 and "
+                + "r.longitude>=:arg3 and r.longitude<=:arg4 ");
+        cq.setParameter("arg1", latLowerBound);
+        cq.setParameter("arg2", latUpperBound);
+        cq.setParameter("arg3", longLowerBound);
+        cq.setParameter("arg4", longUpperBound);
+        cq.setMaxResults(maxCount);*/
+        
+        // s criteriaAPI:
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Report> criteriaQuery = criteriaBuilder.createQuery(Report.class);
+        Root from = criteriaQuery.from(Report.class);
+        Predicate predicate1 = criteriaBuilder.ge(from.get("latitude"), latLowerBound);
+        Predicate predicate2 = criteriaBuilder.le(from.get("latitude"), latUpperBound);
+        Predicate predicate3 = criteriaBuilder.ge(from.get("latitude"), longLowerBound);
+        Predicate predicate4 = criteriaBuilder.le(from.get("latitude"), longUpperBound);
+        Predicate predicate5 = criteriaBuilder.equal(from.get("deleted"), 0);
+        criteriaQuery.where(criteriaBuilder.and(predicate1, predicate2, predicate3, predicate4, predicate5));
+        
+        TypedQuery<Report> query = em.createQuery(criteriaQuery);
+        return toDTOs(query.getResultList());
     }
     
 }

@@ -11,6 +11,7 @@ glassfish-resources.xml
  WheelGo-ejb/nbproject/private/
 
 private.xml
+WheelGo-ejb/setup/glassfish-resources.xml
 # Class Files #
 *.class
 

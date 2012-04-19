@@ -27,7 +27,6 @@ public class RolesManagedBean implements Serializable {
     @EJB
     private RoleFacadeLocal rolesFacade;
     
-    
     private RoleDTO role;
     private int state;
 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>#{msgs.reports_area}</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./WEB-INF/includes-templates/wheelgo-template.xhtml">
+            <ui:param name="pageTitle" value="#{msgs.reports_area}" />
+            <ui:define name="content">
+                <h:form>
+                    <h:outputText value="#{msgs.lowLatitude}:" />
+                    <h:inputText value="#{reports.lowLatitude}" label="#{msgs.lowLatitude}" required="true" requiredMessage="#{msgs.required_message}"/>
+                    <h:outputText value="#{msgs.upLatitude}:" />
+                    <h:inputText value="#{reports.upLatitude}" label="#{msgs.upLatitude}" required="true" requiredMessage="#{msgs.required_message}"/>
+                    <h:outputText value="#{msgs.lowLongitude}:" />
+                    <h:inputText value="#{reports.lowLongitude}" label="#{msgs.lowLongitude}" required="true" requiredMessage="#{msgs.required_message}"/>
+                    <h:outputText value="#{msgs.upLongitude}:" />
+                    <h:inputText value="#{reports.upLongitude}" label="#{msgs.upLongitude}" required="true" requiredMessage="#{msgs.required_message}"/>
+                    <h:commandButton type="submit" value="#{msgs.set}" action="#{reports.updateCoordinates}"/>
+                </h:form>
+                <h:form>
+                    <h1><h:outputText value="#{msgs.reports_area}"/></h1>
+                    <h:dataTable value="#{reports.reportsArea}" var="item" styleClass="dataTable">
+                        <f:facet name="caption">
+                            <h:outputText value="#{msgs.list_reports_caption}"/>
+                        </f:facet>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs.report_name}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs.date}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.date}"/>
+                        </h:column>
+                        <h:column>
+                            <h:commandButton value="#{msgs.remove}" action="#{reports.removeReport(item)}" />
+                        </h:column>
+                    </h:dataTable>
+                    <h:messages />
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

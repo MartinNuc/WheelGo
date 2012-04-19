@@ -83,13 +83,16 @@
                 <c:if test="#{createReport.state=='Photo'}">
                     <p:panel header="#{msgs.upload_photo}">  
                         <h:form enctype="multipart/form-data">  
-                            <p:messages showDetail="true"/>  
-                            <p:fileUpload value="#{createReport.file}" mode="simple"/>  
-                            <p:commandButton value="Submit" ajax="false"  
-                                             actionListener="#{createReport.moveToNextStage}"/>
+                           <p:fileUpload fileUploadListener="#{createReport.upload}"  
+                                        mode="advanced"  
+                                        update="messages"   
+                                        multiple="true"  
+                                        sizeLimit="400000"   
+                                        allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>  
 
-                            <p:commandButton value="Submit" ajax="false" label="Hotovo"
-                                             actionListener="#{createReport.allDone}"/>
+                            <p:growl id="messages" showDetail="true"/> 
+                            <p:commandButton value="#{msgs.finish}" ajax="false"
+                                             actionListener="#{createReport.moveToNextStage}"/>
 
                         </h:form> 
                     </p:panel>
