@@ -35,7 +35,6 @@ public class CreateReport implements CreateReportLocal {
             Date date, float latitude, float longitude) {
 
         instance.setPhotos(new ArrayList<Photo>());
-        System.out.println("lb=" + loginBean);
         user = loginBean.getUser();
         instance.setName(problemName);
         instance.setDate(date);
@@ -183,7 +182,6 @@ public class CreateReport implements CreateReportLocal {
     @Override
     public void setName(String name) {
         instance.setName(name);
-        instance = em.merge(instance);
     }
 
     @Override
@@ -194,7 +192,6 @@ public class CreateReport implements CreateReportLocal {
     @Override
     public void setDescription(String description) {
         instance.setDescribtion(description);
-        instance = em.merge(instance);
     }
 
     @Override
@@ -214,7 +211,6 @@ public class CreateReport implements CreateReportLocal {
     
     @Override
     public void setLatitude(float latitude) {
-        instance = em.merge(instance);
         instance.setLatitude(latitude);
     }
     
@@ -225,7 +221,6 @@ public class CreateReport implements CreateReportLocal {
     
     @Override
     public void setLongitude(float longitude) {
-        instance = em.merge(instance);
         instance.setLongitude(longitude);
     }
     
