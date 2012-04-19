@@ -206,9 +206,8 @@ public class CreateReportBean {
                     return "index";
                 }
                 createReport.addPhoto(bytearray, null);
-            //createReport.clear();
-            //this.state = CreateReportLocal.TYPE_UNSPEC; 
-            //return "index";
+                createReport.clear();
+                this.state = CreateReportLocal.TYPE_UNSPEC; 
         }
 
         return "createReport";
