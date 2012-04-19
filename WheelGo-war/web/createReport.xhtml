@@ -75,7 +75,11 @@
                             <p:messages showDetail="true"/>  
                             <p:fileUpload value="#{createReport.file}" mode="simple"/>  
                             <p:commandButton value="Submit" ajax="false"  
-                                             actionListener="#{createReport.moveToNextStage}"/>  
+                                             actionListener="#{createReport.moveToNextStage}"/>
+                            
+                            <p:commandButton value="Submit" ajax="false" label="Hotovo"
+                                             actionListener="#{createReport.allDone}"/>
+                            
                         </h:form> 
                     </p:panel>
                 </c:if>

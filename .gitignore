@@ -7,6 +7,9 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 glassfish-resources.xml
+
+ WheelGo-ejb/nbproject/private/
+
 private.xml
 # Class Files #
 *.class

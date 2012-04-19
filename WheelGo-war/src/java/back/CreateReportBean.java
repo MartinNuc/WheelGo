@@ -110,9 +110,10 @@ public class CreateReportBean {
     }
 
     public void setState(String state) {
-        if (state == null)
+        if (state == null) {
             return;
-        
+        }
+
         if (state.equals("Problem")) {
             if (this.state == CreateReportLocal.TYPE_PROBLEM_PRE) {
                 this.state = CreateReportLocal.TYPE_PROBLEM;
@@ -181,6 +182,7 @@ public class CreateReportBean {
                     FacesMessage msg = new FacesMessage("Photo is uploaded.");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 } catch (Exception e) {
+                    e.printStackTrace();
                     FacesMessage msg = new FacesMessage("Exception happen");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     createReport.clear();
@@ -188,22 +190,28 @@ public class CreateReportBean {
                     return "index";
                 }
                 createReport.addPhoto(bytearray, null);
-                createReport.clear();
-                this.state = CreateReportLocal.TYPE_UNSPEC; 
-                return "index";
+            //createReport.clear();
+            //this.state = CreateReportLocal.TYPE_UNSPEC; 
+            //return "index";
         }
 
         return "createReport";
 
     }
 
-    public String cancelReport()
-    {
+    public String allDone() {
+        createReport.clear();
+        this.state = CreateReportLocal.TYPE_UNSPEC; 
+
+        return "index";
+    }
+
+    public String cancelReport() {
         createReport.cancelReport();
         createReport.clear();
         return "index";
     }
-    
+
     /**
      * Creates a new instance of CreateReportBean
      */
