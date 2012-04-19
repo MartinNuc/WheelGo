@@ -75,7 +75,7 @@
                         </c:if>
 
                         <h:commandButton type="submit" value="#{msgs.report_continue}" action="#{createReport.moveToNextStage}"/>
-                        <h:commandButton type="submit" value="#{msgs.report_cancel}" action="#{createReport.cancelReport}"/>
+                        <h:commandButton type="submit" immediate="true" value="#{msgs.report_cancel}" action="#{createReport.cancelReport}"/>
 
                         <h:messages globalOnly="true"/>
                     </h:form>
@@ -86,6 +86,7 @@
                            <p:fileUpload fileUploadListener="#{createReport.upload}"  
                                         mode="advanced"  
                                         update="messages"   
+                                        auto="true"
                                         multiple="true"  
                                         sizeLimit="400000"   
                                         allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>  
@@ -93,7 +94,7 @@
                             <p:growl id="messages" showDetail="true"/> 
                             <p:commandButton value="#{msgs.finish}" ajax="false"
                                              actionListener="#{createReport.moveToNextStage}"/>
-
+                            <h:commandButton type="submit" immediate="true" value="#{msgs.report_cancel}" action="#{createReport.cancelReport}"/>
                         </h:form> 
                     </p:panel>
                 </c:if>

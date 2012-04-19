@@ -222,6 +222,7 @@ public class CreateReportBean {
     public String cancelReport() {
         createReport.cancelReport();
         createReport.clear();
+        this.state = CreateReportLocal.TYPE_UNSPEC; 
         return "index";
     }
 
