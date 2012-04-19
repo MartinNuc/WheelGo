@@ -20,6 +20,7 @@ public interface UserFacadeLocal {
     public void remove(UserDTO user);
     public UserDTO find(Integer id);
     public List<UserDTO> getAll();
+    public List<UserDTO> getWithoutDeleted();
     public List<UserDTO> getRange(int[] range);
     public boolean checkPassword(UserDTO user, String password);
     int count();

@@ -94,6 +94,17 @@ public class UsersManagedBean implements Serializable {
 
     public List<UserWrapper> getUsers() {
         List<UserWrapper> list = new ArrayList<UserWrapper>();
+        List<UserDTO> allUsers = userFacade.getWithoutDeleted();
+        if (allUsers != null) {
+            for (UserDTO u : allUsers) {
+                list.add(new UserWrapper(u, roleFacade));
+            }
+        }
+        return list;
+    }
+
+    public List<UserWrapper> getUsersWithDeleted() {
+        List<UserWrapper> list = new ArrayList<UserWrapper>();
         List<UserDTO> allUsers = userFacade.getAll();
         if (allUsers != null) {
             for (UserDTO u : allUsers) {

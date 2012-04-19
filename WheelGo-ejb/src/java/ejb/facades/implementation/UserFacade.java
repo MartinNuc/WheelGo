@@ -7,6 +7,7 @@ package ejb.facades.implementation;
 import ejb.facades.interfaces.UserFacadeLocal;
 import dto.UserDTO;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +15,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import model.Log;
+import model.Report;
 import model.Role;
 import model.User;
 import utils.EncryptorBeanLocal;
@@ -76,7 +80,7 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
     public void remove(UserDTO user) {
         User entity;
         entity = em.find(User.class, user.getIdUser());
-        getEntityManager().remove(getEntityManager().merge(entity));
+        entity.setDeleted(true);
     }
     
 
@@ -146,6 +150,12 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
             return true;
         else
             return false;
+    }
+
+    @Override
+    public List<UserDTO> getWithoutDeleted() {
+        Query q = getEntityManager().createNamedQuery("getWithoutDeleted");
+        return toDTOs(q.getResultList());
     }
 
 }
