@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -40,6 +41,12 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    @PostConstruct
+    private void init()
+    {
+        this.user = lb.getUser();
+    }
 
     public ReportFacade() {
         super(Report.class);
@@ -47,7 +54,6 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
     
     public ReportFacade(User user) {
         super(Report.class);
-        this.user = lb.getUser();
     }
     
     @Override
@@ -108,6 +114,7 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         log.setOperation(3);
         log.setReport(entity);
         log.setUser(user);
+        em.persist(log);
         
         entity.setDeleted(true);
     }
