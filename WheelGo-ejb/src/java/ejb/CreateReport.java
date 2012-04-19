@@ -168,7 +168,7 @@ public class CreateReport implements CreateReportLocal {
 
     @Override
     public void cancelReport() {
-        em.remove(instance);
+        em.remove(em.merge(instance));
     }
 
     @Override
