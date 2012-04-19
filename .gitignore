@@ -8,6 +8,7 @@ nbactions.xml
 nb-configuration.xml
 glassfish-resources.xml
 private.xml
+WheelGo-ejb/setup/glassfish-resources.xml
 # Class Files #
 *.class
 
