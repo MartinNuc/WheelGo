@@ -30,6 +30,7 @@ public class Role implements Serializable {
     @Column(name = "description", length = 128)
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
+    @OrderBy("userId")
     private Collection<User> usersCollection;
 
     public Role() {
