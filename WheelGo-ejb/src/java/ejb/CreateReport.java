@@ -145,6 +145,7 @@ public class CreateReport implements CreateReportLocal {
             throw new IllegalStateException("Attemp to set expiriation on invalid problem.");
         }
         ((Problem) instance).setExpiration(expiration);
+        instance = em.merge(instance);
     }
 
     @Override
@@ -161,6 +162,7 @@ public class CreateReport implements CreateReportLocal {
             throw new IllegalStateException("Attemp to set accesibility on invalid problem.");
         }
         ((Place) instance).setAccesibility(accesibility);
+        instance = em.merge(instance);
     }
 
     @Override
@@ -169,8 +171,11 @@ public class CreateReport implements CreateReportLocal {
         photo.setUrl(url);
         photo.setImage(data);
         photo.setReport(instance);
-        em.persist(photo);
-        //instance.getPhotos().add(photo);
+        //em.persist(photo);
+        
+        instance.getPhotos().add(photo);
+        instance = em.merge(instance);
+        
     }
 
     @Override
@@ -186,6 +191,7 @@ public class CreateReport implements CreateReportLocal {
     @Override
     public void setName(String name) {
         instance.setName(name);
+        instance = em.merge(instance);
     }
 
     @Override
@@ -196,6 +202,7 @@ public class CreateReport implements CreateReportLocal {
     @Override
     public void setDescription(String description) {
         instance.setDescribtion(description);
+        instance = em.merge(instance);
     }
 
     @Override
@@ -215,6 +222,7 @@ public class CreateReport implements CreateReportLocal {
     
     @Override
     public void setLatitude(float latitude) {
+        instance = em.merge(instance);
         instance.setLatitude(latitude);
     }
     
@@ -225,6 +233,7 @@ public class CreateReport implements CreateReportLocal {
     
     @Override
     public void setLongitude(float longitude) {
+        instance = em.merge(instance);
         instance.setLongitude(longitude);
     }
     

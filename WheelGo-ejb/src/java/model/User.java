@@ -4,7 +4,6 @@
  */
 package model;
 
-import dto.UserDTO;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -17,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -56,6 +56,7 @@ public class User implements Serializable {
     @ManyToOne(optional = false)
     private Role role;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OrderBy("date DESC")
     private Collection<Log> logsCollection;
     
     public User() {
