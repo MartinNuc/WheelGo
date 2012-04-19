@@ -32,12 +32,12 @@
                             <h:inputText value="#{createReport.description}" id="fn3" label="#{msgs.report_desc}" required="true" requiredMessage="#{msgs.required_message}" />
                             <h:message for="fn3" errorClass="errorRequired"/>
 
-                            <h:outputText value="Latitude" />
-                            <h:inputText value="#{createReport.latitude}" id="fn3a" label="latitude" required="true" requiredMessage="#{msgs.required_message}" />
+                            <h:outputText value="#{msgs.report_latitude}" />
+                            <h:inputText value="#{createReport.latitude}" id="fn3a" label="#{msgs.report_latitude}" required="true" requiredMessage="#{msgs.required_message}" />
                             <h:message for="fn3a" errorClass="errorRequired"/>
 
-                            <h:outputText value="Longitude" />
-                            <h:inputText value="#{createReport.longitude}" id="fn3b" label="Longitude" required="true" requiredMessage="#{msgs.required_message}" />
+                            <h:outputText value="#{msgs.report_longitude}" />
+                            <h:inputText value="#{createReport.longitude}" id="fn3b" label="#{msgs.report_longitude}" required="true" requiredMessage="#{msgs.required_message}" />
                             <h:message for="fn3b" errorClass="errorRequired"/>
 
 
