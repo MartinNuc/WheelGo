@@ -18,6 +18,11 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import model.Log;
 import model.Photo;
 import model.Report;
@@ -203,14 +208,28 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
     
     @Override
     public List<ReportDTO> getArea(float latLowerBound, float latUpperBound, float longLowerBound, float longUpperBound, int maxCount) {
-        Query cq = getEntityManager().createQuery("from Report r where r.longitude>=:arg1 AND r.longitude<=:arg2 AND"
-                + "r.longitude>=:arg3  AND r.longitude<=:arg4 ");
+        // Bez criteriaAPI:
+        /*Query cq = getEntityManager().createQuery("select r from Report r where r.deleted=0 and r.latitude>=:arg1 and r.latitude<=:arg2 and "
+                + "r.longitude>=:arg3 and r.longitude<=:arg4 ");
         cq.setParameter("arg1", latLowerBound);
         cq.setParameter("arg2", latUpperBound);
         cq.setParameter("arg3", longLowerBound);
         cq.setParameter("arg4", longUpperBound);
-        cq.setMaxResults(maxCount);
-        return toDTOs(cq.getResultList());
+        cq.setMaxResults(maxCount);*/
+        
+        // s criteriaAPI:
+        CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Report> criteriaQuery = criteriaBuilder.createQuery(Report.class);
+        Root from = criteriaQuery.from(Report.class);
+        Predicate predicate1 = criteriaBuilder.ge(from.get("latitude"), latLowerBound);
+        Predicate predicate2 = criteriaBuilder.le(from.get("latitude"), latUpperBound);
+        Predicate predicate3 = criteriaBuilder.ge(from.get("latitude"), longLowerBound);
+        Predicate predicate4 = criteriaBuilder.le(from.get("latitude"), longUpperBound);
+        Predicate predicate5 = criteriaBuilder.equal(from.get("deleted"), 0);
+        criteriaQuery.where(criteriaBuilder.and(predicate1, predicate2, predicate3, predicate4, predicate5));
+        
+        TypedQuery<Report> query = em.createQuery(criteriaQuery);
+        return toDTOs(query.getResultList());
     }
     
 }
