@@ -54,6 +54,22 @@ public class CreateReportBean {
         createReport.setDate(date);
     }
 
+    public void setLatitude(float latitude) {
+        createReport.setLatitude(latitude);
+    }
+    
+    public float getLatitude() {
+        return createReport.getLatitude();
+    }
+    
+    public void setLongitude(float longitude) {
+        createReport.setLongitude(longitude);
+    }
+    
+    public float getLongitude() {
+        return createReport.getLongitude();
+    }     
+    
     public Date getExpiration() {
         if (state == CreateReportLocal.TYPE_PROBLEM_PRE || state == CreateReportLocal.TYPE_PROBLEM) {
             return createReport.getExpiration();

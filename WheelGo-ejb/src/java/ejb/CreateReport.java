@@ -212,4 +212,25 @@ public class CreateReport implements CreateReportLocal {
     public int getState() {
         return state;
     }
+    
+    @Override
+    public void setLatitude(float latitude) {
+        instance.setLatitude(latitude);
+    }
+    
+    @Override
+    public float getLatitude() {
+        return instance.getLatitude();
+    }
+    
+    @Override
+    public void setLongitude(float longitude) {
+        instance.setLongitude(longitude);
+    }
+    
+    @Override
+    public float getLongitude() {
+        return instance.getLongitude();
+    }    
+    
 }
