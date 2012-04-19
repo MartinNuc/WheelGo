@@ -21,6 +21,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "report")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlRootElement
+@NamedQueries({
+    @NamedQuery(name="getVisibleReports",
+        query="SELECT r FROM Report r WHERE r.deleted = false")
+})
+
 public class Report implements Serializable {
 
     private static final long serialVersionUID = 1L;

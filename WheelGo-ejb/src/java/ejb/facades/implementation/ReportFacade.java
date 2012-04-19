@@ -4,9 +4,9 @@
  */
 package ejb.facades.implementation;
 
-import ejb.facades.interfaces.ReportFacadeLocal;
 import dto.ReportDTO;
 import ejb.LoginBeanLocal;
+import ejb.facades.interfaces.ReportFacadeLocal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +16,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import model.Log;
 import model.Photo;
 import model.Report;
@@ -150,8 +151,16 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         return dtos;
     }
     
+    
     @Override
     public List<ReportDTO> getAll()
+    {       
+        Query q = getEntityManager().createNamedQuery("getVisibleReports");
+        return toDTOs(q.getResultList());
+    }
+    
+    @Override
+    public List<ReportDTO> getAllWithDeleted()
     {
         try {
             javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
@@ -179,6 +188,22 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         q.setMaxResults(range[1] - range[0]);
         q.setFirstResult(range[0]);
         return toDTOs(q.getResultList());
+    }
+
+    public List<ReportDTO> getArea(float latLowerBound, float latUpperBound, float longLowerBound, float longUpperBound) {
+        return getArea(latLowerBound, latUpperBound, longLowerBound, longUpperBound, 500);
+    }
+    
+    @Override
+    public List<ReportDTO> getArea(float latLowerBound, float latUpperBound, float longLowerBound, float longUpperBound, int maxCount) {
+        Query cq = getEntityManager().createQuery("from Report r where r.longitude>=:arg1 AND r.longitude<=:arg2 AND"
+                + "r.longitude>=:arg3  AND r.longitude<=:arg4 ");
+        cq.setParameter("arg1", latLowerBound);
+        cq.setParameter("arg2", latUpperBound);
+        cq.setParameter("arg3", longLowerBound);
+        cq.setParameter("arg4", longUpperBound);
+        cq.setMaxResults(maxCount);
+        return toDTOs(cq.getResultList());
     }
     
 }

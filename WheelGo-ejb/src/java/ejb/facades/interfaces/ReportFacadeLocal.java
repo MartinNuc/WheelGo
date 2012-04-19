@@ -20,7 +20,10 @@ public interface ReportFacadeLocal {
     void remove(ReportDTO report);
     ReportDTO find(Object id);
     List<ReportDTO> getAll();
+    List<ReportDTO> getAllWithDeleted();
     List<ReportDTO> getRange(int[] range);
     int count();
     
+    List<ReportDTO> getArea(float latLowerBound, float latUpperBound, float longLowerBound, float longUpperBound, int maxCount);
+
 }

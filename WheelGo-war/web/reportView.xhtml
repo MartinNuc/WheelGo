@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>#{msgs.reports}</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./WEB-INF/includes-templates/wheelgo-template.xhtml">
+            <ui:param name="pageTitle" value="#{msgs.reports}" />
+            <ui:define name="content">
+                <h:form>
+                    <h1><h:outputText value="#{msgs.report}"/></h1>
+                    <h:dataTable value="#{reports.reports}" var="item" styleClass="dataTable">
+                        <f:facet name="caption">
+                            <h:outputText value="#{msgs.list_reports_caption}"/>
+                        </f:facet>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs.report_name}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msgs.date}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.date}"/>
+                        </h:column>
+                        <h:column>
+                            <h:commandButton value="#{msgs.remove}" action="#{reports.removeReport(item)}" />
+                        </h:column>
+                    </h:dataTable>
+                    <h:messages />
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
