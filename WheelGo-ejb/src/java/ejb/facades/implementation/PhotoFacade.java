@@ -67,6 +67,8 @@ public class PhotoFacade extends AbstractFacade<Photo> implements PhotoFacadeLoc
     
     private PhotoDTO toDTO(Photo entity)
     {
+        if (entity == null)
+            return null;
         PhotoDTO dto = new PhotoDTO();
         dto.setIdPhoto(entity.getIdPhoto());
         dto.setIdReport(entity.getReport().getIdReport());
@@ -76,6 +78,8 @@ public class PhotoFacade extends AbstractFacade<Photo> implements PhotoFacadeLoc
     
     private List<PhotoDTO> toDTOs(List<Photo> entities)
     {
+        if (entities == null)
+            return null;
         List<PhotoDTO> dtos = new ArrayList<PhotoDTO>();
         for (Photo entity : entities)
         {

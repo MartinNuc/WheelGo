@@ -80,6 +80,8 @@ public class RoleFacade extends AbstractFacade<Role> implements RoleFacadeLocal 
     }
 
     private RoleDTO toDTO(Role entity) {
+        if (entity == null)
+            return null;
         RoleDTO dto = new RoleDTO();
         dto.setIdRole(entity.getIdRole());
         dto.setDescription(entity.getDescription());

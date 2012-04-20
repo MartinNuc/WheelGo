@@ -101,6 +101,8 @@ public class ProblemFacade extends AbstractFacade<Problem> implements ProblemFac
     
     private ProblemDTO toDTO(Problem entity)
     {
+        if (entity == null)
+            return null;
         ProblemDTO dto = new ProblemDTO();
         dto.setExpiration(entity.getExpiration());
         dto.setDate(entity.getDate());

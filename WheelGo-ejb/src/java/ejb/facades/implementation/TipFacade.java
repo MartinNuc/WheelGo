@@ -112,6 +112,8 @@ public class TipFacade extends AbstractFacade<Tip> implements TipFacadeLocal {
     
     private TipDTO toDTO(Tip entity)
     {
+        if (entity == null)
+            return null;
         TipDTO dto = new TipDTO();
         dto.setDate(entity.getDate());
         dto.setDescribtion(entity.getDescribtion());

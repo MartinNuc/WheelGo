@@ -132,6 +132,8 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
     
     private ReportDTO toDTO(Report entity)
     {
+        if (entity == null)
+            return null;
         ReportDTO dto = new ReportDTO();
         dto.setDate(entity.getDate());
         dto.setDescribtion(entity.getDescribtion());

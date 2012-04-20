@@ -100,6 +100,8 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
     
     private PlaceDTO toDTO(Place entity)
     {
+        if (entity == null)
+            return null;
         PlaceDTO dto = new PlaceDTO();
         dto.setDate(entity.getDate());
         dto.setAccesibility(entity.getAccesibility());

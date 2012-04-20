@@ -72,6 +72,8 @@ public class LogFacade extends AbstractFacade<Log> implements LogFacadeLocal {
     }
 
     private LogDTO toDTO(Log entity) {
+        if (entity == null)
+            return null;
         LogDTO dto = new LogDTO();
         dto.setDate(entity.getDate());
         dto.setIdLog(entity.getIdLog());

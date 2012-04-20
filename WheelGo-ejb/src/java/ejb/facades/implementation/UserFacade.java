@@ -93,6 +93,8 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
     
     private static UserDTO toDTO(User entity)
     {
+        if (entity == null)
+            return null;
         UserDTO dto = new UserDTO();
         dto.setIdUser(entity.getIdUser());
         dto.setPhoneId(entity.getPhoneId());
