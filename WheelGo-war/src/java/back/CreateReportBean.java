@@ -5,7 +5,6 @@
 package back;
 
 import ejb.CreateReportLocal;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,7 +15,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.imageio.ImageIO;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -219,6 +217,7 @@ public class CreateReportBean {
                 this.state = CreateReportLocal.PHOTO;
                 break;
             case CreateReportLocal.PHOTO:
+                createReport.store();
                 createReport.clear();
                 this.state = CreateReportLocal.TYPE_UNSPEC; 
                 return "index";

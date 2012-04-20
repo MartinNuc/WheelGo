@@ -75,7 +75,6 @@ public class CreateReport implements CreateReportLocal {
     public void preCreateProblem() {
         state = TYPE_PROBLEM_PRE;
         instance = new Problem(instance);
-
     }
 
     @Override
@@ -83,11 +82,6 @@ public class CreateReport implements CreateReportLocal {
         if (state != TYPE_PROBLEM_PRE || !(instance instanceof Problem)) {
             throw new IllegalStateException("Attemp to save invalid problem.");
         }
-        em.persist(instance);
-        instance = em.merge(instance);
-        
-        createLog();
-
         state = TYPE_PROBLEM;
     }
 
@@ -95,12 +89,6 @@ public class CreateReport implements CreateReportLocal {
     public void createTip() {
         state = TYPE_TIP;
         instance = new Tip(instance);
-        em.persist(instance);
-        
-        createLog();
-                
-        instance = em.merge(instance);
-        
     }
 
     @Override
@@ -114,12 +102,14 @@ public class CreateReport implements CreateReportLocal {
         if (state != TYPE_PLACE_PRE || !(instance instanceof Place)) {
             throw new IllegalStateException("Attemp to save invalid problem.");
         }
-        em.persist(instance);
-        instance = em.merge(instance);
-
-        createLog();
-        
         state = TYPE_PLACE;
+    }
+    
+    public void store()
+    {
+        em.persist(instance);
+        //instance = em.merge(instance);
+        createLog();
     }
 
     @Override
@@ -162,7 +152,6 @@ public class CreateReport implements CreateReportLocal {
         photo.setReport(instance);
         
         instance.getPhotos().add(photo);
-        instance = em.merge(instance);
         
     }
 

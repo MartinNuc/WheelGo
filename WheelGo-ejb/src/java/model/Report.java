@@ -168,8 +168,6 @@ public class Report implements Serializable {
     public void setPhotosCollection(Collection<Photo> photosCollection) {
         this.photosCollection = photosCollection;
     }
-    
-    
 
     @Override
     public int hashCode() {
