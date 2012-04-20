@@ -47,7 +47,7 @@ public class LoginBean implements LoginBeanLocal {
         try {
             if (p == null || "ANONYMOUS".equals(p.getName())) {
                 // zde budeme vracet anonymniho uzivatele na vytvareni hlaseni
-                user = (User)em.createNamedQuery("getDefaultUser").getSingleResult();
+                user = (User)em.createNamedQuery("getDefaultUser").getResultList().get(0);
                 return user;
             }
             
