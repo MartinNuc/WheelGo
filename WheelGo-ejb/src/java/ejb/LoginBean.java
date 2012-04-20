@@ -33,17 +33,7 @@ public class LoginBean implements LoginBeanLocal {
 
     @PostConstruct
     private void init() {
-        try
-        {
-            user = (User)em.createNamedQuery("getDefaultUser").getSingleResult();
-        }
-        catch (Exception ex)
-        {
-            throw new IllegalStateException("Neni udany zadny uzivatel!!!");
-        }
-        if(user == null) {
-            throw new IllegalStateException("Neni udany zadny uzivatel!!!");
-        }
+
     }
 
     @Override
@@ -54,9 +44,16 @@ public class LoginBean implements LoginBeanLocal {
     @Override
     public User getUser() {
         Principal p = ctx.getCallerPrincipal();
-        if (p == null) {return null;}
         try {
-            user = (User) em.createQuery("SELECT u FROM User u WHERE u.login=:login").setParameter("login", p.getName()).getSingleResult();
+            if (p == null || "ANONYMOUS".equals(p.getName())) {
+                // zde budeme vracet anonymniho uzivatele na vytvareni hlaseni
+                user = (User)em.createNamedQuery("getDefaultUser").getSingleResult();
+                return user;
+            }
+            
+            // registrovany uzivatel
+            if (user == null)
+                user = (User) em.createQuery("SELECT u FROM User u WHERE u.username=:login").setParameter("login", p.getName()).getSingleResult();
             return user;
         } catch (NoResultException nrex) {
             return null;
