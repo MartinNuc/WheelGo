@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "user")
 @NamedQueries({
     @NamedQuery(name="getDefaultUser",
-        query="SELECT u FROM User u WHERE u.idUser = 1"),
+        query="SELECT u FROM User u"), // tady pak bude anonymni user neco jako: SELECT u FROM User u WHERE u.id=1
     @NamedQuery(name="getWithoutDeleted",
         query="SELECT u FROM User u WHERE u.deleted = 0")
 })
