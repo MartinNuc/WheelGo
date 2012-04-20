@@ -37,7 +37,7 @@ and open the template in the editor.
                                 <f:facet name="header">
                                     <h:outputText value="#{msgs.image}"/>
                                 </f:facet>  
-                                <p:graphicImage value="#{item.firstPhoto}" width="50" height="80"/>
+                                <p:graphicImage value="#{reports.drawPhoto(item.idPhoto)}" width="50" height="80"/>
                             </h:column>
                         
                         <h:column>
