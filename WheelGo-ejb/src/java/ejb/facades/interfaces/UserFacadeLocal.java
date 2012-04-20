@@ -23,5 +23,6 @@ public interface UserFacadeLocal {
     public List<UserDTO> getWithoutDeleted();
     public List<UserDTO> getRange(int[] range);
     public boolean checkPassword(UserDTO user, String password);
+    public UserDTO getLoggedUser();
     int count();
 }

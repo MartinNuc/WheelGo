@@ -4,9 +4,13 @@
  */
 package ejb;
 
+import java.security.Principal;
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import model.User;
 
@@ -21,6 +25,9 @@ public class LoginBean implements LoginBeanLocal {
     private EntityManager em;
     private User user;
 
+    @Resource
+    SessionContext ctx;
+    
     public LoginBean() {
     }
 
@@ -43,10 +50,18 @@ public class LoginBean implements LoginBeanLocal {
     public void setUser(User user) {
         this.user = user;
     }
-
+    
     @Override
     public User getUser() {
-        return user;
+        Principal p = ctx.getCallerPrincipal();
+        if (p == null) {return null;}
+        try {
+            user = (User) em.createQuery("SELECT u FROM User u WHERE u.login=:login").setParameter("login", p.getName()).getSingleResult();
+            return user;
+        } catch (NoResultException nrex) {
+            return null;
+        }
+
     }
 
     @Override
