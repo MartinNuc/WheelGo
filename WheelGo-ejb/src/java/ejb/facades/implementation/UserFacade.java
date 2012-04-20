@@ -6,8 +6,8 @@ package ejb.facades.implementation;
 
 import ejb.facades.interfaces.UserFacadeLocal;
 import dto.UserDTO;
+import ejb.LoginBeanLocal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,8 +16,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import model.Log;
-import model.Report;
 import model.Role;
 import model.User;
 import utils.EncryptorBeanLocal;
@@ -34,6 +32,9 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
     @EJB
     private EncryptorBeanLocal encryptor;
         
+    @EJB
+    private LoginBeanLocal lb;
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -90,7 +91,7 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
         return toDTO(output);
     }
     
-    private UserDTO toDTO(User entity)
+    private static UserDTO toDTO(User entity)
     {
         UserDTO dto = new UserDTO();
         dto.setIdUser(entity.getIdUser());
@@ -158,4 +159,9 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
         return toDTOs(q.getResultList());
     }
 
+    @Override
+    public UserDTO getLoggedUser()
+    {
+        return toDTO(lb.getUser());
+    }
 }
