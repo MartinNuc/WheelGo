@@ -6,16 +6,20 @@ package ejb.facades.implementation;
 
 import ejb.facades.interfaces.ProblemFacadeLocal;
 import dto.ProblemDTO;
+import ejb.LoginBeanLocal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import model.Log;
 import model.Photo;
 import model.Problem;
+import model.Report;
 
 /**
  *
@@ -26,6 +30,9 @@ public class ProblemFacade extends AbstractFacade<Problem> implements ProblemFac
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
 
+    @EJB
+    private LoginBeanLocal lb;
+        
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -85,14 +92,7 @@ public class ProblemFacade extends AbstractFacade<Problem> implements ProblemFac
         
         return entity;
     }
-    
-    @Override
-    public void remove(ProblemDTO Problem) {
-        Problem entity;
-        entity = em.find(Problem.class, Problem.getIdReport());
-        getEntityManager().remove(getEntityManager().merge(entity));
-    }
-    
+        
     @Override
     public ProblemDTO find(Object id) {
         Problem output = getEntityManager().find(Problem.class, id);
@@ -162,6 +162,20 @@ public class ProblemFacade extends AbstractFacade<Problem> implements ProblemFac
         q.setMaxResults(range[1] - range[0]);
         q.setFirstResult(range[0]);
         return toDTOs(q.getResultList());
+    }
+
+    @Override
+    public void remove(ProblemDTO problem) {
+        Report entity = em.find(Report.class, problem.getIdReport());
+        
+        Log log = new Log();
+        log.setDate(new Date());
+        log.setOperation(3);
+        log.setReport(entity);
+        log.setUser(lb.getUser());
+        em.persist(log);
+        
+        entity.setDeleted(true);
     }
 
     
