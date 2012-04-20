@@ -59,15 +59,6 @@ public class ReportWrapper {
         return date;
     }
     
-    public Integer getIdPhoto() {
-        if(photosCollection.isEmpty()) {
-            return -1;
-        } else {
-            return photosCollection.iterator().next();
-        }
-        
-    }
-
     public void setDate(Date date) {
         this.date = date;
     }
@@ -197,5 +188,13 @@ public class ReportWrapper {
         } else {
             return false;
         }
+    }
+    
+    public Integer getFirstPhotoId()
+    {
+        if (photosCollection != null && photosCollection.isEmpty() == false)
+            return photosCollection.iterator().next();
+        else
+            return null;
     }
 }

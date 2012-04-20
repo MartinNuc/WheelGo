@@ -17,6 +17,8 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import wrappers.ReportWrapper;
@@ -110,9 +112,30 @@ public class ReportsManagedBean {
         return "reportAreaView";
     }
 
+    /**
+     * TODO: Ani jeden zpusob vykreslovani fotky nefunguje.
+     */
     public StreamedContent drawPhoto(Integer photoId) throws IOException {
-        System.out.println("Hleda=" + photoId);
         PhotoDTO p = photoFacade.find(photoId);
-        return new DefaultStreamedContent(new ByteArrayInputStream(p.getImage()), "image/jpeg");
+        if (p != null) {
+            return new DefaultStreamedContent(new ByteArrayInputStream(p.getImage()), "image/jpeg");
+        } else {
+            return null;
+        }
+    }
+
+    public StreamedContent drawPhoto2() throws IOException {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        String photoId = externalContext.getRequestParameterMap().get("photo_id");
+        if (photoId == null || photoId.equals("")) {
+            return null;
+        } else {
+            int parsedId = Integer.parseInt(photoId);
+            if (parsedId < 0) {
+                return null;
+            }
+            PhotoDTO p = photoFacade.find(parsedId);
+            return new DefaultStreamedContent(new ByteArrayInputStream(p.getImage()), "image/png");
+        }
     }
 }

@@ -37,9 +37,11 @@ and open the template in the editor.
                                 <f:facet name="header">
                                     <h:outputText value="#{msgs.image}"/>
                                 </f:facet>  
-                                <p:graphicImage value="#{reports.drawPhoto(item.idPhoto)}" width="50" height="80"/>
+                                <p:graphicImage value="#{reports.drawPhoto(item.firstPhotoId)}" alt="No picture set" width="120" height="80"/>
+                                <p:graphicImage value="#{reports.drawPhoto2()}">
+                                    <f:param id="photo_id" name="photo_id" value="#{item.firstPhotoId}" />
+                                </p:graphicImage>
                             </h:column>
-                        
                         <h:column>
                             <h:commandButton value="#{msgs.remove}" action="#{reports.removeReport(item)}" />
                         </h:column>
