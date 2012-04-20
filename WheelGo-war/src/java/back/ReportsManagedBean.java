@@ -5,13 +5,16 @@
 package back;
 
 import dto.ReportDTO;
+import ejb.facades.interfaces.LogFacadeLocal;
+import ejb.facades.interfaces.PhotoFacadeLocal;
 import ejb.facades.interfaces.ReportFacadeLocal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.event.ActionEvent;
+import wrappers.ReportWrapper;
 
 /**
  *
@@ -30,22 +33,41 @@ public class ReportsManagedBean {
     @EJB
     private ReportFacadeLocal reportFacade;
     
+    @EJB
+    private PhotoFacadeLocal photoFacade;
+    @EJB
+    private LogFacadeLocal logFacade;
+    
     /**
      * Creates a new instance of ReportsManagedBean
      */
     public ReportsManagedBean() {
     }
 
-    public List<ReportDTO> getReports() {
-        return reportFacade.getAll();
+    public List<ReportWrapper> getReports() {
+        List<ReportWrapper> list = new ArrayList<ReportWrapper>();
+        List<ReportDTO> allReports = reportFacade.getAll();
+        if (allReports != null) {
+            for (ReportDTO r : allReports) {
+                list.add(new ReportWrapper(r, photoFacade, logFacade));
+            }
+        }
+        return list;
     }
     
-    public List<ReportDTO> getReportsArea() {
-        return reportFacade.getArea(lowLatitude, upLatitude, lowLongitude, upLongitude, 100);
+    public List<ReportWrapper> getReportsArea() {
+        List<ReportWrapper> list = new ArrayList<ReportWrapper>();
+        List<ReportDTO> allReports = reportFacade.getArea(lowLatitude, upLatitude, lowLongitude, upLongitude, 100);
+        if (allReports != null) {
+            for (ReportDTO r : allReports) {
+                list.add(new ReportWrapper(r, photoFacade, logFacade));
+            }
+        }
+        return list;
     }
     
-    public void removeReport(ReportDTO report) {
-        reportFacade.remove(report);
+    public void removeReport(ReportWrapper report) {
+        reportFacade.remove(report.getDto());
     }
 
     public float getLowLatitude() {

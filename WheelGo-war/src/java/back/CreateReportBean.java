@@ -5,6 +5,7 @@
 package back;
 
 import ejb.CreateReportLocal;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -112,6 +114,13 @@ public class CreateReportBean {
         byte[] bytearray;
         try {
             bytearray = InputStreamToByte(file.getInputstream());
+            /*
+             * Konverze vstupu na obrazek:
+             * 
+             * BufferedImage srcImage = ImageIO.read(file.getInputstream());
+            ByteArrayOutputStream os = new ByteArrayOutputStream();  
+            ImageIO.write(srcImage, "jpg", os);
+            bytearray = os.toByteArray();*/
             msg = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");  
             FacesContext.getCurrentInstance().addMessage(null, msg);
             createReport.addPhoto(bytearray, null);

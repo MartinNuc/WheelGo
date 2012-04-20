@@ -88,4 +88,5 @@ public class ReportDTO implements Serializable
     public void setPhotosCollection(Collection<Integer> photosCollection) {
         this.photosCollection = photosCollection;
     }
+    
 }
