@@ -6,16 +6,20 @@ package ejb.facades.implementation;
 
 import ejb.facades.interfaces.PlaceFacadeLocal;
 import dto.PlaceDTO;
+import ejb.LoginBeanLocal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import model.Log;
 import model.Photo;
 import model.Place;
+import model.Report;
 
 /**
  *
@@ -26,6 +30,9 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
 
+    @EJB
+    private LoginBeanLocal lb;
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -84,14 +91,7 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
         
         return entity;
     }
-    
-    @Override
-    public void remove(PlaceDTO Place) {
-        Place entity;
-        entity = em.find(Place.class, Place.getIdReport());
-        getEntityManager().remove(getEntityManager().merge(entity));
-    }
-    
+     
     @Override
     public PlaceDTO find(Object id) {
         Place output = getEntityManager().find(Place.class, id);
@@ -161,6 +161,20 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
         q.setMaxResults(range[1] - range[0]);
         q.setFirstResult(range[0]);
         return toDTOs(q.getResultList());
+    }
+
+    @Override
+    public void remove(PlaceDTO place) {
+        Report entity = em.find(Report.class, place.getIdReport());
+        
+        Log log = new Log();
+        log.setDate(new Date());
+        log.setOperation(3);
+        log.setReport(entity);
+        log.setUser(lb.getUser());
+        em.persist(log);
+        
+        entity.setDeleted(true);
     }
     
 }

@@ -6,15 +6,19 @@ package ejb.facades.implementation;
 
 import ejb.facades.interfaces.TipFacadeLocal;
 import dto.TipDTO;
+import ejb.LoginBeanLocal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import model.Log;
 import model.Photo;
+import model.Report;
 import model.Tip;
 
 /**
@@ -26,6 +30,9 @@ public class TipFacade extends AbstractFacade<Tip> implements TipFacadeLocal {
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
 
+    @EJB
+    private LoginBeanLocal lb;
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -84,10 +91,17 @@ public class TipFacade extends AbstractFacade<Tip> implements TipFacadeLocal {
     }
     
     @Override
-    public void remove(TipDTO Tip) {
-        Tip entity;
-        entity = em.find(Tip.class, Tip.getIdReport());
-        getEntityManager().remove(getEntityManager().merge(entity));
+    public void remove(TipDTO tip) {
+        Report entity = em.find(Report.class, tip.getIdReport());
+        
+        Log log = new Log();
+        log.setDate(new Date());
+        log.setOperation(3);
+        log.setReport(entity);
+        log.setUser(lb.getUser());
+        em.persist(log);
+        
+        entity.setDeleted(true);
     }
     
     @Override
