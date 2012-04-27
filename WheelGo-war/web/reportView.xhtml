@@ -15,6 +15,7 @@ and open the template in the editor.
         <ui:composition template="./WEB-INF/includes-templates/wheelgo-template.xhtml">
             <ui:param name="pageTitle" value="#{msgs.reports}" />
             <ui:define name="content">
+            <p:graphicImage value="#{reports.drawPhoto(1)}" alt="No picture set" width="120" height="80"/>
                 <h:form>
                     <h1><h:outputText value="#{msgs.report}"/></h1>
                     <h:dataTable value="#{reports.reports}" var="item" styleClass="dataTable">
@@ -37,10 +38,8 @@ and open the template in the editor.
                                 <f:facet name="header">
                                     <h:outputText value="#{msgs.image}"/>
                                 </f:facet>  
+                                #{item.firstPhotoId}
                                 <p:graphicImage value="#{reports.drawPhoto(item.firstPhotoId)}" alt="No picture set" width="120" height="80"/>
-                                <p:graphicImage value="#{reports.drawPhoto2()}">
-                                    <f:param id="photo_id" name="photo_id" value="#{item.firstPhotoId}" />
-                                </p:graphicImage>
                             </h:column>
                         <h:column>
                             <h:commandButton value="#{msgs.remove}" action="#{reports.removeReport(item)}" />
