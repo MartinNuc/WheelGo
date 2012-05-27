@@ -11,6 +11,7 @@
         <locale-config>
             <default-locale>cs</default-locale>
             <supported-locale>cs</supported-locale>
+            <supported-locale>en</supported-locale>
         </locale-config>
         <resource-bundle>
             <base-name>translations.translation</base-name>

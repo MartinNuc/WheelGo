@@ -106,7 +106,8 @@ public class CreateReportBean {
         this.file = file;
     }
 
-    public void upload(FileUploadEvent event) {  
+    public void upload(FileUploadEvent event) {
+        System.out.println("Starting upload file");
         file = event.getFile();
         FacesMessage msg;
         byte[] bytearray;
@@ -128,6 +129,7 @@ public class CreateReportBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             this.state = CreateReportLocal.TYPE_UNSPEC;
         }
+        System.out.println("Uploading of file done");
     } 
  
     public void setExpiration(Date date) {
@@ -231,6 +233,7 @@ public class CreateReportBean {
         createReport.cancelReport();
         createReport.clear();
         this.state = CreateReportLocal.TYPE_UNSPEC; 
+        System.out.println("Canceling report!!");
         return "index";
     }
 
