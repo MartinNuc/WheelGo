@@ -19,10 +19,11 @@ import model.*;
  */
 @Stateful
 public class CreateReport implements CreateReportLocal {
+
     @EJB
     private LoginBeanLocal loginBean;
-    
-    
+    @EJB
+    private ProblemExpiredTimerLocal problemExpiredTimer;
     @PersistenceContext(unitName = "WheelGo-ejbPU")
     private EntityManager em;
     private Report instance;
@@ -42,19 +43,17 @@ public class CreateReport implements CreateReportLocal {
         instance.setLongitude(longitude);
 
     }
-    
-    
 
     public CreateReport() {
     }
-    
+
     @PostConstruct
     private void init() {
         clear();
         this.user = loginBean.getUser();
-        
+
     }
-    
+
     private void createLog() {
         Log log = new Log();
         log.setUser(user);
@@ -104,12 +103,16 @@ public class CreateReport implements CreateReportLocal {
         }
         state = TYPE_PLACE;
     }
-    
-    public void store()
-    {
+
+    @Override
+    public void store() {
         em.persist(instance);
-        //instance = em.merge(instance);
         createLog();
+        if(state == TYPE_PROBLEM) {
+            
+            Problem problem = (Problem)instance;
+            problemExpiredTimer.initializeTimer(problem.getExpiration(), problem);
+        }
     }
 
     @Override
@@ -150,9 +153,9 @@ public class CreateReport implements CreateReportLocal {
         photo.setUrl(url);
         photo.setImage(data);
         photo.setReport(instance);
-        
+
         instance.getPhotos().add(photo);
-        
+
     }
 
     @Override
@@ -194,25 +197,24 @@ public class CreateReport implements CreateReportLocal {
     public int getState() {
         return state;
     }
-    
+
     @Override
     public void setLatitude(float latitude) {
         instance.setLatitude(latitude);
     }
-    
+
     @Override
     public float getLatitude() {
         return instance.getLatitude();
     }
-    
+
     @Override
     public void setLongitude(float longitude) {
         instance.setLongitude(longitude);
     }
-    
+
     @Override
     public float getLongitude() {
         return instance.getLongitude();
-    }    
-    
+    }
 }
