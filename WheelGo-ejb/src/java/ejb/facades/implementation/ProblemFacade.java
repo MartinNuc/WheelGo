@@ -52,6 +52,7 @@ public class ProblemFacade extends AbstractFacade<Problem> implements ProblemFac
         entity.setIdReport(dto.getIdReport());
         entity.setIdProblem(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
+        entity.setDeleted(dto.isDeleted());
         
         List<Log> logs = new ArrayList<Log>();
         for (Integer logId : dto.getLogsCollection())
@@ -76,7 +77,8 @@ public class ProblemFacade extends AbstractFacade<Problem> implements ProblemFac
         entity.setIdReport(dto.getIdReport());
         entity.setIdProblem(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
-        
+        entity.setDeleted(dto.isDeleted());
+         
         List<Log> logs = new ArrayList<Log>();
         for (Integer logId : dto.getLogsCollection())
             logs.add(em.find(Log.class, logId));
@@ -109,6 +111,7 @@ public class ProblemFacade extends AbstractFacade<Problem> implements ProblemFac
         dto.setDescribtion(entity.getDescribtion());
         dto.setIdReport(entity.getIdReport());
         dto.setLatitude(entity.getLatitude());
+        dto.setDeleted(entity.isDeleted());
 
         List<Integer> logs = new ArrayList<Integer>();
         for (Log log : entity.getLogsCollection())

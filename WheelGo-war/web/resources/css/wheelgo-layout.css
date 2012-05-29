@@ -23,7 +23,7 @@ body {
 
 /* ========== Layout ========== */
 #wrap {
-    width: 770px;
+    width: 1000px;
     margin: 50px auto -4em auto;
     text-align: left;
     border: 1px solid green;

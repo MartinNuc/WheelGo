@@ -69,6 +69,7 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         entity.setIdReport(dto.getIdReport());
         entity.setIdReport(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
+        entity.setDeleted(dto.isDeleted());
         
         List<Log> logs = new ArrayList<Log>();
         for (Integer logId : dto.getLogsCollection())
@@ -92,6 +93,7 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         entity.setIdReport(dto.getIdReport());
         entity.setIdReport(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
+        entity.setDeleted(dto.isDeleted());
         
         List<Log> logs = new ArrayList<Log>();
         for (Integer logId : dto.getLogsCollection())
@@ -139,6 +141,7 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         dto.setDescribtion(entity.getDescribtion());
         dto.setIdReport(entity.getIdReport());
         dto.setLatitude(entity.getLatitude());
+        dto.setDeleted(entity.isDeleted());
 
         List<Integer> logs = new ArrayList<Integer>();
         for (Log log : entity.getLogsCollection())

@@ -106,7 +106,9 @@ public class CreateReport implements CreateReportLocal {
 
     @Override
     public void store() {
+        instance = em.merge(instance);
         em.persist(instance);
+        System.out.println("instance="+instance.getIdReport());
         createLog();
         if(state == TYPE_PROBLEM) {
             

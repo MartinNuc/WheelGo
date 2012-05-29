@@ -35,6 +35,7 @@ public class ReportWrapper {
     private Collection<PhotoDTO> photos;
     private Collection<Integer> logsCollection;
     private Collection<LogDTO> logs;
+    private boolean isDeleted;
 
     
     public ReportWrapper(ReportDTO report, PhotoFacadeLocal photoFacade, LogFacadeLocal logFacade) {
@@ -47,6 +48,7 @@ public class ReportWrapper {
         latitude = report.getLatitude();
         longitude = report.getLongitude();
         describtion = report.getDescribtion();
+        isDeleted = report.isDeleted();
 
         photosCollection = report.getPhotosCollection();
         
@@ -196,5 +198,19 @@ public class ReportWrapper {
             return photosCollection.iterator().next();
         else
             return null;
+    }
+
+    /**
+     * @return the isDeleted
+     */
+    public boolean isIsDeleted() {
+        return isDeleted;
+    }
+
+    /**
+     * @param isDeleted the isDeleted to set
+     */
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

@@ -22,6 +22,7 @@ public class ReportDTO implements Serializable
     private String describtion;
     private Collection<Integer> photosCollection;
     private Collection<Integer> logsCollection;
+    private boolean deleted;
 
 
     public Date getDate() {
@@ -87,6 +88,20 @@ public class ReportDTO implements Serializable
 
     public void setPhotosCollection(Collection<Integer> photosCollection) {
         this.photosCollection = photosCollection;
+    }
+
+    /**
+     * @return the deleted
+     */
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    /**
+     * @param deleted the deleted to set
+     */
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
     
 }

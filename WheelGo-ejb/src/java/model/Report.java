@@ -30,7 +30,7 @@ public class Report implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Basic(optional = false)
     @Column(name = "idReport", nullable = false)
     private Integer idReport;
