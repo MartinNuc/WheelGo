@@ -7,7 +7,7 @@ package ejb;
 import java.util.Date;
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 import javax.ejb.Timeout;
 import javax.ejb.Timer;
 import javax.ejb.TimerService;
@@ -19,7 +19,7 @@ import model.Problem;
  *
  * @author vlada
  */
-@Stateless
+@Singleton
 public class ProblemExpiredTimer implements ProblemExpiredTimerLocal {
     
     @PersistenceContext(unitName = "WheelGo-ejbPU")
