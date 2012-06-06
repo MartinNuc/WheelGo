@@ -18,6 +18,6 @@ public interface ProblemExpiredTimerLocal {
 
     void problemExpired(Timer timer);
 
-    void initializeTimer(Date expiration, Problem problem);
+    void initializeTimer(Problem problem);
     
 }

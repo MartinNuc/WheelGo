@@ -40,10 +40,10 @@ public class ProblemExpiredTimer implements ProblemExpiredTimerLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     @Override
-    public void initializeTimer(Date expiration, Problem problem) {
+    public void initializeTimer(Problem problem) {
         TimerService timerService = sessionContext.getTimerService();
-        timerService.createTimer(expiration, problem);
-        System.out.println("Timer was set to " + expiration + " to delete problem " + problem);
+        timerService.createTimer(problem.getExpiration(), problem);
+        System.out.println("Timer was set to " + problem.getExpiration() + " to delete problem " + problem);
     }
 
     public void persist(Object object) {

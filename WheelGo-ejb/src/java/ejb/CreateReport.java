@@ -106,14 +106,15 @@ public class CreateReport implements CreateReportLocal {
 
     @Override
     public void store() {
-        instance = em.merge(instance);
         em.persist(instance);
+        instance = em.merge(instance);
+        
         System.out.println("instance="+instance.getId());
         createLog();
         if(state == TYPE_PROBLEM) {
             
             Problem problem = (Problem)instance;
-            problemExpiredTimer.initializeTimer(problem.getExpiration(), problem);
+            problemExpiredTimer.initializeTimer(problem);
         }
     }
 
