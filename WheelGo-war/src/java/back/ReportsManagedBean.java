@@ -9,22 +9,18 @@ import dto.ReportDTO;
 import ejb.facades.interfaces.LogFacadeLocal;
 import ejb.facades.interfaces.PhotoFacadeLocal;
 import ejb.facades.interfaces.ReportFacadeLocal;
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.imageio.ImageIO;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import wrappers.ReportWrapper;
@@ -34,7 +30,7 @@ import wrappers.ReportWrapper;
  * @author mist
  */
 @Named(value = "reportsManagedBean")
-@RequestScoped
+@SessionScoped
 @ManagedBean(name = "reports")
 public class ReportsManagedBean {
 
@@ -121,11 +117,25 @@ public class ReportsManagedBean {
     /**
      * TODO: Ani jeden zpusob vykreslovani fotky nefunguje.
      */
-    public StreamedContent drawPhoto(Integer photoId) throws IOException {
+    public StreamedContent getPhoto() throws IOException {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        String photoIdStr = externalContext.getRequestParameterMap().get("photoId");
+        
+        Integer photoId = 1;
+        try {
+            photoId=Integer.parseInt(photoIdStr);
+        } catch(Exception e) {
+        }
+
+
+        System.out.println("Drawing photo id = " + photoId);
+        if (photoId == null) {
+            return null;
+        }
         PhotoDTO p = photoFacade.find(photoId);
         if (p != null) {
             byte[] photo = p.getImage();
-            
+
             InputStream fis = new ByteArrayInputStream(photo);
             return new DefaultStreamedContent(fis, "image/png");
         } else {
