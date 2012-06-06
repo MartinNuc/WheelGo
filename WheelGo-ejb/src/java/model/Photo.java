@@ -33,7 +33,7 @@ public class Photo extends AbstractModel {
     private Report report;
     @Lob
     @Basic
-    @Column(columnDefinition = "BLOB NOT NULL")
+    @Column(length=10485760) 
     private byte[] image;
 
     public Photo() {
