@@ -47,8 +47,8 @@ public class TipFacade extends AbstractFacade<Tip> implements TipFacadeLocal {
         Tip entity = em.find(Tip.class, dto.getIdReport());
         entity.setDate(dto.getDate());
         entity.setDescribtion(dto.getDescribtion());
-        entity.setIdReport(dto.getIdReport());
-        entity.setIdTip(dto.getIdReport());
+        entity.setId(dto.getIdReport());
+        entity.setId(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
         entity.setDeleted(dto.isDeleted());
 
@@ -72,8 +72,8 @@ public class TipFacade extends AbstractFacade<Tip> implements TipFacadeLocal {
         Tip entity = new Tip();
         entity.setDate(dto.getDate());
         entity.setDescribtion(dto.getDescribtion());
-        entity.setIdReport(dto.getIdReport());
-        entity.setIdTip(dto.getIdReport());
+        entity.setId(dto.getIdReport());
+        entity.setId(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
         entity.setDeleted(dto.isDeleted());
 
@@ -122,13 +122,13 @@ public class TipFacade extends AbstractFacade<Tip> implements TipFacadeLocal {
         TipDTO dto = new TipDTO();
         dto.setDate(entity.getDate());
         dto.setDescribtion(entity.getDescribtion());
-        dto.setIdReport(entity.getIdReport());
+        dto.setIdReport(entity.getId());
         dto.setLatitude(entity.getLatitude());
         dto.setDeleted(entity.isDeleted());
 
         List<Integer> logs = new ArrayList<Integer>();
         for (Log log : entity.getLogsCollection()) {
-            logs.add(log.getIdLog());
+            logs.add(log.getId());
         }
         dto.setLogsCollection(logs);
 
@@ -137,7 +137,7 @@ public class TipFacade extends AbstractFacade<Tip> implements TipFacadeLocal {
 
         List<Integer> photos = new ArrayList<Integer>();
         for (Photo photo : entity.getPhotos()) {
-            photos.add(photo.getIdPhoto());
+            photos.add(photo.getId());
         }
         dto.setPhotosCollection(photos);
         return dto;

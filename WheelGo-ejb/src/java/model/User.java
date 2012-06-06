@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name="getWithoutDeleted",
         query="SELECT u FROM User u WHERE u.deleted = 0")
 })
-public class User implements Serializable {
+public class User extends AbstractModel {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,11 +82,11 @@ public class User implements Serializable {
         this.password = passwd;
     }
 
-    public Integer getIdUser() {
+    public Integer getId() {
         return idUser;
     }
 
-    public void setIdUser(Integer idUser) {
+    public void setId(Integer idUser) {
         this.idUser = idUser;
     }
 
@@ -137,32 +137,5 @@ public class User implements Serializable {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idUser != null ? idUser.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
-            return false;
-        }
-        User other = (User) object;
-        if ((this.idUser == null && other.idUser != null) || (this.idUser != null && !this.idUser.equals(other.idUser))) {
-            return false;
-        }
-        return true;
-    }
-
-    
-    @Override
-    public String toString() {
-        return "model.Users[ idUsers=" + idUser + " ]";
-    }
-    
+    }    
 }

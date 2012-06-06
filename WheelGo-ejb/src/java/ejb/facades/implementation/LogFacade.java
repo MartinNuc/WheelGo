@@ -42,7 +42,7 @@ public class LogFacade extends AbstractFacade<Log> implements LogFacadeLocal {
         Log entity = em.find(Log.class, dto.getIdLog());
 
         entity.setDate(dto.getDate());
-        entity.setIdLog(dto.getIdLog());
+        entity.setId(dto.getIdLog());
         entity.setOperation(dto.getOperation());
         entity.setReport(em.find(Report.class, dto.getReport()));
         entity.setUser(em.find(User.class, dto.getUser()));
@@ -51,7 +51,7 @@ public class LogFacade extends AbstractFacade<Log> implements LogFacadeLocal {
     private Log toEntity(LogDTO dto) {
         Log entity = new Log();
         entity.setDate(dto.getDate());
-        entity.setIdLog(dto.getIdLog());
+        entity.setId(dto.getIdLog());
         entity.setOperation(dto.getOperation());
         entity.setReport(em.find(Report.class, dto.getReport()));
         entity.setUser(em.find(User.class, dto.getUser()));
@@ -76,10 +76,10 @@ public class LogFacade extends AbstractFacade<Log> implements LogFacadeLocal {
             return null;
         LogDTO dto = new LogDTO();
         dto.setDate(entity.getDate());
-        dto.setIdLog(entity.getIdLog());
+        dto.setIdLog(entity.getId());
         dto.setOperation(entity.getOperation());
-        dto.setReport(entity.getReport().getIdReport());
-        dto.setUser(entity.getUser().getIdUser());
+        dto.setReport(entity.getReport().getId());
+        dto.setUser(entity.getUser().getId());
 
         return dto;
     }

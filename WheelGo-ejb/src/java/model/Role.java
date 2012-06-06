@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "role")
-public class Role implements Serializable {
+public class Role extends AbstractModel {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,11 +40,11 @@ public class Role implements Serializable {
         this.idRole = idRoles;
     }
 
-    public Integer getIdRole() {
+    public Integer getId() {
         return idRole;
     }
 
-    public void setIdRole(Integer idRole) {
+    public void setId(Integer idRole) {
         this.idRole = idRole;
     }
 
@@ -71,31 +71,5 @@ public class Role implements Serializable {
 
     public void setUsersCollection(Collection<User> usersCollection) {
         this.usersCollection = usersCollection;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idRole != null ? idRole.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Role)) {
-            return false;
-        }
-        Role other = (Role) object;
-        if ((this.idRole == null && other.idRole != null) || (this.idRole != null && !this.idRole.equals(other.idRole))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "model.Roles[ idRoles=" + idRole + " ]";
-    }
-    
+    }    
 }

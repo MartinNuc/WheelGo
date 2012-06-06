@@ -38,7 +38,7 @@ public class PhotoFacade extends AbstractFacade<Photo> implements PhotoFacadeLoc
     public void edit(PhotoDTO dto) {
         Photo entity = em.find(Photo.class, dto.getIdReport());
         
-        entity.setIdPhoto(dto.getIdPhoto());
+        entity.setId(dto.getIdPhoto());
         entity.setReport(em.find(Report.class, dto.getIdReport()));
         entity.setImage(dto.getImage());
     }
@@ -46,7 +46,7 @@ public class PhotoFacade extends AbstractFacade<Photo> implements PhotoFacadeLoc
     private Photo toEntity(PhotoDTO dto)
     {
         Photo entity = new Photo();
-        entity.setIdPhoto(dto.getIdPhoto());
+        entity.setId(dto.getIdPhoto());
         entity.setReport(em.find(Report.class, dto.getIdReport()));
         entity.setImage(dto.getImage());        
         return entity;
@@ -70,8 +70,8 @@ public class PhotoFacade extends AbstractFacade<Photo> implements PhotoFacadeLoc
         if (entity == null)
             return null;
         PhotoDTO dto = new PhotoDTO();
-        dto.setIdPhoto(entity.getIdPhoto());
-        dto.setIdReport(entity.getReport().getIdReport());
+        dto.setIdPhoto(entity.getId());
+        dto.setIdReport(entity.getReport().getId());
         dto.setImage(entity.getImage());
         return dto;
     }

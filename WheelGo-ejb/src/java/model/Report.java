@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
         query="SELECT r FROM Report r WHERE r.deleted = false")
 })
 
-public class Report implements Serializable {
+public class Report extends AbstractModel {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -88,11 +88,11 @@ public class Report implements Serializable {
         this.longitude = longitude;
     }
 
-    public Integer getIdReport() {
+    public Integer getId() {
         return idReport;
     }
 
-    public void setIdReport(Integer idReport) {
+    public void setId(Integer idReport) {
         this.idReport = idReport;
     }
 
@@ -167,30 +167,5 @@ public class Report implements Serializable {
 
     public void setPhotosCollection(Collection<Photo> photosCollection) {
         this.photosCollection = photosCollection;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idReport != null ? idReport.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Report)) {
-            return false;
-        }
-        Report other = (Report) object;
-        if ((this.idReport == null && other.idReport != null) || (this.idReport != null && !this.idReport.equals(other.idReport))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "model.Report[ idReport=" + idReport + " ]";
     }
 }

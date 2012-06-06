@@ -48,8 +48,8 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
         entity.setAccesibility(dto.getAccesibility());
         entity.setDate(dto.getDate());
         entity.setDescribtion(dto.getDescribtion());
-        entity.setIdReport(dto.getIdReport());
-        entity.setIdPlace(dto.getIdReport());
+        entity.setId(dto.getIdReport());
+        entity.setId(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
         entity.setDeleted(dto.isDeleted());
 
@@ -75,8 +75,8 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
         entity.setDate(dto.getDate());
         entity.setAccesibility(dto.getAccesibility());
         entity.setDescribtion(dto.getDescribtion());
-        entity.setIdReport(dto.getIdReport());
-        entity.setIdPlace(dto.getIdReport());
+        entity.setId(dto.getIdReport());
+        entity.setId(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
         entity.setDeleted(dto.isDeleted());
 
@@ -112,13 +112,13 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
         dto.setDate(entity.getDate());
         dto.setAccesibility(entity.getAccesibility());
         dto.setDescribtion(entity.getDescribtion());
-        dto.setIdReport(entity.getIdReport());
+        dto.setIdReport(entity.getId());
         dto.setLatitude(entity.getLatitude());
         dto.setDeleted(entity.isDeleted());
 
         List<Integer> logs = new ArrayList<Integer>();
         for (Log log : entity.getLogsCollection()) {
-            logs.add(log.getIdLog());
+            logs.add(log.getId());
         }
         dto.setLogsCollection(logs);
 
@@ -127,7 +127,7 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
 
         List<Integer> photos = new ArrayList<Integer>();
         for (Photo photo : entity.getPhotos()) {
-            photos.add(photo.getIdPhoto());
+            photos.add(photo.getId());
         }
         dto.setPhotosCollection(photos);
         return dto;

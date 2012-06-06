@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "log")
 @XmlRootElement
-public class Log implements Serializable {
+public class Log extends AbstractModel {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,11 +53,11 @@ public class Log implements Serializable {
         this.date = date;
     }
 
-    public Integer getIdLog() {
+    public Integer getId() {
         return idLog;
     }
 
-    public void setIdLog(Integer idLog) {
+    public void setId(Integer idLog) {
         this.idLog = idLog;
     }
 
@@ -92,30 +92,4 @@ public class Log implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idLog != null ? idLog.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Log)) {
-            return false;
-        }
-        Log other = (Log) object;
-        if ((this.idLog == null && other.idLog != null) || (this.idLog != null && !this.idLog.equals(other.idLog))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "model.Logs[ idLogs=" + idLog + " ]";
-    }
-    
 }

@@ -70,7 +70,7 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
     private User toEntity(UserDTO dto)
     {
         User entity = new User();
-        entity.setIdUser(dto.getIdUser());
+        entity.setId(dto.getIdUser());
         entity.setPhoneId(dto.getPhoneId());
         entity.setRole(getEntityManager().find(Role.class, dto.getRole()));
         entity.setUsername(dto.getUsername());
@@ -96,9 +96,9 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
         if (entity == null)
             return null;
         UserDTO dto = new UserDTO();
-        dto.setIdUser(entity.getIdUser());
+        dto.setIdUser(entity.getId());
         dto.setPhoneId(entity.getPhoneId());
-        dto.setRole(entity.getRole().getIdRole());
+        dto.setRole(entity.getRole().getId());
         dto.setUsername(entity.getUsername());
         return dto;
     }

@@ -66,8 +66,8 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         Report entity = em.find(Report.class, dto.getIdReport());
         entity.setDate(dto.getDate());
         entity.setDescribtion(dto.getDescribtion());
-        entity.setIdReport(dto.getIdReport());
-        entity.setIdReport(dto.getIdReport());
+        entity.setId(dto.getIdReport());
+        entity.setId(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
         entity.setDeleted(dto.isDeleted());
         
@@ -90,8 +90,8 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         Report entity = new Report();
         entity.setDate(dto.getDate());
         entity.setDescribtion(dto.getDescribtion());
-        entity.setIdReport(dto.getIdReport());
-        entity.setIdReport(dto.getIdReport());
+        entity.setId(dto.getIdReport());
+        entity.setId(dto.getIdReport());
         entity.setLatitude(dto.getLatitude());
         entity.setDeleted(dto.isDeleted());
         
@@ -139,13 +139,13 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         ReportDTO dto = new ReportDTO();
         dto.setDate(entity.getDate());
         dto.setDescribtion(entity.getDescribtion());
-        dto.setIdReport(entity.getIdReport());
+        dto.setIdReport(entity.getId());
         dto.setLatitude(entity.getLatitude());
         dto.setDeleted(entity.isDeleted());
 
         List<Integer> logs = new ArrayList<Integer>();
         for (Log log : entity.getLogsCollection())
-            logs.add(log.getIdLog());
+            logs.add(log.getId());
         dto.setLogsCollection(logs);
 
         dto.setLongitude(entity.getLongitude());
@@ -153,7 +153,7 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
 
         List<Integer> photos = new ArrayList<Integer>();
         for (Photo photo : entity.getPhotos())
-            photos.add(photo.getIdPhoto());
+            photos.add(photo.getId());
         dto.setPhotosCollection(photos);
         return dto;
     }

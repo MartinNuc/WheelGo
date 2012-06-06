@@ -38,11 +38,11 @@ public class Problem extends Report implements Serializable {
         this.idProblem = idProblem;
     }
 
-    public Integer getIdProblem() {
+    public Integer getId() {
         return idProblem;
     }
 
-    public void setIdProblem(Integer idProblem) {
+    public void setId(Integer idProblem) {
         this.idProblem = idProblem;
     }
 
@@ -52,31 +52,5 @@ public class Problem extends Report implements Serializable {
 
     public void setExpiration(Date expiration) {
         this.expiration = expiration;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idProblem != null ? idProblem.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Problem)) {
-            return false;
-        }
-        Problem other = (Problem) object;
-        if ((this.idProblem == null && other.idProblem != null) || (this.idProblem != null && !this.idProblem.equals(other.idProblem))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "model.Problem[ idProblem=" + idProblem + " ]";
-    }
-    
+    }    
 }

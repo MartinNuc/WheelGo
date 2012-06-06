@@ -24,11 +24,13 @@ public class Place extends Report implements Serializable {
     @Column(name = "idPlace", nullable = false)
     private Integer idPlace;
 
-    public Integer getIdPlace() {
+    @Override
+    public Integer getId() {
         return idPlace;
     }
 
-    public void setIdPlace(Integer idPlace) {
+    @Override
+    public void setId(Integer idPlace) {
         this.idPlace = idPlace;
     }
     @Basic(optional = false)

@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "photo")
 @XmlRootElement
-public class Photo implements Serializable {
+public class Photo extends AbstractModel {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,11 +43,12 @@ public class Photo implements Serializable {
         this.idPhoto = idPhoto;
     }
 
-    public Integer getIdPhoto() {
+    @Override
+    public Integer getId() {
         return idPhoto;
     }
 
-    public void setIdPhoto(Integer idPhoto) {
+    public void setId(Integer idPhoto) {
         this.idPhoto = idPhoto;
     }
 
@@ -67,30 +68,6 @@ public class Photo implements Serializable {
         this.report = report;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idPhoto != null ? idPhoto.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Photo)) {
-            return false;
-        }
-        Photo other = (Photo) object;
-        if ((this.idPhoto == null && other.idPhoto != null) || (this.idPhoto != null && !this.idPhoto.equals(other.idPhoto))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "model.Photos[ idPhotos=" + idPhoto + " ]";
-    }
 
     /**
      * @return the pictureData

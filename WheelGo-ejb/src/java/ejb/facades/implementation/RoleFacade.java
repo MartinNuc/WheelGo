@@ -39,7 +39,7 @@ public class RoleFacade extends AbstractFacade<Role> implements RoleFacadeLocal 
     public void edit(RoleDTO dto) {
         Role entity = em.find(Role.class, dto.getIdRole());
         entity.setDescription(dto.getDescription());
-        entity.setIdRole(dto.getIdRole());
+        entity.setId(dto.getIdRole());
         entity.setName(dto.getName());
 
         List<User> users = new ArrayList<User>();
@@ -52,7 +52,7 @@ public class RoleFacade extends AbstractFacade<Role> implements RoleFacadeLocal 
     private Role toEntity(RoleDTO dto) {
         Role entity = new Role();
         entity.setDescription(dto.getDescription());
-        entity.setIdRole(dto.getIdRole());
+        entity.setId(dto.getIdRole());
         entity.setName(dto.getName());
 
         List<User> users = new ArrayList<User>();
@@ -83,7 +83,7 @@ public class RoleFacade extends AbstractFacade<Role> implements RoleFacadeLocal 
         if (entity == null)
             return null;
         RoleDTO dto = new RoleDTO();
-        dto.setIdRole(entity.getIdRole());
+        dto.setIdRole(entity.getId());
         dto.setDescription(entity.getDescription());
         dto.setName(entity.getName());
 
@@ -96,12 +96,12 @@ public class RoleFacade extends AbstractFacade<Role> implements RoleFacadeLocal 
         for (Role entity : entities) {
             RoleDTO dto = new RoleDTO();
             dto.setDescription(entity.getDescription());
-            dto.setIdRole(entity.getIdRole());
+            dto.setIdRole(entity.getId());
             dto.setName(entity.getName());
 
             List<Integer> usersId = new ArrayList<Integer>();
             for (User user : entity.getUsersCollection()) {
-                usersId.add(user.getIdUser());
+                usersId.add(user.getId());
             }
             dto.setUsers(usersId);
 

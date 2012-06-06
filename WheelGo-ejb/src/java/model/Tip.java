@@ -38,36 +38,12 @@ public class Tip extends Report implements Serializable {
         this.idTip = idTip;
     }
     
-    public Integer getIdTip() {
+    @Override
+    public Integer getId() {
         return idTip;
     }
     
-    public void setIdTip(Integer idTip) {
+    public void setId(Integer idTip) {
         this.idTip = idTip;
-    }
-    
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idTip != null ? idTip.hashCode() : 0);
-        return hash;
-    }
-    
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tip)) {
-            return false;
-        }
-        Tip other = (Tip) object;
-        if ((this.idTip == null && other.idTip != null) || (this.idTip != null && !this.idTip.equals(other.idTip))) {
-            return false;
-        }
-        return true;
-    }
-    
-    @Override
-    public String toString() {
-        return "model.Tip[ idTip=" + idTip + " ]";
     }
 }
