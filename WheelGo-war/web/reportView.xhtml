@@ -43,9 +43,11 @@ and open the template in the editor.
 
                                 </p:graphicImage>
                             </h:column>
-                        <h:column>
-                            <h:commandButton value="#{msgs.remove}" action="#{reports.removeReport(item)}" />
-                        </h:column>
+                        <c:if test="#{login.loggedAdmin==true}">
+                            <h:column>
+                                <h:commandButton value="#{msgs.remove}" action="#{reports.removeReport(item)}" />
+                            </h:column>
+                        </c:if>
                             
                     </h:dataTable>
                     <h:messages />
