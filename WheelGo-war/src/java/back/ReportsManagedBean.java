@@ -142,19 +142,4 @@ public class ReportsManagedBean {
             return null;
         }
     }
-
-    public StreamedContent drawPhoto2() throws IOException {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        String photoId = externalContext.getRequestParameterMap().get("photo_id");
-        if (photoId == null || photoId.equals("")) {
-            return null;
-        } else {
-            int parsedId = Integer.parseInt(photoId);
-            if (parsedId < 0) {
-                return null;
-            }
-            PhotoDTO p = photoFacade.find(parsedId);
-            return new DefaultStreamedContent(new ByteArrayInputStream(p.getImage()), "image/png");
-        }
-    }
 }
