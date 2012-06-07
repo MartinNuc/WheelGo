@@ -6,6 +6,7 @@ package ejb;
 
 import dto.UserDTO;
 import java.util.Date;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
 
 /**
@@ -13,6 +14,7 @@ import javax.ejb.Local;
  * @author vlada
  */
 @Local
+@RolesAllowed({"user", "admin"})
 public interface CreateReportLocal {
 
     public static final int TYPE_UNSPEC = 0;

@@ -6,6 +6,7 @@ package ejb.facades.interfaces;
 
 import dto.PhotoDTO;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
 
 /**
@@ -13,10 +14,13 @@ import javax.ejb.Local;
  * @author mist
  */
 @Local
+@RolesAllowed({"user"})
 public interface PhotoFacadeLocal {
 
     void create(PhotoDTO photo);
+    @RolesAllowed({"admin"})
     void edit(PhotoDTO photo);
+    @RolesAllowed({"admin"})
     void remove(PhotoDTO photo);
     PhotoDTO find(Object id);
     List<PhotoDTO> getAll();

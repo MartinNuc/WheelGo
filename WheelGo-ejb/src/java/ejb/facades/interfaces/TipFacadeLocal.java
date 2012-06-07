@@ -6,6 +6,7 @@ package ejb.facades.interfaces;
 
 import dto.TipDTO;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
 
 /**
@@ -13,10 +14,13 @@ import javax.ejb.Local;
  * @author mist
  */
 @Local
+@RolesAllowed({"user"})
 public interface TipFacadeLocal {
 
     void create(TipDTO tip);
+    @RolesAllowed({"admin"})
     void edit(TipDTO tip);
+    @RolesAllowed({"admin"})
     void remove(TipDTO tip);
     TipDTO find(Object id);
     List<TipDTO> getAll();

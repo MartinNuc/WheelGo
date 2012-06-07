@@ -27,6 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
 /**
  *
  * @author mist
+ * 
+ * Je treba vytvorit View v databazi kvuli autentifikaci:
+ create view realm_login as select user.username, role.name as groupname from user left join role using (idRole);
+ * 
  */
 @Entity
 @Table(name = "user")

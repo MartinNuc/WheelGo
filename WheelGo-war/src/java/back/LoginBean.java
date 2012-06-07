@@ -35,12 +35,13 @@ public class LoginBean {
 
 
     public boolean isLoggedAdmin() {
-        return FacesContext.getCurrentInstance().getExternalContext().isUserInRole("admin");
+        boolean ret = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("admin");
+        return ret;
     }
 
     public String getLoginName() {
         Principal p = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
-        if (p == null) {return null;}
+        if (p == null) {return "guest";}
         return p.getName();
     }
 

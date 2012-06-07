@@ -6,6 +6,7 @@ package ejb.facades.interfaces;
 
 import dto.PlaceDTO;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
 
 /**
@@ -13,12 +14,13 @@ import javax.ejb.Local;
  * @author mist
  */
 @Local
+@RolesAllowed({"user"})
 public interface PlaceFacadeLocal {
 
     void create(PlaceDTO place);
-
+    @RolesAllowed({"admin"})
     void edit(PlaceDTO place);
-
+    @RolesAllowed({"admin"})
     void remove(PlaceDTO place);
 
     PlaceDTO find(Object id);

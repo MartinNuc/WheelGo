@@ -6,6 +6,7 @@ package ejb.facades.interfaces;
 
 import dto.RoleDTO;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
 
 /**
@@ -13,6 +14,7 @@ import javax.ejb.Local;
  * @author mist
  */
 @Local
+@RolesAllowed({"admin"})
 public interface RoleFacadeLocal {
 
     void create(RoleDTO role);

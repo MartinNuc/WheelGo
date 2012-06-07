@@ -6,6 +6,7 @@ package ejb.facades.interfaces;
 
 import dto.ReportDTO;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
 
 /**
@@ -16,7 +17,9 @@ import javax.ejb.Local;
 public interface ReportFacadeLocal {
 
     void create(ReportDTO report);
+    @RolesAllowed({"admin"})
     void edit(ReportDTO report);
+    @RolesAllowed({"admin"})
     void remove(ReportDTO report);
     ReportDTO find(Object id);
     List<ReportDTO> getAll();

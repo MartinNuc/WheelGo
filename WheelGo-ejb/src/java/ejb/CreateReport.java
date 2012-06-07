@@ -7,6 +7,7 @@ package ejb;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.annotation.PostConstruct;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
