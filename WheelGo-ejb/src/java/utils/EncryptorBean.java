@@ -27,7 +27,11 @@ public class EncryptorBean implements EncryptorBeanLocal {
             MessageDigest md;
             md = MessageDigest.getInstance("MD5");
 
-            String passwd = password + dynamicSeed + staticSeed;
+            //String passwd = password + dynamicSeed + staticSeed;
+            String passwd = password; //V glassfishi poradne overovat saltovana hesla nejdou
+                                      //respekrive jdou, ale musi se udelat vlastni SAM trida...
+                                      //A tu pak rucne do gs nainstalovat -> opruz
+               
 
             md.update(passwd.getBytes("utf-8"), 0, passwd.length());
             byte[] md5hash = md.digest();
