@@ -1,20 +1,16 @@
-# NetBeans specific #
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-nbactions.xml
-nb-configuration.xml
-glassfish-resources.xml
-private.xml
-WheelGo-ejb/setup/glassfish-resources.xml
-# Class Files #
-*.class
+# Eclipse
+.classpath
+.project
+.settings/
 
-# Package Files #
-*.jar
-*.war
-*.ear
-/WheelGo-ejb/nbproject/private/
-/WheelGo-war/nbproject/private/
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
