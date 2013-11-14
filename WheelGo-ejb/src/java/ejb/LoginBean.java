@@ -44,6 +44,11 @@ public class LoginBean implements LoginBeanLocal {
     @Override
     public User getUser() {
         Principal p = ctx.getCallerPrincipal();
+        
+        // no users:
+        user = (User)em.createNamedQuery("getDefaultUser").getResultList().get(0);
+        return user;
+        /*
         try {
             if (p == null || "ANONYMOUS".equals(p.getName())) {
                 // zde budeme vracet anonymniho uzivatele na vytvareni hlaseni
@@ -58,7 +63,7 @@ public class LoginBean implements LoginBeanLocal {
         } catch (NoResultException nrex) {
             return null;
         }
-
+*/
     }
 
     @Override

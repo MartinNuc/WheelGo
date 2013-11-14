@@ -13,14 +13,15 @@ import javax.ejb.Local;
  *
  * @author mist
  */
+
+//@RolesAllowed({"user"})
 @Local
-@RolesAllowed({"user"})
 public interface PhotoFacadeLocal {
 
     void create(PhotoDTO photo);
-    @RolesAllowed({"admin"})
+    //@RolesAllowed({"admin"})
     void edit(PhotoDTO photo);
-    @RolesAllowed({"admin"})
+    //@RolesAllowed({"admin"})
     void remove(PhotoDTO photo);
     PhotoDTO find(Object id);
     List<PhotoDTO> getAll();

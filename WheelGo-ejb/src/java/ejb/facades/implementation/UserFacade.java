@@ -65,6 +65,7 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
         User userToAdd = toEntity(user);
         userToAdd.setPassword(encryptor.encryptPassword(password, user.getUsername()));
         getEntityManager().persist(userToAdd);
+        getEntityManager().flush();
     }
     
     private User toEntity(UserDTO dto)

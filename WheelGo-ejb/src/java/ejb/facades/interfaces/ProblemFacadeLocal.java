@@ -13,14 +13,14 @@ import javax.ejb.Local;
  *
  * @author mist
  */
+//@RolesAllowed({"user"})
 @Local
-@RolesAllowed({"user"})
 public interface ProblemFacadeLocal {
 
     void create(ProblemDTO problem);
-    @RolesAllowed({"admin"})
+    //@RolesAllowed({"admin"})
     void edit(ProblemDTO problem);
-    @RolesAllowed({"admin"})
+    //@RolesAllowed({"admin"})
     void remove(ProblemDTO problem);
     ProblemDTO find(Object id);
     List<ProblemDTO> getAll();

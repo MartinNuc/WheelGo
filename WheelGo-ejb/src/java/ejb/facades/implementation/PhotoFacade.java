@@ -106,7 +106,7 @@ public class PhotoFacade extends AbstractFacade<Photo> implements PhotoFacadeLoc
     public void create(PhotoDTO Photo) {
         Photo newPhoto = toEntity(Photo);
         getEntityManager().persist(newPhoto);
-
+        getEntityManager().flush();
     }
 
     @Override

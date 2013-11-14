@@ -127,7 +127,7 @@ public class RoleFacade extends AbstractFacade<Role> implements RoleFacadeLocal 
     public void create(RoleDTO Role) {
         Role newRole = toEntity(Role);
         getEntityManager().persist(newRole);
-
+        getEntityManager().flush();
     }
 
     @Override

@@ -13,14 +13,14 @@ import javax.ejb.Local;
  *
  * @author mist
  */
+//@RolesAllowed({"user"})
 @Local
-@RolesAllowed({"user"})
 public interface PlaceFacadeLocal {
 
     void create(PlaceDTO place);
-    @RolesAllowed({"admin"})
+    //@RolesAllowed({"admin"})
     void edit(PlaceDTO place);
-    @RolesAllowed({"admin"})
+    //@RolesAllowed({"admin"})
     void remove(PlaceDTO place);
 
     PlaceDTO find(Object id);

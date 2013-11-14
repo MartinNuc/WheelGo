@@ -13,14 +13,14 @@ import javax.ejb.Local;
  *
  * @author mist
  */
+//@RolesAllowed({"admin"})
 @Local
-@RolesAllowed({"admin"})
 public interface LogFacadeLocal {
 
     void create(LogDTO log);
-    @RolesAllowed({"admin"})
+    //@RolesAllowed({"admin"})
     void edit(LogDTO log);
-    @RolesAllowed({"admin"})
+    //@RolesAllowed({"admin"})
     void remove(LogDTO log);
     LogDTO find(Object id);
     List<LogDTO> getAll();

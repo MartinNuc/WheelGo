@@ -30,7 +30,7 @@ public class Report extends AbstractModel {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "idReport", nullable = false)
     private Integer idReport;
@@ -47,11 +47,11 @@ public class Report extends AbstractModel {
     @Basic(optional = false)
     @NotNull
     @Column(name = "latitude", nullable = false)
-    private float latitude;
+    private double latitude;
     @Basic(optional = false)
     @NotNull
     @Column(name = "longitude", nullable = false)
-    private float longitude;
+    private double longitude;
     @Basic(optional = false)
     @NotNull
     @Column(name = "deleted", nullable = false)
@@ -59,6 +59,8 @@ public class Report extends AbstractModel {
     @Size(max = 256)
     @Column(name = "describtion", length = 256)
     private String describtion;
+
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
     private Collection<Photo> photosCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "report")
@@ -112,19 +114,19 @@ public class Report extends AbstractModel {
         this.date = date;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

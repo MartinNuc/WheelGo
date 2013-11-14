@@ -14,14 +14,28 @@ import java.util.Date;
 public class ProblemDTO extends ReportDTO  implements Serializable 
 {
     /* problem */
-    private Date expiration;
+    private long expiration;
 
-    public Date getExpiration() {
+    public long getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(Date expiration) {
+    public void setExpiration(long expiration) {
         this.expiration = expiration;
+    }
+
+    public Date getExpirationDate() {
+        Date ret = new Date(expiration);
+        return ret;
+    }
+
+    public void setExpiration(Date expiration) {
+        this.expiration = expiration.getTime();
+    }
+    
+    public ProblemDTO()
+    {
+        setType(ReportType.PROBLEM);
     }
 
 }

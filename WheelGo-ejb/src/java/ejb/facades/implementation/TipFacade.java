@@ -45,7 +45,7 @@ public class TipFacade extends AbstractFacade<Tip> implements TipFacadeLocal {
     @Override
     public void edit(TipDTO dto) {
         Tip entity = em.find(Tip.class, dto.getIdReport());
-        entity.setDate(dto.getDate());
+        entity.setDate(dto.getDateDate());
         entity.setDescribtion(dto.getDescribtion());
         entity.setId(dto.getIdReport());
         entity.setId(dto.getIdReport());
@@ -70,7 +70,7 @@ public class TipFacade extends AbstractFacade<Tip> implements TipFacadeLocal {
 
     private Tip toEntity(TipDTO dto) {
         Tip entity = new Tip();
-        entity.setDate(dto.getDate());
+        entity.setDate(dto.getDateDate());
         entity.setDescribtion(dto.getDescribtion());
         entity.setId(dto.getIdReport());
         entity.setId(dto.getIdReport());
@@ -168,7 +168,7 @@ public class TipFacade extends AbstractFacade<Tip> implements TipFacadeLocal {
     public void create(TipDTO tip) {
         Tip newTip = toEntity(tip);
         getEntityManager().persist(newTip);
-
+        getEntityManager().flush();
     }
 
     @Override

@@ -46,7 +46,7 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
     public void edit(PlaceDTO dto) {
         Place entity = em.find(Place.class, dto.getIdReport());
         entity.setAccesibility(dto.getAccesibility());
-        entity.setDate(dto.getDate());
+        entity.setDate(dto.getDateDate());
         entity.setDescribtion(dto.getDescribtion());
         entity.setId(dto.getIdReport());
         entity.setId(dto.getIdReport());
@@ -72,7 +72,7 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
 
     private Place toEntity(PlaceDTO dto) {
         Place entity = new Place();
-        entity.setDate(dto.getDate());
+        entity.setDate(dto.getDateDate());
         entity.setAccesibility(dto.getAccesibility());
         entity.setDescribtion(dto.getDescribtion());
         entity.setId(dto.getIdReport());
@@ -158,7 +158,7 @@ public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLoc
     public void create(PlaceDTO Place) {
         Place newPlace = toEntity(Place);
         getEntityManager().persist(newPlace);
-
+        getEntityManager().flush();
     }
 
     @Override

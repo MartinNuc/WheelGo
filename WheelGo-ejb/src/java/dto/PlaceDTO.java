@@ -21,5 +21,10 @@ public class PlaceDTO extends ReportDTO  implements Serializable  {
 
     public void setAccesibility(int accesibility) {
         this.accesibility = accesibility;
-    }    
+    }  
+    
+    public PlaceDTO()
+    {
+        setType(ReportType.PLACE);
+    }
 }

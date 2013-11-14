@@ -5,6 +5,7 @@
 package ejb.facades.implementation;
 
 import dto.ReportDTO;
+import dto.ReportType;
 import ejb.LoginBeanLocal;
 import ejb.facades.interfaces.ReportFacadeLocal;
 import java.util.ArrayList;
@@ -25,7 +26,12 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import model.Log;
 import model.Photo;
+import model.Place;
+import model.Problem;
+import model.Problem_;
 import model.Report;
+import model.Report_;
+import model.Tip;
 import model.User;
 
 /**
@@ -64,7 +70,7 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
     @Override
     public void edit(ReportDTO dto) {
         Report entity = em.find(Report.class, dto.getIdReport());
-        entity.setDate(dto.getDate());
+        entity.setDate(dto.getDateDate());
         entity.setDescribtion(dto.getDescribtion());
         entity.setId(dto.getIdReport());
         entity.setId(dto.getIdReport());
@@ -88,7 +94,7 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
     private Report toEntity(ReportDTO dto)
     {
         Report entity = new Report();
-        entity.setDate(dto.getDate());
+        entity.setDate(dto.getDateDate());
         entity.setDescribtion(dto.getDescribtion());
         entity.setId(dto.getIdReport());
         entity.setId(dto.getIdReport());
@@ -136,10 +142,12 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
     {
         if (entity == null)
             return null;
+
         ReportDTO dto = new ReportDTO();
         dto.setDate(entity.getDate());
         dto.setDescribtion(entity.getDescribtion());
-        dto.setIdReport(entity.getId());
+        Integer x = entity.getId();
+        dto.setIdReport(x);
         dto.setLatitude(entity.getLatitude());
         dto.setDeleted(entity.isDeleted());
 
@@ -155,6 +163,18 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         for (Photo photo : entity.getPhotos())
             photos.add(photo.getId());
         dto.setPhotosCollection(photos);
+        if (entity.getClass() == Problem.class)
+            dto.setType(ReportType.PROBLEM);
+        else if (entity.getClass() == Tip.class)
+            dto.setType(ReportType.TIP);
+        else if (entity.getClass() == Place.class)
+            dto.setType(ReportType.PLACE);
+        /*if (entity.getDtype() == "Problem")
+            dto.setType(ReportType.PROBLEM);
+        else if (entity.getDtype() == "Tip")
+            dto.setType(ReportType.TIP);
+        else if (entity.getDtype() == "Place")
+            dto.setType(ReportType.PLACE);*/
         return dto;
     }
     
@@ -194,7 +214,7 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
     public void create(ReportDTO Report) {
         Report newReport = toEntity(Report);
         getEntityManager().persist(newReport);
-
+        getEntityManager().flush();
     }
 
     @Override
@@ -207,12 +227,12 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         return toDTOs(q.getResultList());
     }
 
-    public List<ReportDTO> getArea(float latLowerBound, float latUpperBound, float longLowerBound, float longUpperBound) {
+    public List<ReportDTO> getArea(double latLowerBound, double latUpperBound, double longLowerBound, double longUpperBound) {
         return getArea(latLowerBound, latUpperBound, longLowerBound, longUpperBound, 500);
     }
     
     @Override
-    public List<ReportDTO> getArea(float latLowerBound, float latUpperBound, float longLowerBound, float longUpperBound, int maxCount) {
+    public List<ReportDTO> getArea(double latLowerBound, double latUpperBound, double longLowerBound, double longUpperBound, int maxCount) {
         // Bez criteriaAPI:
         /*Query cq = getEntityManager().createQuery("select r from Report r where r.deleted=0 and r.latitude>=:arg1 and r.latitude<=:arg2 and "
                 + "r.longitude>=:arg3 and r.longitude<=:arg4 ");
@@ -231,6 +251,7 @@ public class ReportFacade extends AbstractFacade<Report> implements ReportFacade
         Predicate predicate3 = criteriaBuilder.ge(from.get("latitude"), longLowerBound);
         Predicate predicate4 = criteriaBuilder.le(from.get("latitude"), longUpperBound);
         Predicate predicate5 = criteriaBuilder.equal(from.get("deleted"), 0);
+        //Predicate predicate6 = criteriaBuilder.greaterThan(from.get(Problem_.expiration), new Date());
         criteriaQuery.where(criteriaBuilder.and(predicate1, predicate2, predicate3, predicate4, predicate5));
         
         TypedQuery<Report> query = em.createQuery(criteriaQuery);

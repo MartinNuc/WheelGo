@@ -16,29 +16,56 @@ public class ReportDTO implements Serializable
 {
     private Integer idReport;
     private String name;
-    private Date date;
-    private float latitude;
-    private float longitude;
-    private String describtion;
+    private long date;
+    private double latitude;
+    private double longitude;
+    private String description;
     private Collection<Integer> photosCollection;
     private Collection<Integer> logsCollection;
     private boolean deleted;
+    
+    /**
+     * 0 - non defined
+     * 1 - problem
+     * 2 - tip
+     * 3 - place
+     */
+    private int type; 
+    
 
+    public int getType() {
+        return type;
+    }
 
-    public Date getDate() {
-        return date;
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public long getDate()
+    {
+        return this.date;
+    }
+    
+    public Date getDateDate() {
+        Date ret = new Date(this.date);
+        return ret;
     }
 
     public void setDate(Date date) {
+        this.date = date.getTime();
+    }
+    
+    public void setDate(long date)
+    {
         this.date = date;
     }
 
     public String getDescribtion() {
-        return describtion;
+        return description;
     }
 
     public void setDescribtion(String describtion) {
-        this.describtion = describtion;
+        this.description = describtion;
     }
 
 
@@ -50,11 +77,11 @@ public class ReportDTO implements Serializable
         this.idReport = idReport;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
@@ -66,11 +93,11 @@ public class ReportDTO implements Serializable
         this.logsCollection = logsCollection;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

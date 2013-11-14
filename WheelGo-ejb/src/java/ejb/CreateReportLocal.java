@@ -14,7 +14,7 @@ import javax.ejb.Local;
  * @author vlada
  */
 @Local
-@RolesAllowed({"user", "admin"})
+//@RolesAllowed({"user", "admin"})
 public interface CreateReportLocal {
 
     public static final int TYPE_UNSPEC = 0;
@@ -61,13 +61,13 @@ public interface CreateReportLocal {
 
     void setExpiration(Date expiration);
 
-    public void setLatitude(float latitude);
+    public void setLatitude(double latitude);
 
-    public float getLatitude();
+    public double getLatitude();
 
-    public void setLongitude(float longitude);
+    public void setLongitude(double longitude);
 
-    public float getLongitude();
+    public double getLongitude();
 
     public void cancelReport();
 

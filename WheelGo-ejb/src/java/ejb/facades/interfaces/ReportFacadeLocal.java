@@ -17,9 +17,9 @@ import javax.ejb.Local;
 public interface ReportFacadeLocal {
 
     void create(ReportDTO report);
-    @RolesAllowed({"admin"})
+    //@RolesAllowed({"admin"})
     void edit(ReportDTO report);
-    @RolesAllowed({"admin"})
+    //@RolesAllowed({"admin"})
     void remove(ReportDTO report);
     ReportDTO find(Object id);
     List<ReportDTO> getAll();
@@ -27,6 +27,6 @@ public interface ReportFacadeLocal {
     List<ReportDTO> getRange(int[] range);
     int count();
     
-    List<ReportDTO> getArea(float latLowerBound, float latUpperBound, float longLowerBound, float longUpperBound, int maxCount);
+    List<ReportDTO> getArea(double latLowerBound, double latUpperBound, double longLowerBound, double longUpperBound, int maxCount);
 
 }

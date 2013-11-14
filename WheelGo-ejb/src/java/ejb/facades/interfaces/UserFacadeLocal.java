@@ -13,8 +13,9 @@ import javax.ejb.Local;
  *
  * @author mist
  */
+
+//@RolesAllowed({"admin"})
 @Local
-@RolesAllowed({"admin"})
 public interface UserFacadeLocal {
     public void create(UserDTO user, String password);
     public void edit(UserDTO data, String password);

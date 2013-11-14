@@ -34,7 +34,7 @@ public class CreateReport implements CreateReportLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     private void fillReport(String problemName,
-            Date date, float latitude, float longitude) {
+            Date date, double latitude, double longitude) {
 
         instance.setPhotos(new ArrayList<Photo>());
         user = loginBean.getUser();
@@ -203,22 +203,22 @@ public class CreateReport implements CreateReportLocal {
     }
 
     @Override
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         instance.setLatitude(latitude);
     }
 
     @Override
-    public float getLatitude() {
+    public double getLatitude() {
         return instance.getLatitude();
     }
 
     @Override
-    public void setLongitude(float longitude) {
+    public void setLongitude(double longitude) {
         instance.setLongitude(longitude);
     }
 
     @Override
-    public float getLongitude() {
+    public double getLongitude() {
         return instance.getLongitude();
     }
 }

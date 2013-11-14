@@ -11,5 +11,8 @@ import java.io.Serializable;
  * @author mist
  */
 public class TipDTO extends ReportDTO  implements Serializable {    
-    
+    public TipDTO()
+    {
+        setType(ReportType.TIP);
+    }
 }

@@ -113,7 +113,7 @@ public class LogFacade extends AbstractFacade<Log> implements LogFacadeLocal {
     public void create(LogDTO Log) {
         Log newLog = toEntity(Log);
         getEntityManager().persist(newLog);
-
+        getEntityManager().flush();
     }
 
     @Override
